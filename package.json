@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "buefy": "^0.8.19",
+    "moment": "^2.26.0",
+    "vue": "^2.6.11",
+    "vue-hot-reload-api": "^2.3.4"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.1.2",
+    "browserslist": "^4.12.0",
+    "caniuse-lite": "^1.0.30001064",
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.26.5",
+    "vue-template-compiler": "^2.6.11"
+  }
+}
