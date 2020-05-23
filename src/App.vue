@@ -3,8 +3,8 @@
     <div class="columns is-centered">
       <div class="column is-two-thirds">
         <section>
-          <div class="title">Sequential Organ Failure Asessment Scoring</div>
-          <div class="subtitle"> (Sepsis-related)</div>
+          <div class="title has-text-centered">Sequential Organ Failure Asessment Scoring</div>
+          <div class="subtitle has-text-centered"> (Sepsis-related)</div>
           <b-field :label="'Respiration' + bracketScore(respiration)"></b-field>
           <b-field>
             <span class="control">
@@ -38,7 +38,7 @@
               <p class="button">%</p>
             </span>
           </b-field>
-          <b-field>
+          <b-field class="has-text-centered">
             <span class="control">
               <p class="button">
                 PaO<span class="subscript">2</span>
@@ -179,11 +179,11 @@
               <p class="button">mL/day</p>
             </span>
           </b-field>
-          <div>Score: {{ score }}</div>
+          <div class="has-text-centered priority-score">SOFA Score: {{ sofaScore }}</div>
         </section>
         <hr />
         <section>
-          <div class="title">Co-morbidities</div>
+          <div class="title has-text-centered">Co-morbidities</div>
           <b-field 
             label="Alzheimer's or related dementia"
           >
@@ -195,13 +195,13 @@
               </b-radio-button>
               
               <b-radio-button v-model="alzheimer"
-                native-value="1" expanded
+                native-value="2" expanded
               >
                 <span>Moderate</span>
               </b-radio-button>
               
               <b-radio-button v-model="alzheimer"
-                 native-value="2" expanded
+                 native-value="4" expanded
               >
                 <span>Severe</span>
               </b-radio-button>
@@ -218,13 +218,13 @@
               </b-radio-button>
               
               <b-radio-button v-model="cancer"
-                native-value="1" expanded
+                native-value="2" expanded
               >
                 <span>Malignancy &lt; 10 year survival </span>
               </b-radio-button>
               
               <b-radio-button v-model="cancer"
-                native-value="2" expanded
+                native-value="4" expanded
               >
                 <span>Paliative only</span>
               </b-radio-button>
@@ -241,13 +241,13 @@
               </b-radio-button>
               
               <b-radio-button v-model="heart"
-                native-value="1" expanded
+                native-value="2" expanded
               >
                 <span>Class III</span>
               </b-radio-button>
               
-              <b-radio-button v-model="cancer"
-                native-value="2" expanded
+              <b-radio-button v-model="heart"
+                native-value="4" expanded
               >
                 <span>Class IV</span>
               </b-radio-button>
@@ -264,13 +264,13 @@
               </b-radio-button>
               
               <b-radio-button v-model="lung"
-                native-value="1" expanded
+                native-value="2" expanded
               >
                 <span>Moderately severe</span>
               </b-radio-button>
               
               <b-radio-button v-model="lung"
-                native-value="2" expanded
+                native-value="4" expanded
               >
                 <span>Severe, evidence of frailty</span>
               </b-radio-button>
@@ -287,13 +287,13 @@
               </b-radio-button>
               
               <b-radio-button v-model="renalDisease"
-                native-value="1" expanded
+                native-value="2" expanded
               >
                 <span>Patients &leq; 75</span>
               </b-radio-button>
               
               <b-radio-button v-model="renalDisease"
-                native-value="2" expanded
+                native-value="4" expanded
               >
                 <span>Patients &gt; 75</span>
               </b-radio-button>
@@ -310,13 +310,13 @@
               </b-radio-button>
               
               <b-radio-button v-model="cirrhosis"
-                native-value="1" expanded
+                native-value="2" expanded
               >
                 <span>Decompensation history</span>
               </b-radio-button>
               
               <b-radio-button v-model="cirrhosis"
-                native-value="2" expanded
+                native-value="4" expanded
               >
                 <span>Meld >= 20, no transplant</span>
               </b-radio-button>
@@ -337,6 +337,16 @@
               </b-checkbox-button>
             </b-field>
           </b-field>
+          <div class="has-text-centered priority-score">Co-Morbidity Score: {{ morbidityScore }}</div>
+        </section>
+        <hr />
+        <section>
+          <div class="box has-text-centered" :class="priorityScore.bucket">
+            <div class="bucket">{{ priorityScore.bucket}}</div>
+            <div class="priority-score">Priority Score: {{ priorityScore.score }}</div>
+            <div class="ventilator">{{ priorityScore.ventilator }}</div>
+            <div class="prioritisation">{{ priorityScore.prioritisation }}</div>
+          </div>
         </section>
       </div>
     </div>
@@ -369,7 +379,7 @@ export default Vue.extend({
       renalDisease: "0",
       cirrhosis: "0",
       otherConditions: [],
-      
+
     };
 
     return data;
@@ -386,7 +396,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    score() {
+    sofaScore() {
       var totalScore = 0;
       totalScore += this.respiration != null ? +this.respiration : 0;
       totalScore += this.coagulation != null ? +this.coagulation : 0;
@@ -395,7 +405,48 @@ export default Vue.extend({
       totalScore += this.nervous != null ? +this.nervous : 0;
       totalScore += this.renal != null ? +this.renal : 0;
 
-      return totalScore;
+      return +totalScore;
+    },
+    morbidityScore() {
+      return Math.max(
+        this.alzheimer,
+        this.cancer,
+        this.heart,
+        this.lung,
+        this.renalDisease,
+        this.cirrhosis,
+        this.otherConditions.length > 0 ? 4 : 0
+      )
+    },
+    priorityScore() {
+      var sofaPts = 0
+      if (this.sofaScore < 6) sofaPts = 1
+      else if (this.sofaScore < 9) sofaPts = 2
+      else if (this.sofaScore < 12) sofaPts = 3
+      else if (this.sofaScore >= 12) sofaPts = 4
+
+      var pScore = sofaPts + this.morbidityScore      
+      
+      if (pScore < 4)
+        return { 
+          score: pScore,
+          bucket: "red",
+          ventilator: "Highest priority for ventilator",
+          prioritisation: "Receive priority over all other groups in face of scarce resources."
+        }
+      else if (pScore < 6) 
+        return {
+          score: pScore,
+          bucket: "orange",
+          ventilator: "Intermediate priority for ventilator",
+          prioritisation: "Receive resources if available after all patients in red group allocated."
+        }
+      else return {
+        score: pScore,
+        bucket: "yellow",
+        ventilator: "Lowest priority for ventilator",
+        prioritisation: "Receive resources if available after all patients in red and orange groups allocated."
+      }
     },
     respFrac() {
       if (this.respPaO2 != null && this.respFiO2 != null)
@@ -458,5 +509,36 @@ export default Vue.extend({
   position: relative;
   top: -0.5em;
   font-size: 80%;
+}
+
+.bucket {
+  font-size: 1.5em;
+  text-transform: uppercase;
+  margin-bottom: 1em;
+  font-weight: bolder;
+}
+
+.priority-score {
+  font-size: larger;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+.ventilator {
+  font-size: large;
+  margin-bottom: 1em;
+}
+
+.red {
+  background-color: darkred;
+  color: white;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.yellow {
+  background-color: #fff455;
 }
 </style>
