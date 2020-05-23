@@ -6,37 +6,39 @@
           <div class="title has-text-centered">Sequential Organ Failure Asessment Scoring</div>
           <div class="subtitle has-text-centered"> (Sepsis-related)</div>
           <b-field :label="'Respiration' + bracketScore(respiration)"></b-field>
-          <b-field>
-            <span class="control">
-              <p class="button">
+          <b-field grouped>
+            
+            <p class="control">
+              <span class="button">
                 PaO<sub class="subscript">2</sub>
-              </p>
-            </span>
+              </span>
+            </p>
             <b-input
               v-model="respPaO2"
-              expanded type="number"
+              expanded type="number" step="0.01"
               placeholder="Enter a value..."
             >
             </b-input>
-            <span class="control">
-              <p class="button">kPa</p>
-            </span>
+            
+            <p class="control">
+              <span class="button">kPa</span>
+            </p>
           </b-field>
-          <b-field>
-            <span class="control">
-              <p class="button">FiO
+          <b-field grouped>
+            <p class="control">
+              <span class="button">FiO
                 <span class="subscript">2</span>
-              </p>
-            </span>
+              </span>
+            </p>
             <b-input
               v-model="respFiO2"
-              expanded type="number"
+              expanded type="number" step="0.01"
               placeholder="Enter a value..."
             >
             </b-input>
-            <span class="control">
-              <p class="button">%</p>
-            </span>
+            <p class="control">
+              <span class="button">%</span>
+            </p>
           </b-field>
           <b-field class="has-text-centered">
             <span class="control">
