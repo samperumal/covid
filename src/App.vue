@@ -208,29 +208,6 @@
             </b-field>
           </b-field>
           <b-field 
-            label="Cancer"
-          >
-            <b-field>
-              <b-radio-button v-model="cancer"
-                native-value="0" expanded
-              >
-                <span>N/A</span>
-              </b-radio-button>
-              
-              <b-radio-button v-model="cancer"
-                native-value="2" expanded
-              >
-                <span>Malignancy &lt; 10 year survival </span>
-              </b-radio-button>
-              
-              <b-radio-button v-model="cancer"
-                native-value="4" expanded
-              >
-                <span>Paliative only</span>
-              </b-radio-button>
-            </b-field>
-          </b-field>
-          <b-field 
             label="New York Heart Association heart failure"
           >
             <b-field>
@@ -250,29 +227,6 @@
                 native-value="4" expanded
               >
                 <span>Class IV</span>
-              </b-radio-button>
-            </b-field>
-          </b-field>
-          <b-field 
-            label="Chronic lung disease (e.g. COPD, IPF)"
-          >
-            <b-field>
-              <b-radio-button v-model="lung"
-                native-value="0" expanded
-              >
-                <span>N/A</span>
-              </b-radio-button>
-              
-              <b-radio-button v-model="lung"
-                native-value="2" expanded
-              >
-                <span>Moderately severe</span>
-              </b-radio-button>
-              
-              <b-radio-button v-model="lung"
-                native-value="4" expanded
-              >
-                <span>Severe, evidence of frailty</span>
               </b-radio-button>
             </b-field>
           </b-field>
@@ -300,9 +254,55 @@
             </b-field>
           </b-field>
           <b-field 
+            label="Cancer"
+          >
+            <b-field grouped group-multiline>
+              <b-radio-button v-model="cancer"
+                native-value="0" expanded
+              >
+                <span>N/A</span>
+              </b-radio-button>
+              
+              <b-radio-button v-model="cancer"
+                native-value="2" expanded 
+              >
+                <span>Malignancy &lt; 10 year survival </span>
+              </b-radio-button>
+              
+              <b-radio-button v-model="cancer"
+                native-value="4" expanded 
+              >
+                <span>Paliative only</span>
+              </b-radio-button>
+            </b-field>
+          </b-field>
+          <b-field 
+            label="Chronic lung disease (e.g. COPD, IPF)"
+          >
+            <b-field grouped group-multiline>
+              <b-radio-button v-model="lung"
+                native-value="0" expanded
+              >
+                <span>N/A</span>
+              </b-radio-button>
+              
+              <b-radio-button v-model="lung"
+                native-value="2" expanded
+              >
+                <span>Moderately severe</span>
+              </b-radio-button>
+              
+              <b-radio-button v-model="lung"
+                native-value="4" expanded
+              >
+                <span>Severe, evidence of frailty</span>
+              </b-radio-button>
+            </b-field>
+          </b-field>
+          <b-field 
             label="Liver cirrhosis"
           >
-            <b-field>
+            <b-field grouped group-multiline>
               <b-radio-button v-model="cirrhosis"
                 native-value="0" expanded
               >
@@ -323,15 +323,15 @@
             </b-field>
           </b-field>
           <b-field label="Other conditions">
-            <b-field>
+            <b-field grouped group-multiline>
               <b-checkbox-button v-model="otherConditions"
-                native-value="CAD"
+                native-value="CAD" expanded
               >
                 <span>Severe multi-vessel CAD</span>
               </b-checkbox-button>
 
               <b-checkbox-button v-model="otherConditions"
-                native-value="AIDS"
+                native-value="AIDS" expanded
               >
                 <span>AIDS defining illness</span>
               </b-checkbox-button>
