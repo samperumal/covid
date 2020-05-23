@@ -2,7 +2,7 @@
   <div id="app">
     <div class="columns is-centered">
       <div class="column is-two-thirds">
-        <b-field :label="'Respiration' + (this.respiration != null ? ` (${this.respiration})` : '')">
+        <b-field :label="'Respiration' + bracketScore(respiration)">
           <b-field>
             <span class="control">
               <button class="button">
@@ -29,7 +29,7 @@
             </span>
           </b-field>
         </b-field>
-        <b-field label="Coagulation">
+        <b-field :label="'Coagulation' + bracketScore(coagulation)">
           <b-field>
             <span class="control">
               <button class="button">Platelets</button>
@@ -49,7 +49,7 @@
             </span>
           </b-field>
         </b-field>
-        <b-field label="Liver">
+        <b-field :label="'Liver' + bracketScore(liver)">
           <b-field>
             <span class="control">
               <button class="button">Bilirubin</button>
@@ -66,7 +66,7 @@
             </span>
           </b-field>
         </b-field>
-        <b-field label="Cardiovascular"></b-field>
+        <b-field :label="'Cardiovascular' + bracketScore(cardio)"></b-field>
         <b-field>
           <span class="control">
             <button class="button">MAP</button>
@@ -115,12 +115,12 @@
           </b-select>
         </b-field>
         <b-field
-          label="Nervous"
+          :label="'Nervous' + bracketScore(nervous)"
           title="Glasgow Coma Scale scores range from 3-15; higher score indicates better neurological function."
         >
           <b-field>
             <span class="control">
-              <button class="button">Glasgox Coma Scale score</button>
+              <button class="button">Glasgow Coma Scale score</button>
             </span>
             <b-select class="is-primary" v-model="nervous" expanded placeholder="Select a value...">
               <option value="0">15</option>
@@ -131,7 +131,7 @@
             </b-select>
           </b-field>
         </b-field>
-        <b-field label="Renal"></b-field>
+        <b-field :label="'Renal' + bracketScore(renal)"></b-field>
         <b-field>
           <span class="control">
             <button class="button">Creatinine</button>
@@ -160,7 +160,7 @@
             <button class="button">mL/day</button>
           </span>
         </b-field>
-        <div>Score {{ score }}: {{ respiration }} (Respiration) + {{ coagulation }} (Coagulation) + {{ liver }} (Liver) + {{ cardio }} (Cardiovascular) + {{ nervous }} (Nervous) + {{ renalScore }} (Renal)</div>
+        <div>Score: {{ score }}</div>
       </div>
     </div>
   </div>
@@ -192,7 +192,13 @@ export default Vue.extend({
   props: {},
   watch: {},
   mounted: function() {},
-  methods: {},
+  methods: {
+    bracketScore(score) {
+      if (score != null)
+        return ` (${score})`
+      else return ""
+    }
+  },
   computed: {
     score() {
       var totalScore = 0;
@@ -206,15 +212,23 @@ export default Vue.extend({
       return totalScore;
     },
     cardio() {
-      return Math.max(
-        this.cardioMap,
-        this.cardioDop,
-        this.cardioEpi,
-        this.cardioDob
-      );
+      if (this.cardioMap != null || 
+          this.cardioDop != null ||
+          this.cardioEpi != null ||
+          this.cardioDob
+      )
+        return Math.max(
+          this.cardioMap,
+          this.cardioDop,
+          this.cardioEpi,
+          this.cardioDob
+        )
+      else return null
     },
     renal() {
-      return Math.max(this.renalCreat, this.renalUrine)
+      if (this.renalCreat != null || this.renalUrine != null)
+        return Math.max(this.renalCreat, this.renalUrine)
+      else return null
     }
   }
 });
