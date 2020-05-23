@@ -191,19 +191,19 @@
           >
             <b-field>
               <b-radio-button v-model="alzheimer"
-                native-value="0" expanded
+                native-value="0" expanded type="is-info"
               >
                 <span>N/A</span>
               </b-radio-button>
               
               <b-radio-button v-model="alzheimer"
-                native-value="2" expanded
+                native-value="2" expanded type="is-info"
               >
                 <span>Moderate</span>
               </b-radio-button>
               
               <b-radio-button v-model="alzheimer"
-                 native-value="4" expanded
+                 native-value="4" expanded type="is-info"
               >
                 <span>Severe</span>
               </b-radio-button>
@@ -214,19 +214,19 @@
           >
             <b-field>
               <b-radio-button v-model="heart"
-                native-value="0" expanded
+                native-value="0" expanded type="is-info"
               >
                 <span>N/A</span>
               </b-radio-button>
               
               <b-radio-button v-model="heart"
-                native-value="2" expanded
+                native-value="2" expanded type="is-info"
               >
                 <span>Class III</span>
               </b-radio-button>
               
               <b-radio-button v-model="heart"
-                native-value="4" expanded
+                native-value="4" expanded type="is-info"
               >
                 <span>Class IV</span>
               </b-radio-button>
@@ -237,19 +237,19 @@
           >
             <b-field>
               <b-radio-button v-model="renalDisease"
-                native-value="0" expanded
+                native-value="0" expanded type="is-info"
               >
                 <span>N/A</span>
               </b-radio-button>
               
               <b-radio-button v-model="renalDisease"
-                native-value="2" expanded
+                native-value="2" expanded type="is-info"
               >
                 <span>Patients &leq; 75</span>
               </b-radio-button>
               
               <b-radio-button v-model="renalDisease"
-                native-value="4" expanded
+                native-value="4" expanded type="is-info"
               >
                 <span>Patients &gt; 75</span>
               </b-radio-button>
@@ -260,19 +260,19 @@
           >
             <b-field grouped group-multiline>
               <b-radio-button v-model="cancer"
-                native-value="0" expanded
+                native-value="0" expanded type="is-info"
               >
                 <span>N/A</span>
               </b-radio-button>
               
               <b-radio-button v-model="cancer"
-                native-value="2" expanded 
+                native-value="2" expanded type="is-info" 
               >
                 <span>Malignancy &lt; 10 year survival </span>
               </b-radio-button>
               
               <b-radio-button v-model="cancer"
-                native-value="4" expanded 
+                native-value="4" expanded type="is-info" 
               >
                 <span>Paliative only</span>
               </b-radio-button>
@@ -283,19 +283,19 @@
           >
             <b-field grouped group-multiline>
               <b-radio-button v-model="lung"
-                native-value="0" expanded
+                native-value="0" expanded type="is-info"
               >
                 <span>N/A</span>
               </b-radio-button>
               
               <b-radio-button v-model="lung"
-                native-value="2" expanded
+                native-value="2" expanded type="is-info"
               >
                 <span>Moderately severe</span>
               </b-radio-button>
               
               <b-radio-button v-model="lung"
-                native-value="4" expanded
+                native-value="4" expanded type="is-info"
               >
                 <span>Severe, evidence of frailty</span>
               </b-radio-button>
@@ -306,19 +306,19 @@
           >
             <b-field grouped group-multiline>
               <b-radio-button v-model="cirrhosis"
-                native-value="0" expanded
+                native-value="0" expanded type="is-info"
               >
                 <span>N/A</span>
               </b-radio-button>
               
               <b-radio-button v-model="cirrhosis"
-                native-value="2" expanded
+                native-value="2" expanded type="is-info"
               >
                 <span>Decompensation history</span>
               </b-radio-button>
               
               <b-radio-button v-model="cirrhosis"
-                native-value="4" expanded
+                native-value="4" expanded type="is-info"
               >
                 <span>Meld >= 20, no transplant</span>
               </b-radio-button>
@@ -327,13 +327,13 @@
           <b-field label="Other conditions">
             <b-field grouped group-multiline>
               <b-checkbox-button v-model="otherConditions"
-                native-value="CAD" expanded
+                native-value="CAD" expanded type="is-info"
               >
                 <span>Severe multi-vessel CAD</span>
               </b-checkbox-button>
 
               <b-checkbox-button v-model="otherConditions"
-                native-value="AIDS" expanded
+                native-value="AIDS" expanded type="is-info"
               >
                 <span>AIDS defining illness</span>
               </b-checkbox-button>
@@ -542,5 +542,14 @@ export default Vue.extend({
 
 .yellow {
   background-color: #fff455;
+}
+
+.title {
+  color: #3273dc;
+}
+
+.label {
+  color: #4f7ec7;
+  font-variant: small-caps;
 }
 </style>
