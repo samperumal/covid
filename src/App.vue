@@ -14,7 +14,7 @@
             </span>
             <b-input
               v-model="respPaO2"
-              expanded type="number"
+              expanded type="number" step="0.01"
               placeholder="Enter a value..."
             >
             </b-input>
@@ -30,7 +30,7 @@
             </span>
             <b-input
               v-model="respFiO2"
-              expanded type="number"
+              expanded type="number" step="0.01"
               placeholder="Enter a value..."
             >
             </b-input>
