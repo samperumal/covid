@@ -354,6 +354,21 @@
             <div class="prioritisation">{{ priorityScore.prioritisation }}</div>
           </div>
         </section>
+        <hr />
+        <section class="has-text-centered is-size-7">
+          <div><strong>Source</strong></div>
+          <div>THE SOUTH AFRICAN MEDICAL ASSOCIATION</div>
+          <div>SARS-CoV-2 (COVID-19)</div> 
+          <div>Guidance for Managing Ethical Issues</div>
+          <div>
+            <a href="https://www.saheart.org/cms/attachment/163">https://www.saheart.org/cms/attachment/163</a>
+          </div>
+        </section>
+        <hr />
+        <section class="has-text-centered is-size-7"  style="font-size: 0.85em;">
+          Developed by Sameshan Perumal
+          <a href="https://datacartographer.com">https://datacartographer.com</a>
+        </section>
       </div>
     </div>
   </div>
