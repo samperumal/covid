@@ -27,7 +27,12 @@
           </div>
           </div>
           <div class="reference">
-            [2] Subbe, Christian Peter & Burford, Caroline & Le Jeune, Ivan & Masterton-Smith, Charlotte & Ward, David. (2015). Relationship between input and output in acute medicine - Secondary analysis of the Society for Acute Medicine's benchmarking audit 2013 (SAMBA '13). Clinical medicine (London, England). 15. 15-9. 10.7861/clinmedicine.15-1-15. 
+            <div>[2] Subbe, Christian Peter & Burford, Caroline & Le Jeune,</div>
+            <div>Ivan & Masterton-Smith, Charlotte & Ward, David. (2015). </div>
+            <div>Relationship between input and output in acute medicine - </div>
+            <div>Secondary analysis of the Society for Acute Medicine's</div> 
+            <div>benchmarking audit 2013 (SAMBA '13). Clinical medicine</div>
+            <div>(London, England). 15. 15-9. 10.7861/clinmedicine.15-1-15. </div>
           </div>
         </section>
         <hr />
@@ -131,5 +136,6 @@ export default Vue.extend({
 
 .reference {
   margin-top: 1em;
+  // max-width: 10em;
 }
 </style>
