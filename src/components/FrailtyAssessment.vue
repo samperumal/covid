@@ -3,7 +3,7 @@
     <div class="title has-text-centered">Frailty Assessment</div>
     <div class="subtitle has-text-centered">Function 1-2 weeks prior to presentation</div>
 		<div v-for="category in frailtyScaleData()" :key="category.Score">
-			<a href=".">
+			<router-link :to="category.Next">
 			<div class="card">
 				<div class="card-content">
 					<div class="media">
@@ -22,7 +22,7 @@
 					</div>
 				</div>
 			</div>
-			</a>
+			</router-link>
 		</div>
   </section>
 </template>
@@ -35,22 +35,26 @@ export default {
 				{
 					"Score": "1",
 					"Group": "Very Fit",
-					"Description": "People who are robust, active, energetic and motivated. These people commonly exercise regularly. They are among the fittest for their age."
+					"Description": "People who are robust, active, energetic and motivated. These people commonly exercise regularly. They are among the fittest for their age.",
+					"Next": "sofa"
 				},
 				{
 					"Score": "2",
 					"Group": "Well",
-					"Description": "People who have <strong>no active disease symptoms</strong> but are less fit than category 1. Often, they exercise or are very <strong>active occasionally</strong>, e.g. seasonally."
+					"Description": "People who have <strong>no active disease symptoms</strong> but are less fit than category 1. Often, they exercise or are very <strong>active occasionally</strong>, e.g. seasonally.",
+					"Next": "sofa"
 				},
 				{
 					"Score": "3",
 					"Group": "Managing Well",
-					"Description": "People whose <strong>medical problems are well controlled</strong>, but are not regularly active beyond routine walking."
+					"Description": "People whose <strong>medical problems are well controlled</strong>, but are not regularly active beyond routine walking.",
+					"Next": "sofa"
 				},
 				{
 					"Score": "4",
 					"Group": "Vulnerable",
-					"Description": "While not dependent on others for daily help, often <strong>symptoms limit activities</strong>. A common complaint is being 'slowed up', and/or being tired during the day."
+					"Description": "While not dependent on others for daily help, often <strong>symptoms limit activities</strong>. A common complaint is being 'slowed up', and/or being tired during the day.",
+					"Next": "sofa"
 				},
 				{
 					"Score": "5",

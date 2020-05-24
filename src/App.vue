@@ -2,21 +2,7 @@
   <div id="app">
     <div class="columns is-centered" v-if="assessFrailty">
       <div class="column">
-        <frailty-assessment></frailty-assessment>
-        <hr />
-      </div>
-    </div>
-    <div class="columns is-centered" v-if="calculatePriority">
-      <div class="column">
-        <sofa v-on:sofa-changed="sofaChanged"></sofa>
-        <hr />
-      </div>
-      <div class="column">
-        <comorbidities v-on:morbidity-score-changed="morbidityScoreChanged"></comorbidities>
-        <hr />
-      </div>
-      <div class="column">
-        <priority-summary :sofaScore="sofaScore" :morbidityScore="morbidityScore"></priority-summary>
+        <router-view></router-view>
         <hr />
       </div>
     </div>
@@ -48,40 +34,17 @@
 
 <script>
 import Vue from "vue"
-import Sofa from "./components/Sofa.vue"
-import Comorbidities from "./components/Comorbidities.vue"
-import PrioritySummary from "./components/PrioritySummary.vue"
-import FrailtyAssessment from "./components/FrailtyAssessment.vue"
 
 export default Vue.extend({
   data: function() {
     const data = {
-      sofaScore: null,
-      morbidityScore: null,
-      calculatePriority: false,
-      assessFrailty: true, 
     }
 
     return data
   },
   components: {
-    Sofa,
-    Comorbidities,
-    PrioritySummary,
-    FrailtyAssessment
   },
   methods: {
-    bracketScore(score) {
-      if (score != null)
-        return ` (${score})`
-      else return ""
-    },
-    sofaChanged(newSofaScore) {
-      this.sofaScore = newSofaScore
-    },
-    morbidityScoreChanged(newMorbidityScore) {
-      this.morbidityScore = newMorbidityScore
-    }
   },
   computed: {
   }

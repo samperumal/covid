@@ -1,5 +1,8 @@
 import Vue from 'vue';
-import App from './App';
+
+import router from './router'
+
+Vue.use(router)
 
 const moment = require("moment");
 
@@ -10,6 +13,8 @@ Vue.use(Buefy, {
 });
 Vue.config.productionTip = false;
 
+import App from './App';
+
 new Vue({
   el: '#app',
   data() {
@@ -17,6 +22,7 @@ new Vue({
       
     }
   },
+  router,
   render: function (h) { return h(App, { props: { currentStage: this.currentStage } }); },
   mounted: function () { 
   }
