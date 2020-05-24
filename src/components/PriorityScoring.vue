@@ -5,6 +5,12 @@
 		<comorbidities v-on:morbidity-score-changed="morbidityScoreChanged"></comorbidities>
 		<hr />
 		<priority-summary :sofaScore="sofaScore" :morbidityScore="morbidityScore"></priority-summary>
+		<hr />
+		<section class="container has-text-centered">
+			<div class="title">
+			<router-link to="/">Start a new evaluation</router-link>
+			</div>
+		</section>
 	</div>
 </template>
 

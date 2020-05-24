@@ -251,7 +251,7 @@ export default {
 		},
 	},
 	mounted() {
-		document.getElementById("sofa-title").scrollIntoView()
+		document.getElementById("navbar").scrollIntoView()
 	}
 }
 </script>
