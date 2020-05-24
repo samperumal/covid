@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav class="breadcrumb" aria-label="breadcrumbs">
+    <nav id="navbar" class="breadcrumb" aria-label="breadcrumbs">
       <ul>
         <li v-for="(item, index) in navbarItems" :key="index">
           <router-link :to="item.to">{{ item.text }}</router-link>
