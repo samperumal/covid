@@ -36,25 +36,25 @@ export default {
 					"Score": "1",
 					"Group": "Very Fit",
 					"Description": "People who are robust, active, energetic and motivated. These people commonly exercise regularly. They are among the fittest for their age.",
-					"Next": "sofa"
+					"Next": "/frailty/sofa"
 				},
 				{
 					"Score": "2",
 					"Group": "Well",
 					"Description": "People who have <strong>no active disease symptoms</strong> but are less fit than category 1. Often, they exercise or are very <strong>active occasionally</strong>, e.g. seasonally.",
-					"Next": "sofa"
+					"Next": "/frailty/sofa"
 				},
 				{
 					"Score": "3",
 					"Group": "Managing Well",
 					"Description": "People whose <strong>medical problems are well controlled</strong>, but are not regularly active beyond routine walking.",
-					"Next": "sofa"
+					"Next": "/frailty/sofa"
 				},
 				{
 					"Score": "4",
 					"Group": "Vulnerable",
 					"Description": "While not dependent on others for daily help, often <strong>symptoms limit activities</strong>. A common complaint is being 'slowed up', and/or being tired during the day.",
-					"Next": "sofa"
+					"Next": "/frailty/sofa"
 				},
 				{
 					"Score": "5",

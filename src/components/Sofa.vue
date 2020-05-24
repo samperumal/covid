@@ -251,7 +251,6 @@ export default {
 		},
 	},
 	mounted() {
-		console.log("Sofa Mounted")
 	}
 }
 </script>
