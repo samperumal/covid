@@ -356,12 +356,17 @@
         </section>
         <hr />
         <section class="has-text-centered is-size-7">
-          <div><strong>Source</strong></div>
-          <div>THE SOUTH AFRICAN MEDICAL ASSOCIATION</div>
+          <div><strong>References</strong></div>
+          <div class="reference">
+          <div>[1] THE SOUTH AFRICAN MEDICAL ASSOCIATION</div>
           <div>SARS-CoV-2 (COVID-19)</div> 
           <div>Guidance for Managing Ethical Issues</div>
           <div>
             <a href="https://www.saheart.org/cms/attachment/163">https://www.saheart.org/cms/attachment/163</a>
+          </div>
+          </div>
+          <div class="reference">
+            [2] Subbe, Christian Peter & Burford, Caroline & Le Jeune, Ivan & Masterton-Smith, Charlotte & Ward, David. (2015). Relationship between input and output in acute medicine - Secondary analysis of the Society for Acute Medicine's benchmarking audit 2013 (SAMBA '13). Clinical medicine (London, England). 15. 15-9. 10.7861/clinmedicine.15-1-15. 
           </div>
         </section>
         <hr />
@@ -622,5 +627,9 @@ export default Vue.extend({
 .label {
   color: #4f7ec7;
   font-variant: small-caps;
+}
+
+.reference {
+  margin-top: 1em;
 }
 </style>
