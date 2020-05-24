@@ -10,12 +10,21 @@ export default new Router({
     {
       path: '/',
       name: 'Frailty',
-      component: FrailtyAssessment
+			component: FrailtyAssessment,
+			meta: [
+        { to: "/", text: "Home" },
+        { to: "/", text: "Frailty Assessment" },
+      ]
 		},
 		{
 			path: '/sofa',
 			name: 'PriorityScoring',
-			component: PriorityScoring
+			component: PriorityScoring,
+			meta: [
+        { to: "/", text: "Home" },
+				{ to: "/", text: "Frailty Assessment" },
+				{ to: "/sofa", text: "SOFA Prioritisation" },
+      ]
 		}
   ]
 })

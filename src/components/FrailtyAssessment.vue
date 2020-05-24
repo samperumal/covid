@@ -59,27 +59,32 @@ export default {
 				{
 					"Score": "5",
 					"Group": "Mildly Frail",
-					"Description": "These people often have <strong>more evident slowing</strong>, and need help in <strong>high order IADLs</strong> (finances, transportation, heavy housework, medications). Typically, mild frailty progressively impairs shopping and walking outside alone, meal preparation, and housework."
+					"Description": "These people often have <strong>more evident slowing</strong>, and need help in <strong>high order IADLs</strong> (finances, transportation, heavy housework, medications). Typically, mild frailty progressively impairs shopping and walking outside alone, meal preparation, and housework.",
+					"Next": "management-plan"
 				},
 				{
 					"Score": "6",
 					"Group": "Moderately Frail",
-					"Description": "People who need help with <strong>all outside activities</strong> and with <strong>keeping house</strong>. Inside, they often have problems with stairs and need <strong>help with bathing</strong> and might need minimal assistance (cuing, standby) with dressing."
+					"Description": "People who need help with <strong>all outside activities</strong> and with <strong>keeping house</strong>. Inside, they often have problems with stairs and need <strong>help with bathing</strong> and might need minimal assistance (cuing, standby) with dressing.",
+					"Next": "management-plan"
 				},
 				{
 					"Score": "7",
 					"Group": "Severely Frail",
-					"Description": "<strong>Completely dependent for personal care</strong>, from whatever cause (physical or cognitive). Even so, they seem stable and not at high risk of dying (within ~ 6 months)."
+					"Description": "<strong>Completely dependent for personal care</strong>, from whatever cause (physical or cognitive). Even so, they seem stable and not at high risk of dying (within ~ 6 months).",
+					"Next": "management-plan"
 				},
 				{
 					"Score": "8",
 					"Group": "Very Severely Frail",
-					"Description": "Completely dependent, approaching the end of life. Typically, they could not recover even from a minor illness."
+					"Description": "Completely dependent, approaching the end of life. Typically, they could not recover even from a minor illness.",
+					"Next": "management-plan"
 				},
 				{
 					"Score": "9",
 					"Group": "Terminally Ill",
-					"Description": "Approaching the end of life. This category applies to people with a <strong>life expectancy < 6 months</strong>, who are <strong>not otherwise evidently frail</strong>."
+					"Description": "Approaching the end of life. This category applies to people with a <strong>life expectancy < 6 months</strong>, who are <strong>not otherwise evidently frail</strong>.",
+					"Next": "management-plan"
 				}
 			]
 		}

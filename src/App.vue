@@ -1,6 +1,14 @@
 <template>
   <div id="app">
-    <div class="columns is-centered" v-if="assessFrailty">
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        <li v-for="(item, index) in navbarItems" :key="index">
+          <router-link :to="item.to">{{ item.text }}</router-link>
+        </li>
+      </ul>
+    </nav>
+    <hr />
+    <div class="columns is-centered">
       <div class="column">
         <router-view></router-view>
         <hr />
@@ -47,6 +55,9 @@ export default Vue.extend({
   methods: {
   },
   computed: {
+    navbarItems() {
+      return this.$route.meta
+    }
   }
 });
 </script>

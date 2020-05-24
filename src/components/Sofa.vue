@@ -249,6 +249,9 @@ export default {
         return Math.max(this.renalCreat, this.renalUrine)
       else return null
 		},
+	},
+	mounted() {
+		console.log("Sofa Mounted")
 	}
 }
 </script>
