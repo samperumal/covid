@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="title has-text-centered">Frailty Assessment</div>
-    <div class="subtitle has-text-centered">Function 1-2 weeks prior to presentation</div>
+    <div class="subtitle has-text-centered">Evaluate function 1-2 weeks prior to presentation</div>
 		<div v-for="category in frailtyScaleData()" :key="category.Score">
 			<router-link :to="category.Next">
 			<div class="card">
