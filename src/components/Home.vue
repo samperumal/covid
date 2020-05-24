@@ -10,7 +10,7 @@
 export default {
 	data() {
 		return {
-			fsm: resetData()
+			fsm: this.resetData()
 		}
 	},
 	methods: {
@@ -21,7 +21,7 @@ export default {
 		}
 	},
 	mounted() {		
-		this.fsm = resetData()
+		this.fsm = this.resetData()
 	}
 }
 </script>

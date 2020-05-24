@@ -32,8 +32,9 @@
         </section>
         <hr />
         <section class="has-text-centered is-size-7"  style="font-size: 0.85em;">
-          Developed by Sameshan Perumal
-          <a href="https://datacartographer.com">https://datacartographer.com</a>
+          <div>Developed by Sameshan Perumal</div>
+          <div><a href="https://datacartographer.com">https://datacartographer.com</a></div>
+          <div>Contact: <a href="mailto:info@datacartographer.com">info@datacartographer.com</a></div>
         </section>
       </div>
     </div>

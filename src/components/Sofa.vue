@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="title has-text-centered">Sequential Organ Failure Asessment Scoring</div>
+    <div id="sofa-title" class="title has-text-centered">Sequential Organ Failure Asessment Scoring</div>
     <div class="subtitle has-text-centered">(Sepsis-related)</div>
     <b-field :label="'Respiration' + bracketScore(respiration)"></b-field>
     <b-field grouped>
@@ -251,6 +251,7 @@ export default {
 		},
 	},
 	mounted() {
+		document.getElementById("sofa-title").scrollIntoView()
 	}
 }
 </script>
