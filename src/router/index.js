@@ -45,5 +45,13 @@ export default new Router({
 				{ to: "/frailty/sofa", text: "SOFA Prioritisation" },
       ]
 		}
-  ]
+	], 
+	scrollBehavior(to, from, savedPosition) {
+		if (savedPosition) {
+			// savedPosition is only available for popstate navigations.
+			return savedPosition
+		} else {
+			return { selector: "#navbar" }
+		}
+	}
 })

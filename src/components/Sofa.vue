@@ -249,9 +249,6 @@ export default {
         return Math.max(this.renalCreat, this.renalUrine)
       else return null
 		},
-	},
-	mounted() {
-		document.getElementById("navbar").scrollIntoView()
 	}
 }
 </script>
