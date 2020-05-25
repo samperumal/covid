@@ -48,8 +48,4 @@ export default {
 	display: flex;
 	text-align: justify;
 }
-
-.notice > div {
-	/* max-width: 350px; */
-}
 </style>
