@@ -46,11 +46,11 @@
           <span class="">Platelets</span>
         </p>
         <b-select v-model="coagulation" expanded placeholder="Select a value...">
-          <option value="0">&geq; 150</option>
-          <option value="1">100 to 150</option>
-          <option value="2">50 to 99</option>
+          <option value="4">&lt; 20</option>
           <option value="3">20 to 49</option>
-          <option value="4">&le; 20</option>
+          <option value="2">50 to 99</option>
+          <option value="1">100 to 149</option>
+          <option value="0">&geq; 150</option>
           <option :value="null">N/A</option>
         </b-select>
         <p class="control">
@@ -83,9 +83,9 @@
         MAP
       </p>
       <b-select class="is-primary" v-model="cardioMap" expanded placeholder="Select a value...">
-        <option value="0">&geq; 70</option>
         <option value="1">&lt; 70</option>
-          <option :value="null">N/A</option>
+        <option value="0">&geq; 70</option>
+        <option :value="null">N/A</option>
       </b-select>
       <p class="control">
         mm Hg
@@ -150,9 +150,9 @@
         <span class="">Urine output</span>
       </p>
       <b-select class="is-primary" v-model="renalUrine" expanded placeholder="Select a value...">
-        <option value="0">&geq; 500</option>
-        <option value="3">200 to 500</option>
         <option value="4">&lt; 200</option>
+        <option value="3">200 to 500</option>
+        <option value="0">&geq; 500</option>
         <option :value="null">N/A</option>
       </b-select>
       <p class="control">
