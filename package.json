@@ -1,5 +1,15 @@
 {
-  
+  "name": "covid-tools",
+  "version": "0.1.0",
+  "description": "Simple tools for clinical management of covid patients.",
+  "keywords": ["Covid"],
+  "author": "Sam Perumal",
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "clean": "rm dist/bundle.js",
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html"
+  },
   "dependencies": {
     "buefy": "^0.8.19",
     "moment": "^2.26.0",
