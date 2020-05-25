@@ -172,6 +172,7 @@
       </span>
     </b-field>
     <div class="has-text-centered priority-score">SOFA Score: {{ sofaScore }}</div>
+    <div class="has-text-centered priority-score">SOFA Points: {{ sofaPoints }}</div>
   </section>
 </template>
 
@@ -205,16 +206,26 @@ export default {
   computed: {
     sofaScore() {
       var totalScore = 0;
+
       totalScore += this.respiration != null ? +this.respiration : 0
       totalScore += this.coagulation != null ? +this.coagulation : 0
       totalScore += this.liver != null ? +this.liver : 0
       totalScore += this.cardio != null ? +this.cardio : 0
       totalScore += this.nervous != null ? +this.nervous : 0
-			totalScore += this.renal != null ? +this.renal : 0
-			
-			this.$emit("sofa-changed", +totalScore)
-
+      totalScore += this.renal != null ? +this.renal : 0
+      
       return +totalScore
+    },
+    sofaPoints() {
+      var pts = 0
+      if (this.sofaScore < 6) pts =  1
+      else if (this.sofaScore < 9) pts =  2
+      else if (this.sofaScore < 12) pts =  3
+      else if (this.sofaScore >= 12) pts =  4
+			
+			this.$emit("sofa-changed", +pts)
+
+      return pts
     },
     respFrac() {
       if (this.respPaO2 != null && this.respFiO2 != null)
@@ -234,7 +245,7 @@ export default {
       if (this.cardioMap != null || 
           this.cardioDop != null ||
           this.cardioEpi != null ||
-          this.cardioDob
+          this.cardioDob != "0"
       )
         return Math.max(
           this.cardioMap,

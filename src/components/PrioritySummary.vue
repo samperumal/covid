@@ -16,15 +16,8 @@ export default {
       morbidityScore: null
 	},
 	computed: {
-		
     priorityScore() {
-      var sofaPts = 0
-      if (this.sofaScore < 6) sofaPts = 1
-      else if (this.sofaScore < 9) sofaPts = 2
-      else if (this.sofaScore < 12) sofaPts = 3
-      else if (this.sofaScore >= 12) sofaPts = 4
-
-      var pScore = sofaPts + this.morbidityScore      
+      var pScore = this.sofaScore + this.morbidityScore      
       
       if (pScore < 4)
         return { 

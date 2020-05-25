@@ -102,7 +102,7 @@
         <span>AIDS defining illness</span>
       </b-checkbox-button>
     </b-field>
-    <div class="has-text-centered priority-score">Co-Morbidity Score: {{ morbidityScore }}</div>
+    <div class="has-text-centered priority-score">Co-Morbidity Points: {{ morbidityScore }}</div>
   </section>
 </template>
 
