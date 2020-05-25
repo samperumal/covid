@@ -19,13 +19,13 @@ yarn
 The following command starts a local dev server on http://localhost:1234, with Parcel building, serving and watching.
 
 ```
-parcel src/index.html
+yarn dev
 ```
 
 ## Build
 
-Run the make shell script
+Build a static version of the site to the `dist/` folder.
 
 ```
-./make.sh
+yarn build
 ```
