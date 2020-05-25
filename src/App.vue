@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="columns is-centered is-mobile">
-      <div class="column is-full-mobile is-two-thirds-tablet is-half-desktop is-one-third-fullhd">
+      <div class="column is-full-mobile is-two-thirds-tablet is-half-desktop is-two-fifths-fullhd">
         <nav id="navbar" class="breadcrumb" aria-label="breadcrumbs">
           <ul>
             <li v-for="(item, index) in navbarItems" :key="index">

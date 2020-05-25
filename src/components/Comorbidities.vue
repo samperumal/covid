@@ -195,9 +195,9 @@ export default {
 
 <style scoped>
 .field.has-addons .control:first-child {
-  width: 16%;
+  width: 3.5em;
 }
 .field.has-addons .control:not(:first-child) {
-  width: 42%;
+  width: 50%;
 }
 </style>
