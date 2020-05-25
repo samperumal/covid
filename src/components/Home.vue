@@ -45,10 +45,10 @@ export default {
 
 .notice {
 	display: flex;
-	justify-content: center;
+	text-align: justify;
 }
 
 .notice > div {
-	max-width: 350px;
+	/* max-width: 350px; */
 }
 </style>

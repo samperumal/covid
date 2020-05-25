@@ -1,21 +1,17 @@
 <template>
   <div id="app">
-    <nav id="navbar" class="breadcrumb" aria-label="breadcrumbs">
-      <ul>
-        <li v-for="(item, index) in navbarItems" :key="index">
-          <router-link :to="item.to">{{ item.text }}</router-link>
-        </li>
-      </ul>
-    </nav>
-    <hr />
-    <div class="columns is-centered">
-      <div class="column">
+    <div class="columns is-centered is-mobile">
+      <div class="column is-full-mobile is-two-thirds-tablet is-half-desktop is-one-third-fullhd">
+        <nav id="navbar" class="breadcrumb" aria-label="breadcrumbs">
+          <ul>
+            <li v-for="(item, index) in navbarItems" :key="index">
+              <router-link :to="item.to">{{ item.text }}</router-link>
+            </li>
+          </ul>
+        </nav>
+        <hr />
         <router-view></router-view>
         <hr />
-      </div>
-    </div>
-    <div class="columns is-centered">
-      <div class="column">
         <section class="has-text-centered is-size-7">
           <div><strong>References</strong></div>
           <div class="reference">
@@ -36,10 +32,11 @@
           </div>
         </section>
         <hr />
-        <section class="has-text-centered is-size-7"  style="font-size: 0.85em;">
+        <section class="has-text-centered is-size-7">
           <div>Developed by Sameshan Perumal</div>
           <div><a href="https://datacartographer.com">https://datacartographer.com</a></div>
-          <div>Contact: <a href="mailto:info@datacartographer.com">info@datacartographer.com</a></div>
+          <div class="reference">Contact</div><div><a href="mailto:info@datacartographer.com">info@datacartographer.com</a></div>
+          <div class="reference">Source Code</div><div><a href="https://github.com/samperumal/covid">https://github.com/samperumal/covid</a></div>
         </section>
       </div>
     </div>
