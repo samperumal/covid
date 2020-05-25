@@ -51,6 +51,7 @@
           <option value="2">50 to 99</option>
           <option value="3">20 to 49</option>
           <option value="4">&le; 20</option>
+          <option :value="null">N/A</option>
         </b-select>
         <p class="control">
             &times;10
@@ -69,6 +70,7 @@
           <option value="2">33 to 101</option>
           <option value="3">102 to 204</option>
           <option value="4">&gt; 204</option>
+          <option :value="null">N/A</option>
         </b-select>
         <p class="control">
           &mu;mol / L
@@ -83,6 +85,7 @@
       <b-select class="is-primary" v-model="cardioMap" expanded placeholder="Select a value...">
         <option value="0">&geq; 70</option>
         <option value="1">&lt; 70</option>
+          <option :value="null">N/A</option>
       </b-select>
       <p class="control">
         mm Hg
@@ -96,6 +99,7 @@
         <option value="2">&lt; 5</option>
         <option value="3">5.1 to 15</option>
         <option value="4">&gt; 15</option>
+        <option :value="null">N/A</option>
       </b-select>
       <p class="control">
         &mu;g / kg / min
@@ -106,9 +110,9 @@
         <span class="">Adrenaline</span>
       </p>
       <b-select class="is-primary" v-model="cardioEpi" expanded placeholder="Select a value...">
-        <option :value="null">N/A</option>
         <option value="3">&leq; 0.1</option>
         <option value="4">&gt; 0.1</option>
+        <option :value="null">N/A</option>
       </b-select>
       <p class="control">
         &mu;g / kg / min
@@ -135,6 +139,7 @@
         <option value="2">171 to 299</option>
         <option value="3">300 to 440</option>
         <option value="4">&gt; 440</option>
+        <option :value="null">N/A</option>
       </b-select>
       <p class="control">
         &mu;mol / L
@@ -148,6 +153,7 @@
         <option value="0">&geq; 500</option>
         <option value="3">200 to 500</option>
         <option value="4">&lt; 200</option>
+        <option :value="null">N/A</option>
       </b-select>
       <p class="control">
         mL / day
@@ -167,6 +173,7 @@
           <option value="2">10 to 12</option>
           <option value="3">6 to 9</option>
           <option value="4">&lt; 6</option>
+          <option :value="null">N/A</option>
         </b-select>        
         <p class="control"></p>
       </b-field>
