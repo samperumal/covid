@@ -7,9 +7,7 @@
 		<priority-summary :sofaScore="sofaScore" :morbidityScore="morbidityScore"></priority-summary>
 		<hr />
 		<section class="container has-text-centered">
-			<div class="title">
-			<router-link to="/">Start a new evaluation</router-link>
-			</div>
+			<router-link to="/"><div class="button is-info is-large">Restart Assessment</div></router-link>
 		</section>
 	</div>
 </template>

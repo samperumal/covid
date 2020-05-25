@@ -3,90 +3,90 @@
     <div class="title has-text-centered">Co-morbidities</div>
     <b-field label="Alzheimer's or related dementia" :message="alzheimerHelpText">
       <b-field>
-        <b-radio-button v-model="alzheimer" native-value="0" expanded type="is-info">
+        <b-radio-button v-model="alzheimer" native-value="0" type="is-info">
           <span>N/A</span>
         </b-radio-button>
 
-        <b-radio-button v-model="alzheimer" native-value="2" expanded type="is-info">
+        <b-radio-button v-model="alzheimer" native-value="2" type="is-info">
           <span>Moderate</span>
         </b-radio-button>
 
-        <b-radio-button v-model="alzheimer" native-value="4" expanded type="is-info">
+        <b-radio-button v-model="alzheimer" native-value="4" type="is-info">
           <span>Severe</span>
         </b-radio-button>
       </b-field>
     </b-field>
     <b-field label="Heart failure" :message="heartHelpText">
       <b-field>
-        <b-radio-button v-model="heart" native-value="0" expanded type="is-info">
+        <b-radio-button v-model="heart" native-value="0" type="is-info">
           <span>N/A</span>
         </b-radio-button>
 
-        <b-radio-button v-model="heart" native-value="2" expanded type="is-info">
+        <b-radio-button v-model="heart" native-value="2" type="is-info">
           <span>Class III</span>
         </b-radio-button>
 
-        <b-radio-button v-model="heart" native-value="4" expanded type="is-info">
+        <b-radio-button v-model="heart" native-value="4" type="is-info">
           <span>Class IV</span>
         </b-radio-button>
       </b-field>
     </b-field>
     <b-field label="End-stage renal disease" :message="renalHelpText">
       <b-field>
-        <b-radio-button v-model="renalDisease" native-value="0" expanded type="is-info">
+        <b-radio-button v-model="renalDisease" native-value="0" type="is-info">
           <span>N/A</span>
         </b-radio-button>
 
-        <b-radio-button v-model="renalDisease" native-value="2" expanded type="is-info">
+        <b-radio-button v-model="renalDisease" native-value="2" type="is-info">
           <span>Patients &leq; 75</span>
         </b-radio-button>
 
-        <b-radio-button v-model="renalDisease" native-value="4" expanded type="is-info">
+        <b-radio-button v-model="renalDisease" native-value="4" type="is-info">
           <span>Patients &gt; 75</span>
         </b-radio-button>
       </b-field>
     </b-field>
     <b-field label="Cancer" :message="cancerHelpText">
       <b-field>
-        <b-radio-button v-model="cancer" native-value="0" expanded type="is-info">
+        <b-radio-button v-model="cancer" native-value="0" type="is-info">
           <span>N/A</span>
         </b-radio-button>
 
-        <b-radio-button v-model="cancer" native-value="2" expanded type="is-info">
+        <b-radio-button v-model="cancer" native-value="2" type="is-info">
           <span>&lt;10 year survival</span>
         </b-radio-button>
 
-        <b-radio-button v-model="cancer" native-value="4" expanded type="is-info">
+        <b-radio-button v-model="cancer" native-value="4" type="is-info">
           <span>Paliative only</span>
         </b-radio-button>
       </b-field>
     </b-field>
     <b-field label="Chronic lung disease" :message="lungHelpText">
       <b-field>
-        <b-radio-button v-model="lung" native-value="0" expanded type="is-info">
+        <b-radio-button v-model="lung" native-value="0" type="is-info">
           <span>N/A</span>
         </b-radio-button>
 
-        <b-radio-button v-model="lung" native-value="2" expanded type="is-info">
+        <b-radio-button v-model="lung" native-value="2" type="is-info">
           <span>Moderate</span>
         </b-radio-button>
 
-        <b-radio-button v-model="lung" native-value="4" expanded type="is-info">
+        <b-radio-button v-model="lung" native-value="4" type="is-info">
           <span>Severe, frailty</span>
         </b-radio-button>
       </b-field>
     </b-field>
     <b-field label="Liver cirrhosis" :message="cirrhosisHelpText">
       <b-field>
-        <b-radio-button v-model="cirrhosis" native-value="0" expanded type="is-info">
+        <b-radio-button v-model="cirrhosis" native-value="0" type="is-info">
           <span>N/A</span>
         </b-radio-button>
 
-        <b-radio-button v-model="cirrhosis" native-value="2" expanded type="is-info">
+        <b-radio-button v-model="cirrhosis" native-value="2" type="is-info">
           <span>Decompensation</span>
         </b-radio-button>
 
-        <b-radio-button v-model="cirrhosis" native-value="4" expanded type="is-info">
+        <b-radio-button v-model="cirrhosis" native-value="4" type="is-info">
           <span>MELD ≥ 20</span>
         </b-radio-button>
       </b-field>
@@ -102,7 +102,7 @@
         <span>AIDS defining illness</span>
       </b-checkbox-button>
     </b-field>
-    <div class="has-text-centered priority-score">Co-Morbidity Score: {{ morbidityScore }}</div>
+    <div class="has-text-centered priority-score" style="margin-top: 1.5em;">Co-Morbidity Points: {{ morbidityScore }}</div>
   </section>
 </template>
 
@@ -193,5 +193,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.field.has-addons .control:first-child {
+  width: 3.5em;
+}
+.field.has-addons .control:not(:first-child) {
+  width: 50%;
+}
 </style>

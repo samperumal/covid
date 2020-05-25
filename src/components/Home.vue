@@ -6,7 +6,8 @@
 			<div class="box is-6">
 				<div class="notice">
 					<div>
-						<p><strong>This tool has not been validated or approved by the CCSSA.</strong></p>
+						<p><strong>This tool has NOT been validated or approved by the <a href="https://www.samedical.org/">South African Medical Association (SAMA)</a> or the <a href="https://criticalcare.org.za/">Critical Care Society of
+Southern Africa (CCSSA)</a>.</strong></p>
 						<p>It is intended solely for the use of qualified doctors who are already familiar with the guidelines, and who need an electronic aid to speed up the calculation of Priority Scores for triage management.</p>
 						<p>This application provides an interactive version of the triage flowchart presented in [1]. Images from [2] are used along with the corresponding Frailty assessment scale.</p>
 					</div>
@@ -45,10 +46,6 @@ export default {
 
 .notice {
 	display: flex;
-	justify-content: center;
-}
-
-.notice > div {
-	max-width: 350px;
+	text-align: justify;
 }
 </style>

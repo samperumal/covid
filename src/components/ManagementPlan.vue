@@ -6,7 +6,10 @@
 			</div>
 			<div>
 				Discuss end-of-life issues with next-of-kin.
-			</div>	
+			</div>
+			<section class="section has-text-centered">
+				<router-link to="/"><div class="button is-info is-large">Restart Assessment</div></router-link>
+			</section>	
 		</div>
 	</section>
 </template>
