@@ -51,7 +51,7 @@ export default new Router({
 			// savedPosition is only available for popstate navigations.
 			return savedPosition
 		} else {
-			return { selector: "#navbar" }
+			return { x: 0, y: 0}
 		}
 	}
 })
