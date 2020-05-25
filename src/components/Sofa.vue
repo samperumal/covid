@@ -28,7 +28,7 @@
         <span class="button">%</span>
       </p>
     </b-field>
-    <b-field class="has-text-centered">
+    <b-field class="has-text-centered" v-if="respFrac != null">
       <span class="control">
         <p class="button">
           PaO
@@ -36,7 +36,7 @@
           <span>&nbsp;/&nbsp;</span>
           FiO
           <span class="subscript">2</span>
-          <span>&nbsp;=&nbsp;{{ respFrac }}</span>
+          <span>&nbsp;=&nbsp;{{ respFrac }} kPa</span>
         </p>
       </span>
     </b-field>
@@ -73,7 +73,7 @@
           <option value="4">&gt; 204</option>
         </b-select>
         <span class="control">
-          <p class="button">&mu;mol/L</p>
+          <p class="button">&mu;mol / L</p>
         </span>
       </b-field>
     </b-field>
@@ -100,7 +100,7 @@
         <option value="4">&gt; 15</option>
       </b-select>
       <span class="control">
-        <p class="button">&mu;g/kg/min</p>
+        <p class="button">&mu;g / kg / min</p>
       </span>
     </b-field>
     <b-field>
@@ -113,7 +113,7 @@
         <option value="4">&gt; 0.1</option>
       </b-select>
       <span class="control">
-        <p class="button">&mu;g/kg/min</p>
+        <p class="button">&mu;g / kg / min</p>
       </span>
     </b-field>
     <b-field>
@@ -155,7 +155,7 @@
         <option value="4">&gt; 440</option>
       </b-select>
       <span class="control">
-        <p class="button">&mu;mol/L</p>
+        <p class="button">&mu;mol / L</p>
       </span>
     </b-field>
     <b-field>
@@ -168,11 +168,13 @@
         <option value="4">&lt; 200</option>
       </b-select>
       <span class="control">
-        <p class="button">mL/day</p>
+        <p class="button">mL / day</p>
       </span>
     </b-field>
-    <div class="has-text-centered priority-score">SOFA Score: {{ sofaScore }}</div>
-    <div class="has-text-centered priority-score">SOFA Points: {{ sofaPoints }}</div>
+    <div style="display: flex; justify-content: space-between; margin-top: 1.5em">
+      <div class="priority-score">SOFA Score: {{ sofaScore }}</div>
+      <div class="has-text-right priority-score">SOFA Points: {{ sofaPoints }}</div>
+    </div>
   </section>
 </template>
 
