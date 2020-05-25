@@ -122,10 +122,6 @@ export default Vue.extend({
   background-color: #fff455;
 }
 
-.title {
-  color: #3273dc;
-}
-
 .label {
   color: #4f7ec7;
   font-variant: small-caps;

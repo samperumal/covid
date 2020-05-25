@@ -117,3 +117,10 @@ export default {
 	width: auto;
 }
 </style>
+
+<style lang="scss" scoped>
+@import "~bulma/sass/utilities/_all";
+.card .title {
+	color: $link;
+}
+</style>
