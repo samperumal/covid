@@ -122,8 +122,13 @@ export default Vue.extend({
   background-color: #fff455;
 }
 
+.green {
+  background-color: rgb(55, 160, 55);
+  color: white;
+}
+
 .label {
-  // color: #4f7ec7;
+  color: #545d66;
   // font-variant: small-caps;
 }
 

@@ -70,9 +70,9 @@ export default {
 	},
 	computed: {
 		ageAndFunction() {
-			var ascore = +this.age + +this.functionality
-			this.$emit("age-and-function-score-changed", ascore)
-			return ascore
+			this.$emit("age-score-changed", +this.age)
+			this.$emit("function-score-changed", +this.functionality)
+			return +this.age + +this.functionality
 		},
 		frailtyScore() {
 			if (!this.malignancy) {
