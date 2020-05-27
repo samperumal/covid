@@ -48,11 +48,11 @@
               <span class="">Platelets</span>
             </p>
             <b-select v-model="coagulation" expanded placeholder="Select a value...">
-              <option value="4">&lt; 20</option>
-              <option value="3">20 to 49</option>
-              <option value="2">50 to 99</option>
-              <option value="1">100 to 149</option>
               <option value="0">&geq; 150</option>
+              <option value="1">149 to 100</option>
+              <option value="2">99 to 50</option>
+              <option value="3">49 to 20</option>
+              <option value="4">&lt; 20</option>
               <option :value="null">N/A</option>
             </b-select>
             <p class="control">
@@ -85,26 +85,12 @@
             MAP
           </p>
           <b-select class="is-primary" v-model="cardioMap" expanded placeholder="Select a value...">
-            <option value="1">&lt; 70</option>
             <option value="0">&geq; 70</option>
+            <option value="1">&lt; 70</option>
             <option :value="null">N/A</option>
           </b-select>
           <p class="control">
             mm Hg
-          </p>
-        </b-field>
-        <b-field grouped>
-          <p class="control">
-            <span class="">Dopamine</span>
-          </p>
-          <b-select class="is-primary" v-model="cardioDop" expanded placeholder="Select a value...">
-            <option value="2">&lt; 5</option>
-            <option value="3">5.1 to 15</option>
-            <option value="4">&gt; 15</option>
-            <option :value="null">N/A</option>
-          </b-select>
-          <p class="control">
-            &mu;g / kg / min
           </p>
         </b-field>
         <b-field grouped>
@@ -152,9 +138,9 @@
             <span class="">Urine output</span>
           </p>
           <b-select class="is-primary" v-model="renalUrine" expanded placeholder="Select a value...">
-            <option value="4">&lt; 200</option>
-            <option value="3">200 to 500</option>
             <option value="0">&geq; 500</option>
+            <option value="3">500 to 200</option>
+            <option value="4">&lt; 200</option>
             <option :value="null">N/A</option>
           </b-select>
           <p class="control">
@@ -171,9 +157,9 @@
             </p>
             <b-select class="is-primary" v-model="nervous" expanded placeholder="Select a value...">
               <option value="0">15</option>
-              <option value="1">13 to 14</option>
-              <option value="2">10 to 12</option>
-              <option value="3">6 to 9</option>
+              <option value="1">14 to 13</option>
+              <option value="2">12 to 10</option>
+              <option value="3">9 to 6</option>
               <option value="4">&lt; 6</option>
               <option :value="null">N/A</option>
             </b-select>        
@@ -184,7 +170,7 @@
     </div>
     <div style="display: flex; justify-content: space-between; margin-top: 1.5em">
       <div class="priority-score">SOFA Score: {{ sofaScore }}</div>
-      <div class="has-text-right priority-score">SOFA Points: {{ sofaPoints }}</div>
+      <div class="has-text-right priority-score">SOFA Priority Points: {{ sofaPoints }}</div>
     </div>
   </section>
 </template>
