@@ -36,10 +36,9 @@ export default {
 	},
 	mounted() {		
 		this.fsm = this.resetData()
-		axios.get("http://tmscorebot.azurewebsites.net/api/log")
-			.then(() => {
-				console.log("Home visit logged")
-			})
+		axios.get("https://tmscorebot.azurewebsites.net/api/log")
+			.then(() => console.log("Home visit logged"))
+			.catch(() => console.log("Unable to contact server"))
 	}
 }
 </script>
