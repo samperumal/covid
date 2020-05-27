@@ -21,10 +21,6 @@
 				<option value="3">3 - Managing Well</option>
 				<option value="4">4 - Vulnerable</option>
 				<option value="5">5 - Mildly Frail</option>
-				<option value="6">6 - Moderately Frail</option>
-				<option value="7">7 - Severely Frail</option>
-				<option value="8">8 - Very Severely Frail</option>
-				<option value="9">9 - Terminally Ill</option>
 			</b-select>
 		</b-field>
 		<b-field :label="'ECOG Performance Status' + bracketScore(ecog)" v-if="malignancy">

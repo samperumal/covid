@@ -12,7 +12,7 @@
 		<priority-summary :scores="scores"></priority-summary>
 		<hr />
 		<section class="container has-text-centered">
-			<router-link to="/"><div class="button is-info is-large">Restart Assessment</div></router-link>
+			<router-link to="/"><div class="button is-info is-large">Start New Assessment</div></router-link>
 		</section>
 	</div>
 </template>

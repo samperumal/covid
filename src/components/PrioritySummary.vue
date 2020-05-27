@@ -8,7 +8,7 @@
     </div>
     <div class="box has-text-centered">
       <section class="summary">
-        <div class="subtitle">Point Summary</div>
+        <div class="subtitle">Score Summary</div>
         <div class="summary-table">
           <div class="left">Age</div><div>{{ scores.age }}</div>
           <div class="left">Functionality</div><div>{{ scores.functionality }}</div>
