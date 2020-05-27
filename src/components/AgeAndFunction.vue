@@ -1,6 +1,6 @@
 <template>
 	<section class="function">
-		<div class="title has-text-centered">Age and Function</div>
+		<div class="title has-text-centered">Age and Function {{ bracketScore(ageAndFunction) }}</div>
 		<b-field :label="'Age' + bracketScore(age)">
 			<b-select v-model="age" expanded>
 				<option value="0">&lt; 65 years</option>
@@ -53,8 +53,6 @@
 				</option>
 			</b-select>
 		</b-field>
-		
-		<div class="has-text-centered priority-score" style="margin-top: 1.5em;">Age and Function Priority Points: {{ ageAndFunction }}</div>
 	</section>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <section class="sofa">
-    <div id="sofa-title" class="title has-text-centered">Sequential Organ Failure Asessment</div>
+    <div id="sofa-title" class="title has-text-centered">Sequential Organ Failure Asessment {{ bracketScore(sofaPoints) }}</div>
     <b-field :label="'Respiration' + bracketScore(respiration)"></b-field>
     <b-field grouped>
       <p class="control">
@@ -163,10 +163,6 @@
         <p class="control"></p>
       </b-field>
     </b-field>
-    <div style="display: flex; justify-content: space-between; margin-top: 1.5em">
-      <div class="priority-score">SOFA Score: {{ sofaScore }}</div>
-      <div class="has-text-right priority-score">SOFA Priority Points: {{ sofaPoints }}</div>
-    </div>
   </section>
 </template>
 
@@ -192,7 +188,7 @@ export default {
 	},
 	methods: {
     bracketScore(score) {
-      if (score != null)
+      if (score != null && score != "0")
         return ` (${score})`
       else return ""
     }

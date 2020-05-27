@@ -9,22 +9,14 @@
     <div class="box has-text-centered">
       <section class="summary">
         <div class="subtitle">Point Summary</div>
-        <b-field label="Age" horizontal>
-          <p class="control">{{ scores.age }}</p>
-        </b-field>
-        <b-field label="Functionality" horizontal>
-          <p class="control">{{ scores.functionality }}</p>
-        </b-field>
-        <b-field label="SOFA" horizontal>
-          <p class="control">{{ scores.sofa }}</p>
-        </b-field>
-        <b-field label="Co-morbidities" horizontal>
-          <p class="control">{{ scores.morbidity }}</p>
-        </b-field>   
-        <hr />     
-        <b-field label="Total" horizontal>
-          <p class="control">{{ priorityScore.score }}</p>
-        </b-field>
+        <div class="summary-table">
+          <div class="left">Age</div><div>{{ scores.age }}</div>
+          <div class="left">Functionality</div><div>{{ scores.functionality }}</div>
+          <div class="left">SOFA</div><div>{{ scores.sofa }}</div>
+          <div class="left">Co-morbidities</div><div>{{ scores.morbidity }}</div>
+          <hr />
+          <div class="left"><strong>Total</strong></div><div><strong>{{ priorityScore.score }}</strong></div>
+        </div>
       </section>
     </div>
   </section>
@@ -80,7 +72,19 @@ export default {
 </script>
 
 <style>
-.summary .field-body {
-  flex-grow: 1;
+.summary-table {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.summary-table div {
+  min-width: 50%;
+  text-align: left;
+  padding-left: 1em;
+}
+
+.summary-table div.left {
+  text-align: right;
+  padding-right: 1em;
 }
 </style>

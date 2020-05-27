@@ -1,6 +1,6 @@
 <template>
 	<section>
-		<div class="title has-text-centered">Co-morbidities</div>
+		<div class="title has-text-centered">Co-morbidities {{ bracketScore(morbidityScore) }}</div>
 		<b-field v-for="option in optionsData()" :key="option.key" :label="option.Group + bracketScore(optionValues[option.Key])" label-position="default">
 			<b-select class="is-primary" v-model="optionValues[option.Key]" expanded>
 				<option v-for="(key, value) in option.Options" :key="key"
@@ -9,8 +9,6 @@
 				</option>
 			</b-select>
 		</b-field>
-		
-		<div class="has-text-centered priority-score" style="margin-top: 1.5em;">Co-Morbidity Priority Points: {{ morbidityScore }}</div>
 	</section>
 </template>
 
