@@ -19,6 +19,8 @@ Southern Africa (CCSSA)</a>.</strong></p>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
 	data() {
 		return {
@@ -34,6 +36,10 @@ export default {
 	},
 	mounted() {		
 		this.fsm = this.resetData()
+		axios.get("http://tmscorebot.azurewebsites.net/api/log")
+			.then(() => {
+				console.log("Home visit logged")
+			})
 	}
 }
 </script>
