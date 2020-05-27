@@ -13,26 +13,6 @@
         <router-view></router-view>
         <hr />
         <section class="has-text-centered is-size-7">
-          <div><strong>References</strong></div>
-          <div class="reference">
-          <div>[1] THE SOUTH AFRICAN MEDICAL ASSOCIATION</div>
-          <div>SARS-CoV-2 (COVID-19)</div> 
-          <div>Guidance for Managing Ethical Issues</div>
-          <div>
-            <a href="https://www.saheart.org/cms/attachment/163">https://www.saheart.org/cms/attachment/163</a>
-          </div>
-          </div>
-          <div class="reference">
-            <div>[2] Subbe, Christian Peter & Burford, Caroline & Le Jeune,</div>
-            <div>Ivan & Masterton-Smith, Charlotte & Ward, David. (2015). </div>
-            <div>Relationship between input and output in acute medicine - </div>
-            <div>Secondary analysis of the Society for Acute Medicine's</div> 
-            <div>benchmarking audit 2013 (SAMBA '13). Clinical medicine</div>
-            <div>(London, England). 15. 15-9. 10.7861/clinmedicine.15-1-15. </div>
-          </div>
-        </section>
-        <hr />
-        <section class="has-text-centered is-size-7">
           <div>Developed by Sameshan Perumal</div>
           <div><a href="https://datacartographer.com">https://datacartographer.com</a></div>
           <div class="reference">Contact</div><div><a href="mailto:info@datacartographer.com">info@datacartographer.com</a></div>
@@ -122,9 +102,14 @@ export default Vue.extend({
   background-color: #fff455;
 }
 
+.green {
+  background-color: rgb(55, 160, 55);
+  color: white;
+}
+
 .label {
-  color: #4f7ec7;
-  font-variant: small-caps;
+  color: #545d66;
+  // font-variant: small-caps;
 }
 
 .reference {

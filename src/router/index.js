@@ -27,23 +27,17 @@ export default new Router({
       ]
 		},
 		{
-      path: '/frailty',
-      name: 'Frailty',
-			component: FrailtyAssessment,
-			meta: [
-        { to: "/", text: "Home" },
-        { to: "/frailty", text: "Frailty Assessment" },
-      ]
-		},
-		{
-			path: '/frailty/sofa',
+			path: '/priority',
 			name: 'PriorityScoring',
 			component: PriorityScoring,
 			meta: [
         { to: "/", text: "Home" },
-				{ to: "/frailty", text: "Frailty Assessment" },
-				{ to: "/frailty/sofa", text: "SOFA Prioritisation" },
+				{ to: "/priority", text: "Priority Scoring" },
       ]
+		},
+		{ 
+			path: '*', 
+			redirect: '/' 
 		}
 	], 
 	scrollBehavior(to, from, savedPosition) {

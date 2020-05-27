@@ -1,191 +1,168 @@
 <template>
   <section class="sofa">
-    <div id="sofa-title" class="title has-text-centered">Sequential Organ Failure Asessment Scoring</div>
-    <div class="subtitle has-text-centered">(Sepsis-related)</div>
-    <div style="display: flex; flex-direction: column; align-items: center;">
-      <div>
-        <b-field :label="'Respiration' + bracketScore(respiration)"></b-field>
-        <b-field grouped>
-          <p class="control">
-            <span class="">
-              PaO<sub class="subscript">2</sub>
-            </span>
-          </p>
-          <b-input v-model="respPaO2" expanded type="number" step="0.01" placeholder="Enter a value..."></b-input>
+    <div id="sofa-title" class="title has-text-centered">Sequential Organ Failure Asessment {{ bracketScore(sofaPoints) }}</div>
+    <b-field :label="'Respiration' + bracketScore(respiration)"></b-field>
+    <b-field grouped>
+      <p class="control">
+        <span class="">
+          PaO<sub class="subscript">2</sub>
+        </span>
+      </p>
+      <b-input v-model="respPaO2" expanded type="number" step="0.01" placeholder="Enter a value..."></b-input>
 
-          <p class="control">
-            kPa
-          </p>
-        </b-field>
-        <b-field grouped>
-          <p class="control">
-            <span class="">
-              FiO<sub class="subscript">2</sub>
-            </span>
-          </p>
-          <b-input v-model="respFiO2" expanded type="number" step="0.01" placeholder="Enter a value..."></b-input>
-          <p class="control">
-            %
-          </p>
-        </b-field>
-        <b-field class="has-text-centered" v-if="respFrac != null" grouped>
-          <p class="control"></p>
-          <p class="control">
-            <span class="button">
-              PaO
-              <span class="subscript">2</span>
-              <span>&nbsp;/&nbsp;</span>
-              FiO
-              <span class="subscript">2</span>
-              <span>&nbsp;=&nbsp;{{ respFrac }} kPa</span>
-            </span>
-          </p>
-          <p class="control"></p>
-        </b-field>
-        <b-field :label="'Coagulation' + bracketScore(coagulation)">
-          <b-field grouped>
-            <p class="control">
-              <span class="">Platelets</span>
-            </p>
-            <b-select v-model="coagulation" expanded placeholder="Select a value...">
-              <option value="4">&lt; 20</option>
-              <option value="3">20 to 49</option>
-              <option value="2">50 to 99</option>
-              <option value="1">100 to 149</option>
-              <option value="0">&geq; 150</option>
-              <option :value="null">N/A</option>
-            </b-select>
-            <p class="control">
-                &times;10
-                <span class="superscript">3</span>&nbsp;/ &mu;L
-            </p>
-          </b-field>
-        </b-field>
-        <b-field :label="'Liver' + bracketScore(liver)">
-          <b-field grouped>
-            <p class="control">
-              <span class="">Bilirubin</span>
-            </p>
-            <b-select class="is-primary" v-model="liver" expanded placeholder="Select a value...">
-              <option value="0">&lt; 20</option>
-              <option value="1">20 to 32</option>
-              <option value="2">33 to 101</option>
-              <option value="3">102 to 204</option>
-              <option value="4">&gt; 204</option>
-              <option :value="null">N/A</option>
-            </b-select>
-            <p class="control">
-              &mu;mol / L
-            </p>
-          </b-field>
-        </b-field>
-        <b-field :label="'Cardiovascular' + bracketScore(cardio)"></b-field>
-        <b-field grouped>
-          <p class="control">
-            MAP
-          </p>
-          <b-select class="is-primary" v-model="cardioMap" expanded placeholder="Select a value...">
-            <option value="1">&lt; 70</option>
-            <option value="0">&geq; 70</option>
-            <option :value="null">N/A</option>
-          </b-select>
-          <p class="control">
-            mm Hg
-          </p>
-        </b-field>
-        <b-field grouped>
-          <p class="control">
-            <span class="">Dopamine</span>
-          </p>
-          <b-select class="is-primary" v-model="cardioDop" expanded placeholder="Select a value...">
-            <option value="2">&lt; 5</option>
-            <option value="3">5.1 to 15</option>
-            <option value="4">&gt; 15</option>
-            <option :value="null">N/A</option>
-          </b-select>
-          <p class="control">
-            &mu;g / kg / min
-          </p>
-        </b-field>
-        <b-field grouped>
-          <p class="control">
-            <span class="">Adrenaline</span>
-          </p>
-          <b-select class="is-primary" v-model="cardioEpi" expanded placeholder="Select a value...">
-            <option value="3">&leq; 0.1</option>
-            <option value="4">&gt; 0.1</option>
-            <option :value="null">N/A</option>
-          </b-select>
-          <p class="control">
-            &mu;g / kg / min
-          </p>
-        </b-field>
-        <b-field grouped>
-          <p class="control">
-            <span class="">Dobutamine</span>
-          </p>
-          <b-select class="is-primary" v-model="cardioDob" expanded placeholder="Select a value...">
-            <option selected value="0">Not administered</option>
-            <option value="2">Any dose</option>
-          </b-select>
-          <p class="control"></p>
-        </b-field>
-        <b-field :label="'Renal' + bracketScore(renal)"></b-field>
-        <b-field grouped>
-          <p class="control">
-            <span class="">Creatinine</span>
-          </p>
-          <b-select class="is-primary" v-model="renalCreat" expanded placeholder="Select a value...">
-            <option value="0">&lt; 110</option>
-            <option value="1">110 to 170</option>
-            <option value="2">171 to 299</option>
-            <option value="3">300 to 440</option>
-            <option value="4">&gt; 440</option>
-            <option :value="null">N/A</option>
-          </b-select>
-          <p class="control">
-            &mu;mol / L
-          </p>
-        </b-field>
-        <b-field grouped>
-          <p class="control">
-            <span class="">Urine output</span>
-          </p>
-          <b-select class="is-primary" v-model="renalUrine" expanded placeholder="Select a value...">
-            <option value="4">&lt; 200</option>
-            <option value="3">200 to 500</option>
-            <option value="0">&geq; 500</option>
-            <option :value="null">N/A</option>
-          </b-select>
-          <p class="control">
-            mL / day
-          </p>
-        </b-field>
-        <b-field
-          :label="'Nervous' + bracketScore(nervous)"
-          title="Glasgow Coma Scale scores range from 3-15; higher score indicates better neurological function."
-        >
-          <b-field grouped>
-            <p class="control">
-              <span class="">Glasgow Coma Scale score</span>
-            </p>
-            <b-select class="is-primary" v-model="nervous" expanded placeholder="Select a value...">
-              <option value="0">15</option>
-              <option value="1">13 to 14</option>
-              <option value="2">10 to 12</option>
-              <option value="3">6 to 9</option>
-              <option value="4">&lt; 6</option>
-              <option :value="null">N/A</option>
-            </b-select>        
-            <p class="control"></p>
-          </b-field>
-        </b-field>
-      </div>
-    </div>
-    <div style="display: flex; justify-content: space-between; margin-top: 1.5em">
-      <div class="priority-score">SOFA Score: {{ sofaScore }}</div>
-      <div class="has-text-right priority-score">SOFA Points: {{ sofaPoints }}</div>
-    </div>
+      <p class="control">
+        kPa
+      </p>
+    </b-field>
+    <b-field grouped>
+      <p class="control">
+        <span class="">
+          FiO<sub class="subscript">2</sub>
+        </span>
+      </p>
+      <b-input v-model="respFiO2" expanded type="number" step="0.01" placeholder="Enter a value..."></b-input>
+      <p class="control">
+        %
+      </p>
+    </b-field>
+    <b-field class="has-text-centered" v-if="respFrac != null" grouped>
+      <p class="control"></p>
+      <p class="control">
+        <span class="button">
+          PaO
+          <span class="subscript">2</span>
+          <span>&nbsp;/&nbsp;</span>
+          FiO
+          <span class="subscript">2</span>
+          <span>&nbsp;=&nbsp;{{ respFrac }} kPa</span>
+        </span>
+      </p>
+      <p class="control"></p>
+    </b-field>
+    <b-field :label="'Coagulation' + bracketScore(coagulation)">
+      <b-field grouped>
+        <p class="control">
+          <span class="">Platelets</span>
+        </p>
+        <b-select v-model="coagulation" expanded placeholder="Select a value...">
+          <option value="0">&geq; 150</option>
+          <option value="1">149 to 100</option>
+          <option value="2">99 to 50</option>
+          <option value="3">49 to 20</option>
+          <option value="4">&lt; 20</option>
+          <option :value="null">N/A</option>
+        </b-select>
+        <p class="control">
+            &times;10
+            <span class="superscript">3</span>&nbsp;/ &mu;L
+        </p>
+      </b-field>
+    </b-field>
+    <b-field :label="'Liver' + bracketScore(liver)">
+      <b-field grouped>
+        <p class="control">
+          <span class="">Bilirubin</span>
+        </p>
+        <b-select class="is-primary" v-model="liver" expanded placeholder="Select a value...">
+          <option value="0">&lt; 20</option>
+          <option value="1">20 to 32</option>
+          <option value="2">33 to 101</option>
+          <option value="3">102 to 204</option>
+          <option value="4">&gt; 204</option>
+          <option :value="null">N/A</option>
+        </b-select>
+        <p class="control">
+          &mu;mol / L
+        </p>
+      </b-field>
+    </b-field>
+    <b-field :label="'Cardiovascular' + bracketScore(cardio)"></b-field>
+    <b-field grouped>
+      <p class="control">
+        MAP
+      </p>
+      <b-select class="is-primary" v-model="cardioMap" expanded placeholder="Select a value...">
+        <option value="0">&geq; 70</option>
+        <option value="1">&lt; 70</option>
+        <option :value="null">N/A</option>
+      </b-select>
+      <p class="control">
+        mm Hg
+      </p>
+    </b-field>
+    <b-field grouped>
+      <p class="control">
+        <span class="">Adrenaline</span>
+      </p>
+      <b-select class="is-primary" v-model="cardioEpi" expanded placeholder="Select a value...">
+        <option value="3">&leq; 0.1</option>
+        <option value="4">&gt; 0.1</option>
+        <option :value="null">N/A</option>
+      </b-select>
+      <p class="control">
+        &mu;g / kg / min
+      </p>
+    </b-field>
+    <b-field grouped>
+      <p class="control">
+        <span class="">Dobutamine</span>
+      </p>
+      <b-select class="is-primary" v-model="cardioDob" expanded placeholder="Select a value...">
+        <option selected value="0">Not administered</option>
+        <option value="2">Any dose</option>
+      </b-select>
+      <p class="control"></p>
+    </b-field>
+    <b-field :label="'Renal' + bracketScore(renal)"></b-field>
+    <b-field grouped>
+      <p class="control">
+        <span class="">Creatinine</span>
+      </p>
+      <b-select class="is-primary" v-model="renalCreat" expanded placeholder="Select a value...">
+        <option value="0">&lt; 110</option>
+        <option value="1">110 to 170</option>
+        <option value="2">171 to 299</option>
+        <option value="3">300 to 440</option>
+        <option value="4">&gt; 440</option>
+        <option :value="null">N/A</option>
+      </b-select>
+      <p class="control">
+        &mu;mol / L
+      </p>
+    </b-field>
+    <b-field grouped>
+      <p class="control">
+        <span class="">Urine output</span>
+      </p>
+      <b-select class="is-primary" v-model="renalUrine" expanded placeholder="Select a value...">
+        <option value="0">&geq; 500</option>
+        <option value="3">500 to 200</option>
+        <option value="4">&lt; 200</option>
+        <option :value="null">N/A</option>
+      </b-select>
+      <p class="control">
+        mL / day
+      </p>
+    </b-field>
+    <b-field
+      :label="'Nervous' + bracketScore(nervous)"
+      title="Glasgow Coma Scale scores range from 3-15; higher score indicates better neurological function."
+    >
+      <b-field grouped>
+        <p class="control">
+          <span class="">Glasgow Coma Scale score</span>
+        </p>
+        <b-select class="is-primary" v-model="nervous" expanded placeholder="Select a value...">
+          <option value="0">15</option>
+          <option value="1">14 to 13</option>
+          <option value="2">12 to 10</option>
+          <option value="3">9 to 6</option>
+          <option value="4">&lt; 6</option>
+          <option :value="null">N/A</option>
+        </b-select>        
+        <p class="control"></p>
+      </b-field>
+    </b-field>
   </section>
 </template>
 
@@ -211,7 +188,7 @@ export default {
 	},
 	methods: {
     bracketScore(score) {
-      if (score != null)
+      if (score != null && score != "0")
         return ` (${score})`
       else return ""
     }
@@ -278,28 +255,4 @@ export default {
 </script>
 
 <style>
-.sofa .field .control {
-  max-width: 18em;
-}
-
-.sofa .field .control:first-child {
-  min-width: 5.5em;
-  text-align: right;
-  padding-bottom: calc(0.375em - 1px);
-  padding-top: calc(0.375em - 1px);
-}
-
-.sofa .field .control:last-child {
-  text-align: left;
-  padding-bottom: calc(0.375em - 1px);
-  padding-top: calc(0.375em - 1px);
-}
-
-.sofa .field .control:first-child span{
-  border: none;
-}
-
-.sofa .field .control:last-child .control{
-  border: none;
-}
 </style>

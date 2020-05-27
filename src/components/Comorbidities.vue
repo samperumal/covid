@@ -1,203 +1,194 @@
 <template>
-  <section>
-    <div class="title has-text-centered">Co-morbidities</div>
-    <b-field label="Alzheimer's or related dementia" :message="alzheimerHelpText">
-      <b-field>
-        <b-radio-button v-model="alzheimer" native-value="0" type="is-info">
-          <span>N/A</span>
-        </b-radio-button>
-
-        <b-radio-button v-model="alzheimer" native-value="2" type="is-info">
-          <span>Moderate</span>
-        </b-radio-button>
-
-        <b-radio-button v-model="alzheimer" native-value="4" type="is-info">
-          <span>Severe</span>
-        </b-radio-button>
-      </b-field>
-    </b-field>
-    <b-field label="Heart failure" :message="heartHelpText">
-      <b-field>
-        <b-radio-button v-model="heart" native-value="0" type="is-info">
-          <span>N/A</span>
-        </b-radio-button>
-
-        <b-radio-button v-model="heart" native-value="2" type="is-info">
-          <span>Class III</span>
-        </b-radio-button>
-
-        <b-radio-button v-model="heart" native-value="4" type="is-info">
-          <span>Class IV</span>
-        </b-radio-button>
-      </b-field>
-    </b-field>
-    <b-field label="End-stage renal disease" :message="renalHelpText">
-      <b-field>
-        <b-radio-button v-model="renalDisease" native-value="0" type="is-info">
-          <span>N/A</span>
-        </b-radio-button>
-
-        <b-radio-button v-model="renalDisease" native-value="2" type="is-info">
-          <span>Patients &leq; 75</span>
-        </b-radio-button>
-
-        <b-radio-button v-model="renalDisease" native-value="4" type="is-info">
-          <span>Patients &gt; 75</span>
-        </b-radio-button>
-      </b-field>
-    </b-field>
-    <b-field label="Cancer" :message="cancerHelpText">
-      <b-field>
-        <b-radio-button v-model="cancer" native-value="0" type="is-info">
-          <span>N/A</span>
-        </b-radio-button>
-
-        <b-radio-button v-model="cancer" native-value="2" type="is-info">
-          <span>&lt;10 year survival</span>
-        </b-radio-button>
-
-        <b-radio-button v-model="cancer" native-value="4" type="is-info">
-          <span>Paliative only</span>
-        </b-radio-button>
-      </b-field>
-    </b-field>
-    <b-field label="Chronic lung disease" :message="lungHelpText">
-      <b-field>
-        <b-radio-button v-model="lung" native-value="0" type="is-info">
-          <span>N/A</span>
-        </b-radio-button>
-
-        <b-radio-button v-model="lung" native-value="2" type="is-info">
-          <span>Moderate</span>
-        </b-radio-button>
-
-        <b-radio-button v-model="lung" native-value="4" type="is-info">
-          <span>Severe, frailty</span>
-        </b-radio-button>
-      </b-field>
-    </b-field>
-    <b-field label="Liver cirrhosis" :message="cirrhosisHelpText">
-      <b-field>
-        <b-radio-button v-model="cirrhosis" native-value="0" type="is-info">
-          <span>N/A</span>
-        </b-radio-button>
-
-        <b-radio-button v-model="cirrhosis" native-value="2" type="is-info">
-          <span>Decompensation</span>
-        </b-radio-button>
-
-        <b-radio-button v-model="cirrhosis" native-value="4" type="is-info">
-          <span>MELD ≥ 20</span>
-        </b-radio-button>
-      </b-field>
-    </b-field>
-    <b-field label="Other conditions"></b-field>
-    <b-field>
-      <b-checkbox-button v-model="otherConditions" native-value="CAD" expanded type="is-info">
-        <span>Severe multi-vessel CAD</span>
-      </b-checkbox-button>
-    </b-field>
-    <b-field :message="aidsHelpText">
-      <b-checkbox-button v-model="otherConditions" native-value="AIDS" expanded type="is-info">
-        <span>AIDS defining illness</span>
-      </b-checkbox-button>
-    </b-field>
-    <div class="has-text-centered priority-score" style="margin-top: 1.5em;">Co-Morbidity Points: {{ morbidityScore }}</div>
-  </section>
+	<section>
+		<div class="title has-text-centered">Co-morbidities {{ bracketScore(morbidityScore) }}</div>
+		<b-field v-for="option in optionsData()" :key="option.key" :label="option.Group + bracketScore(optionValues[option.Key])" label-position="default">
+			<b-select class="is-primary" v-model="optionValues[option.Key]" expanded>
+				<option v-for="(key, value) in option.Options" :key="key"
+					:value="value" v-html="key"
+				>
+				</option>
+			</b-select>
+		</b-field>
+	</section>
 </template>
 
 <script>
 export default {
-  data: function() {
-    const data = {
-      alzheimer: "0",
-      cancer: "0",
-      heart: "0",
-      lung: "0",
-      renalDisease: "0",
-      cirrhosis: "0",
-      otherConditions: []
-    }
-
-    return data
-  },
+	data() {
+		return {
+			optionValues: this.createData()
+		}
+	},
   computed: {
     morbidityScore() {
-      var mscore = Math.max(
-        this.alzheimer,
-        this.cancer,
-        this.heart,
-        this.lung,
-        this.renalDisease,
-        this.cirrhosis,
-        this.otherConditions.length > 0 ? 4 : 0
-			)
+			var mscore = 0
+			for (var option in this.optionValues)
+				mscore = Math.max(mscore, this.optionValues[option])
 			
 			this.$emit("morbidity-score-changed", mscore)
 
 			return mscore
-    },
-    alzheimerHelpText() {
-      if (this.alzheimer == "2")
-        return "Moderate Alzheimer's disease or related dementia.";
+		},
+	},
+  methods: {
+		createData() {
+			var data = {}
+			for (var option of this.optionsData())
+				data[option.Key] = "0"
 
-      if (this.alzheimer == "4")
-        return "Severe Alzheimer's disease or related dementia.";
-      return null;
+			return data
+		},
+    bracketScore(score) {
+      if (score != null && score != "0")
+        return ` (${score})`
+      else return ""
     },
-    renalHelpText() {
-      if (this.renalDisease == "2")
-        return "End-stage renal disease in patients younger than 75 years.";
-
-      if (this.renalDisease == "4")
-        return "End-stage renal disease in patients older than 75 years.";
-      return null;
-    },
-    lungHelpText() {
-      if (this.lung == "2")
-        return "Moderately severe chronic lung disease (e.g. COPD, IPF).";
-
-      if (this.lung == "4")
-        return "Severe chronic lung disease plus evidence of frailty.";
-      return null;
-    },
-    cirrhosisHelpText() {
-      if (this.cirrhosis == "2")
-        return "Cirrhosis with history of decompensation.";
-
-      if (this.cirrhosis == "4")
-        return "Cirrhosis with MELD score ≥ 20, ineligible for transplant.";
-      return null;
-    },
-    heartHelpText() {
-      if (this.heart == "2")
-        return "New York Heart Association Class III heart failure.";
-
-      if (this.heart == "4")
-        return "New York Heart Association Class IV heart failure, plus evidence of frailty.";
-      return null;
-    },
-    cancerHelpText() {
-      if (this.cancer == "2")
-        return "Malignancy with a < 10 year expected survival.";
-      if (this.cancer == "4")
-        return "Cancer being treated with only palliative interventions (incl. chemotherapy and radiation).";
-      return null;
-    },
-    aidsHelpText() {
-      if (this.otherConditions.includes("AIDS"))
-        return "AIDS defining illness, or viral load > 10,000 despite Rx.";
-      return null;
+    optionsData() {
+      return [
+        {
+          Section: "Co-morbidity",
+          Group: "Chronic renal disease",
+          Key: "renal",
+          Options: {
+            "0": "N/A",
+            "2": "GFR 59 to 31 ml/min (Stage 3)",
+            "3": "GFR 30 to 16 ml/min (Stage 4)",
+            "4": "GFR &leq; 15 ml/min (Stage 5) or dialysis"
+          },
+            Unit: "ml/min"
+        },
+        {
+          Section: "Co-morbidity",
+          Group: "Cancer/malignancy (expected survival)",
+          Key: "cancer",
+          Options: {
+            "0": "N/A",
+            "2": "&leq; 10 years",
+            "3": "&leq; 5 years",
+            "4": "&leq; 1 year"
+          },
+            Unit: "years"
+        },
+        {
+          Section: "Co-morbidity",
+          Group: "Chronic lung disease",
+          Key: "lung",
+          Options: {
+            "0": "N/A",
+            "1": "mMRC 1",
+            "2": "mMRC 2",
+            "3": "mMRC 3"
+          }
+        },
+        {
+          Section: "Co-morbidity",
+          Group: "Chronic cardiac failure",
+          Key: "cardiac",
+          Options: {
+            "0": "N/A",
+            "1": "NYHA 1",
+            "2": "NYHA 2",
+            "4": "NYHA 3"
+          }
+        },
+        {
+          Section: "Co-morbidity",
+          Group: "Burns",
+          Key: "burns",
+          Options: {
+            "0": "N/A",
+            "1": "ABSI < 6",
+            "2": "ABSI 6 to 7",
+            "3": "ABSI 8 to 9",
+            "4": "ABSI 10 to 11"
+          }
+        },
+        {
+          Section: "Co-morbidity",
+          Group: "Physical impairment",
+          Key: "physical",
+          Options: {
+            "0": "N/A",
+            "1": "Chronic connective tissue disorders",
+            "3": "> 75 years with hip fracture",
+            "4": "High spinal lesion C5 and above"
+          }
+        },
+        {
+          Section: "Co-morbidity",
+          Group: "Vascular disease",
+          Key: "vascular",
+          Options: {
+            "0": "N/A",
+            "1": "IHD (Angina), PVD, TIA, with symptoms",
+            "2": "Severe PVD (including non-traumatic amputation), myocardial infarction, stroke"
+          }
+        },
+        {
+          Section: "Co-morbidity",
+          Group: "Previous cardiac surgery requiring regular follow up",
+          Key: "surgery",
+          Options: {
+            "0": "No",
+            "2": "Yes"
+          }
+        },
+        {
+          Section: "Co-morbidity",
+          Group: "Hypertension",
+          Key: "hypertension",
+          Options: {
+            "0": "No",
+            "1": "Yes"
+          }
+        },
+        {
+          Section: "Co-morbidity",
+          Group: "Diabetes Mellitus",
+          Key: "diabetes",
+          Options: {
+            "0": "No",
+            "1": "Yes"
+          }
+        },
+        {
+          Section: "Co-morbidity",
+          Group: "BMI >= 35 in COVID-19",
+          Key: "bmi",
+          Options: {
+            "0": "No",
+            "1": "Yes"
+          }
+        },
+        {
+          Section: "Co-morbidity",
+          Group: "Patient on chronic immunosuppressive drugs",
+          Key: "drugs",
+          Options: {
+            "0": "No",
+            "2": "Yes"
+          }
+        },
+        {
+          Section: "Co-morbidity",
+          Group: "HIV: Detectable viral load, CD4 <= 200",
+          Key: "hiv",
+          Options: {
+            "0": "No",
+            "3": "Yes"
+          }
+        },
+        {
+          Section: "Co-morbidity",
+          Group: "Liver cirrhosis with history of decompensation",
+          Key: "liver",
+          Options: {
+            "0": "No",
+            "3": "Yes"
+          }
+        }
+      ]
     }
   }
-}
+};
 </script>
-
-<style scoped>
-.field.has-addons .control:first-child {
-  width: 3.5em;
-}
-.field.has-addons .control:not(:first-child) {
-  width: 50%;
-}
-</style>
