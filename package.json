@@ -2,7 +2,9 @@
   "name": "covid-tools",
   "version": "0.1.0",
   "description": "Simple tools for clinical management of covid patients.",
-  "keywords": ["Covid"],
+  "keywords": [
+    "Covid"
+  ],
   "author": "Sam Perumal",
   "license": "GPL-3.0-or-later",
   "scripts": {
@@ -12,6 +14,7 @@
     "deploy": "parcel build --no-source-maps -d . src/index.html --public-url https://samperumal.github.io/covid/"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "buefy": "^0.8.19",
     "moment": "^2.26.0",
     "vue": "^2.6.11",
