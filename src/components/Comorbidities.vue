@@ -1,7 +1,7 @@
 <template>
 	<section>
-		<div class="title">Co-morbidities</div>
-		<b-field v-for="option in optionsData()" :key="option.key" :label="option.Group + bracketScore(optionValues[option.Key])" label-position="inside">
+		<div class="title has-text-centered">Co-morbidities</div>
+		<b-field v-for="option in optionsData()" :key="option.key" :label="option.Group + bracketScore(optionValues[option.Key])" label-position="default">
 			<b-select class="is-primary" v-model="optionValues[option.Key]" expanded>
 				<option v-for="(key, value) in option.Options" :key="key"
 					:value="value" v-html="key"

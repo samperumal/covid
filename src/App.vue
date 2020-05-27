@@ -123,8 +123,8 @@ export default Vue.extend({
 }
 
 .label {
-  color: #4f7ec7;
-  font-variant: small-caps;
+  // color: #4f7ec7;
+  // font-variant: small-caps;
 }
 
 .reference {
