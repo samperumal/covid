@@ -2,7 +2,7 @@
 	<section>
 		<div class="container has-text-centered">
 			<div class="title">Western Cape Critical Care Triage Tool</div>
-			<div class="subtitle">v1.4 as at 14 May 2020</div>
+			<div class="subtitle">v1.2 as at 14 May 2020</div>
 			<div class="box is-6">
 				<div class="notice">
 					<div>
