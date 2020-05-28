@@ -2,11 +2,11 @@
 	<section>
 		<div class="container has-text-centered">
 			<div class="title">Western Cape Critical Care Triage Tool</div>
-			<div class="subtitle">v.14 as at 14 May 2020</div>
+			<div class="subtitle">v1.4 as at 14 May 2020</div>
 			<div class="box is-6">
 				<div class="notice">
 					<div>
-						<p><strong>This website has NOT been validated or approved by the <a href="https://www.samedical.org/">South African Medical Association (SAMA)</a> or the <a href="https://criticalcare.org.za/">Critical Care Society of
+						<p><strong>This website is NOT affiliated with the Western Cape Dept. of Health, and has NOT been validated or approved by the <a href="https://www.samedical.org/">South African Medical Association (SAMA)</a> or the <a href="https://criticalcare.org.za/">Critical Care Society of
 Southern Africa (CCSSA)</a>.</strong></p>
 						<p>It is intended solely for the use of qualified doctors who are already familiar with the guidelines, and who need an electronic aid to speed up the calculation of Priority Scores for triage management.</p>
 						<p>This application provides an interactive version of the triage flowchart presented in the <strong>WESTERN CAPE CRITICAL CARE TRIAGE TOOL</strong> documentation.</p>
