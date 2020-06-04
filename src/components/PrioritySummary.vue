@@ -3,6 +3,7 @@
     <div class="box has-text-centered" :class="priorityScore.bucket">
       <div class="bucket">{{ priorityScore.bucket}}</div>
       <div class="priority-score">Priority Score: {{ priorityScore.score }}</div>
+      <div class="priority-score">Baseline Sofa Score: {{ scores.sofa }}</div>
       <div class="ventilator">{{ priorityScore.ventilator }}</div>
       <div class="prioritisation">{{ priorityScore.prioritisation }}</div>
     </div>
