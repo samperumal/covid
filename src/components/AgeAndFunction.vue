@@ -8,13 +8,7 @@
 				<option value="2">&gt; 75 years</option>
 			</b-select>
 		</b-field>
-		<b-field label="Malignancy">
-			<b-select v-model="malignancy" expanded>
-				<option :value="false">No</option>
-				<option :value="true">Yes</option>
-			</b-select>
-		</b-field>
-		<b-field :label="'Clinical Frailty' + bracketScore(frailtyScore)" v-if="!malignancy">
+		<b-field :label="'Clinical Frailty' + bracketScore(frailtyScore)">
 			<b-select v-model="frailty" expanded>
 				<option value="1">1 - Very Fit</option>
 				<option value="2">2 - Well</option>
@@ -23,7 +17,7 @@
 				<option value="5">5 - Mildly Frail</option>
 			</b-select>
 		</b-field>
-		<b-field :label="'ECOG Performance Status' + bracketScore(ecog)" v-if="malignancy">
+		<b-field :label="'ECOG Performance Status' + bracketScore(ecog)">
 			<b-select v-model="ecog" expanded>
 				<option value="0">
 					0 - Fully active, able to carry on all pre-disease performance 
@@ -58,8 +52,7 @@ export default {
 		return {
 			age: "0",
 			frailty: "1",
-			ecog: "0",
-			malignancy: false
+			ecog: "0"
 		}
 	},
 	computed: {
@@ -78,7 +71,7 @@ export default {
 			else return 0
 		},
 		functionality() {
-			return this.malignancy ? (+this.ecog) : (+this.frailtyScore)
+			return Math.max((+this.ecog), (+this.frailtyScore))
 		}
 	},
 	methods: {
