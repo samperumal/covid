@@ -1,0 +1,9 @@
+{
+  "reporter": "junit",
+  "reporterOptions": {
+    "mochaFile": "results/test-report-[hash].xml",
+    "toConsole": false
+  },
+  "videoUploadOnPasses": false,
+  "chromeWebSecurity": false
+}

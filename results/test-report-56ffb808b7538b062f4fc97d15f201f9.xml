@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.612" tests="2" failures="0">
+  <testsuite name="Root Suite" timestamp="2020-06-04T19:36:40" tests="0" file="cypress\integration\landing_page.js" failures="0" time="0">
+  </testsuite>
+  <testsuite name="Landing page" timestamp="2020-06-04T19:36:40" tests="2" failures="0" time="0.612">
+    <testcase name="Landing page Disclaimer is shown on first load" time="0.46" classname="Disclaimer is shown on first load">
+    </testcase>
+    <testcase name="Landing page Button click to load scoring form" time="0.152" classname="Button click to load scoring form">
+    </testcase>
+  </testsuite>
+</testsuites>

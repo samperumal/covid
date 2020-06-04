@@ -29,3 +29,16 @@ Build a static version of the site to the `dist/` folder.
 ```
 yarn build
 ```
+
+## Test
+
+With the local dev server running:
+
+``
+npm run-script cypress
+``
+
+or non-interactive
+```
+npm run-script cypress:headless
+```
