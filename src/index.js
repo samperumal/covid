@@ -1,4 +1,7 @@
-import Vue from 'vue';
+import 'promise-polyfill/src/polyfill'
+import 'es6-object-assign/dist/object-assign-auto'
+
+import Vue from 'vue'
 
 import router from './router'
 

@@ -1,33 +1,36 @@
 <template>
   <section class="sofa">
-    <div id="sofa-title" class="title has-text-centered">Sequential Organ Failure Asessment {{ bracketScore(sofaPoints) }}</div>
+    <div id="sofa-title" class="title has-text-centered">Sequential Organ Failure Assessment {{ bracketScore(sofaPoints) }}</div>
     <b-field :label="'Respiration' + bracketScore(respiration)"></b-field>
-    <b-field grouped>
-      <p class="control">
-        <span class="">
-          PaO<sub class="subscript">2</sub>
-        </span>
-      </p>
-      <b-input v-model="respPaO2" expanded type="number" step="0.01" placeholder="Enter a value..."></b-input>
+    <b-field type="is-danger" :message="respPaO2Value.msg">
+      <b-field grouped>
+        <p class="control">
+          <span class="">
+            PaO<sub class="subscript">2</sub>
+          </span>
+        </p>
+        <b-input v-model="respPaO2" expanded placeholder="Enter a value..."></b-input>
 
-      <p class="control">
-        kPa
-      </p>
+        <p class="control">
+          kPa
+        </p>
+      </b-field>
     </b-field>
-    <b-field grouped>
-      <p class="control">
-        <span class="">
-          FiO<sub class="subscript">2</sub>
-        </span>
-      </p>
-      <b-input v-model="respFiO2" expanded type="number" step="0.01" placeholder="Enter a value..."></b-input>
-      <p class="control">
-        %
-      </p>
+    <b-field type="is-danger" :message="respFiO2Value.msg">
+      <b-field grouped>
+        <p class="control">
+          <span class="">
+            FiO<sub class="subscript">2</sub>
+          </span>
+        </p>
+        <b-input v-model="respFiO2" expanded placeholder="Enter a value..."></b-input>
+        <p class="control">
+          %
+        </p>
+      </b-field>
     </b-field>
     <b-field class="has-text-centered" v-if="respFrac != null" grouped>
-      <p class="control"></p>
-      <p class="control">
+      <div class="control is-expanded has-text-centered">
         <span class="button">
           PaO
           <span class="subscript">2</span>
@@ -36,8 +39,7 @@
           <span class="subscript">2</span>
           <span>&nbsp;=&nbsp;{{ respFrac }} kPa</span>
         </span>
-      </p>
-      <p class="control"></p>
+      </div>
     </b-field>
     <b-field :label="'Coagulation' + bracketScore(coagulation)">
       <b-field grouped>
@@ -218,9 +220,23 @@ export default {
       return pts
     },
     respFrac() {
-      if (this.respPaO2 != null && this.respFiO2 != null)
+      if (this.respPaO2Value.valid && this.respFiO2Value.valid)
         return Math.round(+this.respPaO2 / (+this.respFiO2 / 100) * 100) / 100
       else return null
+    },
+    respPaO2Value() {
+      const populated = this.respPaO2 != null && this.respPaO2.trim() != ""
+      const valid = populated && (+this.respPaO2) > 0 && (+this.respPaO2) < 100
+      const value = valid ? this.respPaO2 : 0
+      var msg = (populated && !valid) ? "Enter a positive number" : ""
+      return { populated, valid, value, msg }
+    },
+    respFiO2Value() {
+      const populated = this.respFiO2 != null && this.respFiO2.trim() != ""
+      const valid = populated && (+this.respFiO2) > 0 && (+this.respFiO2) < 100
+      const value = valid ? this.respFiO2 : 0
+      var msg = (populated && !valid) ? "Enter a positive number" : ""
+      return { populated, valid, value, msg }
     },
     respiration() {
       if (this.respFrac == null) return null
