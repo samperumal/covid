@@ -3,8 +3,6 @@ import 'es6-object-assign/dist/object-assign-auto'
 
 import Vue from 'vue'
 
-import router from './router'
-
 Vue.use(router)
 
 const moment = require("moment");
@@ -16,6 +14,9 @@ Vue.use(Buefy, {
 });
 Vue.config.productionTip = false;
 
+import router from './router'
+import store from './store/store'
+
 import App from './App';
 
 new Vue({
@@ -26,6 +27,7 @@ new Vue({
     }
   },
   router,
+  store,
   render: function (h) { return h(App, { props: { currentStage: this.currentStage } }); },
   mounted: function () { 
   }
