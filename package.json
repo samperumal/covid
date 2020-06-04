@@ -10,7 +10,8 @@
   "scripts": {
     "clean": "rm dist/bundle.js",
     "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "build": "parcel build src/index.html",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -22,10 +23,28 @@
   },
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.1.2",
+    "@vue/test-utils": "^1.0.3",
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^26.0.1",
+    "babel-preset-env": "^1.7.0",
     "browserslist": "^4.12.0",
     "caniuse-lite": "^1.0.30001064",
+    "jest": "^26.0.1",
     "parcel-bundler": "^1.12.4",
     "sass": "^1.26.5",
+    "vue-jest": "^3.0.5",
     "vue-template-compiler": "^2.6.11"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    }
   }
 }
