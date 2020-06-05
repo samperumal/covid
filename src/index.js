@@ -7,7 +7,7 @@ import router from './router'
 
 Vue.use(router)
 
-const moment = require("moment");
+import moment from 'moment';
 
 import Buefy from "buefy";
 Vue.use(Buefy, {
