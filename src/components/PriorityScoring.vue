@@ -5,7 +5,7 @@
 			v-on:function-score-changed="functionScoreChanged"
 		></age-and-function>
 		<hr />
-		<sofa v-on:sofa-changed="sofaChanged"></sofa>
+		<sofa v-on:sofa-changed="sofaChanged" storeMethod="setInitialSofa"></sofa>
 		<hr />
 		<comorbidities v-on:morbidity-score-changed="morbidityScoreChanged"></comorbidities>
 		<hr />
@@ -39,7 +39,7 @@ export default {
   methods: {
     sofaChanged(newScore) {
 			this.scores.sofa = newScore
-			this.$store.commit("changePriorityScore", this.scores)
+			// this.$store.commit("changePriorityScore", this.scores)
     },
     morbidityScoreChanged(newScore) {
       this.scores.morbidity = newScore

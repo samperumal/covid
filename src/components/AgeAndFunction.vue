@@ -76,8 +76,8 @@ export default {
 	},
 	methods: {
 		updateStore() {
-			console.log("click")
-			this.$store.commit("setFrailty", {
+			this.$store.commit("setAgeAndFunction", {
+				age: this.age,
 				ecog: this.ecog,
 				frailty: this.frailty
 			})

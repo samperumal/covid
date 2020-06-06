@@ -3,7 +3,7 @@
 		<div class="title has-text-centered">Co-morbidities {{ bracketScore(morbidityScore) }}</div>
 		<div class="block" v-for="option in optionsData()" :key="option.key">
       <b-field :label="option.Group + bracketScore(optionValues[option.Key])" :message="getMessage(option)">
-        <b-select class="is-primary" v-model="optionValues[option.Key]" expanded>
+        <b-select class="is-primary" v-model="optionValues[option.Key]" expanded @input="updateStore">
           <option v-for="(key, value) in option.Options" :key="key"
             :value="value" v-html="key"
           >
@@ -51,6 +51,11 @@ export default {
         return ` (${score[0]})`
       else return ""
     },
+		updateStore() {
+      var data = {}
+      Object.assign(data, this.optionValues)
+			this.$store.commit("setInitialComorbidities", data)
+		},
     optionsData() {
       return [
         {
