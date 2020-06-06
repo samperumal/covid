@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import FrailtyAssessment from '../components/FrailtyAssessment.vue'
 import PriorityScoring from '../components/PriorityScoring.vue'
 import Home from '../components/Home.vue'
 import ManagementPlan from '../components/ManagementPlan.vue'

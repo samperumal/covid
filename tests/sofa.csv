@@ -1,0 +1,9 @@
+respPaO2,respFiO2,coagulation,liver,cardiovascular,cardioMap,cardioDop,cardioEpi,cardioDob,nervous,renalCreat,renalUrine,respFrac,respiration
+10,10,,,,,,,,,,,100.00,0
+10,20,,,,,,,,,,,50.00,1
+10,30,,,,,,,,,,,33.33,2
+10,40,,,,,,,,,,,25.00,3
+10,50,,,,,,,,,,,20.00,3
+10,60,,,,,,,,,,,16.67,3
+10,70,,,,,,,,,,,14.29,3
+10,80,,,,,,,,,,,12.50,4

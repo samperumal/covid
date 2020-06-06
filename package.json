@@ -10,7 +10,8 @@
   "scripts": {
     "clean": "rm dist/bundle.js",
     "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "build": "parcel build src/index.html",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -24,10 +25,47 @@
   },
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.1.2",
+    "@vue/test-utils": "^1.0.3",
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^26.0.1",
+    "babel-preset-env": "^1.7.0",
     "browserslist": "^4.12.0",
     "caniuse-lite": "^1.0.30001064",
+    "csv-load-sync": "^1.0.0",
+    "eslint": "^7.1.0",
+    "eslint-plugin-vue": "^7.0.0-alpha.5",
+    "husky": "^4.2.5",
+    "jest": "^26.0.1",
     "parcel-bundler": "^1.12.4",
+    "prettier": "2.0.5",
+    "pretty-quick": "^2.0.1",
     "sass": "^1.26.5",
+    "vue-jest": "^3.0.5",
     "vue-template-compiler": "^2.6.11"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": false
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest"
+    },
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/vueSetup.js"
+    ]
   }
 }
