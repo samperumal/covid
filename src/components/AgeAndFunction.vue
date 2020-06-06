@@ -2,14 +2,14 @@
 	<section class="function">
 		<div class="title has-text-centered">Age and Function {{ bracketScore(ageAndFunction) }}</div>
 		<b-field :label="'Age' + bracketScore(age)">
-			<b-select v-model="age" expanded>
+			<b-select v-model="age" expanded @input="updateStore">
 				<option value="0">&lt; 65 years</option>
 				<option value="1">65 to 75 years</option>
 				<option value="2">&gt; 75 years</option>
 			</b-select>
 		</b-field>
 		<b-field :label="'Clinical Frailty' + bracketScore(frailtyScore)">
-			<b-select v-model="frailty" expanded>
+			<b-select v-model="frailty" expanded @input="updateStore">
 				<option value="1">1 - Very Fit</option>
 				<option value="2">2 - Well</option>
 				<option value="3">3 - Managing Well</option>
@@ -18,7 +18,7 @@
 			</b-select>
 		</b-field>
 		<b-field :label="'ECOG Performance Status' + bracketScore(ecog)">
-			<b-select v-model="ecog" expanded>
+			<b-select v-model="ecog" expanded @input="updateStore">
 				<option value="0">
 					0 - Fully active, able to carry on all pre-disease performance 
 					without restriction
@@ -75,6 +75,13 @@ export default {
 		}
 	},
 	methods: {
+		updateStore() {
+			console.log("click")
+			this.$store.commit("setFrailty", {
+				ecog: this.ecog,
+				frailty: this.frailty
+			})
+		},
     bracketScore(score) {
       if (score != null && score != "0")
         return ` (${score})`

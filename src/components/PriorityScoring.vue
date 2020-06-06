@@ -38,7 +38,8 @@ export default {
   },
   methods: {
     sofaChanged(newScore) {
-      this.scores.sofa = newScore
+			this.scores.sofa = newScore
+			this.$store.commit("changePriorityScore", this.scores)
     },
     morbidityScoreChanged(newScore) {
       this.scores.morbidity = newScore
