@@ -53,7 +53,9 @@ export default {
     },
 		updateStore() {
       var data = {}
-      Object.assign(data, this.optionValues)
+      for (var option in this.optionValues)
+        data[option] = +this.optionValues[option][0]
+        
 			this.$store.commit("setInitialComorbidities", data)
 		},
     optionsData() {
