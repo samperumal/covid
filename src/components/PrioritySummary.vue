@@ -11,7 +11,7 @@
     </div>
     <div class="box has-text-centered">
       <section class="summary">
-        <div class="subtitle">Score Summary</div>
+        <div class="subtitle">Priority Score Calculation</div>
         <div class="summary-table">
           <div class="left">Age</div>
           <div>{{ priorityScore.age }}</div>
@@ -22,7 +22,7 @@
           <div class="left">Co-morbidities</div>
           <div>{{ priorityScore.comorbidities }}</div>
           <hr />
-          <div class="left"><strong>Total</strong></div>
+          <div class="left"><strong>Priority Score</strong></div>
           <div>
             <strong>{{ priorityScore.score }}</strong>
           </div>

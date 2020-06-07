@@ -118,13 +118,21 @@ export const store = new Vuex.Store({
 
       return priorityScore
     },
-    comorbidityScore: (state) => (comorbidities) => {
+    comorbidityScore: () => (comorbidities) => {
       var totalScore = 0
       for (var comorbidity in comorbidities)
         totalScore = Math.max(totalScore, +comorbidities[comorbidity])
       return totalScore
     },
-    sofaScore: (state) => (sofa) => {
+    sofaScore: (state, getters) => (sofa) => {
+      var sofaPoints = getters.sofaPoints(sofa)
+      if (sofaPoints < 6) return 1
+      else if (sofaPoints < 9) return 2
+      else if (sofaPoints < 12) return 3
+      else if (sofaPoints >= 12) return 4
+      else throw new Error("Unrecognised sofa point total: " + sofaPoints)
+    },
+    sofaPoints: () => (sofa) => {
       var totalScore = 0
 
       // Calculate and map respiration fraction
