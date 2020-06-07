@@ -37,6 +37,9 @@
       <router-link to="priority">
         <div class="button is-info is-large">Begin Priority Scoring</div>
       </router-link>
+      <router-link to="reassessment">
+        <div class="button is-info is-large">Begin Re-assessment</div>
+      </router-link>
     </div>
   </section>
 </template>

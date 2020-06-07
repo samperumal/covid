@@ -45,6 +45,12 @@ function resetData() {
         liver: 0,
       },
     },
+    reassessment: {
+      basePriorityScore: 1,
+      baseSofaScore: 1,
+      hour48SofaScore: 1,
+      hour120SofaScore: 1,
+    },
   }
 }
 
@@ -69,6 +75,14 @@ export const store = new Vuex.Store({
     setInitialSofa(state, newSofa) {
       for (var key in newSofa)
         Vue.set(state.data.initialAssessment.sofa, key, +newSofa[key])
+    },
+    setReassessmentInputs(state, newReassessment) {
+      state.data.reassessment.basePriorityScore =
+        newReassessment.basePriorityScore
+      state.data.reassessment.baseSofaScore = newReassessment.baseSofaScore
+      state.data.reassessment.hour48SofaScore = newReassessment.hour48SofaScore
+      state.data.reassessment.hour120SofaScore =
+        newReassessment.hour120SofaScore
     },
     reset(state) {
       state.data = resetData()

@@ -94,14 +94,4 @@ export default {
   text-align: right;
   padding-right: 1em;
 }
-
-.instructions {
-  font-size: 0.75em;
-}
-
-.instructions ol {
-  list-style: default;
-  padding-left: 1em;
-  margin-top: 0.5em;
-}
 </style>

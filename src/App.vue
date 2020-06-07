@@ -129,4 +129,18 @@ export default Vue.extend({
   margin-top: 1em;
   // max-width: 10em;
 }
+
+.instructions {
+  font-size: 0.85em;
+}
+
+.instructions p,
+.instructions ol {
+  margin-bottom: 0.5em;
+}
+
+.instructions ol {
+  padding-left: 1em;
+  margin-left: 1em;
+}
 </style>
