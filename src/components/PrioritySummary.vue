@@ -22,12 +22,38 @@
           <div class="left">Co-morbidities</div>
           <div>{{ priorityScore.comorbidities }}</div>
           <hr />
-          <div class="left"><strong>Priority Score</strong></div>
+          <div class="left">
+            <strong>Priority Score</strong>
+          </div>
           <div>
             <strong>{{ priorityScore.score }}</strong>
           </div>
         </div>
       </section>
+    </div>
+    <div class="block instructions">
+      <div>
+        Admit referrals sequentially from red to orange to yellow to green
+        priority categories. If there are ties within a specific category,
+        tiebreakers will be used to prioritize patients:
+      </div>
+      <div>
+        <ol>
+          <li>
+            Number of co-morbidities: Preference to the patient with the least
+            number of co-morbidities.
+          </li>
+          <li>
+            Patient age groups (years) in following order: 12-40; 41-60; 61-75;
+            >75. Preference to the patient who have completed the least number
+            of life-cycles.
+          </li>
+          <li>
+            Individuals whose work supports provision of healthcare and
+            essential services to others.
+          </li>
+        </ol>
+      </div>
     </div>
   </section>
 </template>
@@ -67,5 +93,15 @@ export default {
 .summary-table div.left {
   text-align: right;
   padding-right: 1em;
+}
+
+.instructions {
+  font-size: 0.75em;
+}
+
+.instructions ol {
+  list-style: default;
+  padding-left: 1em;
+  margin-top: 0.5em;
 }
 </style>
