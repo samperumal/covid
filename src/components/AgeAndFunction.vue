@@ -166,7 +166,7 @@ export default {
           value: "-1",
           image: frail9,
         },
-      ]
+      ].filter((d) => +d.score <= 5)
     },
     ecogScaleData() {
       return [
