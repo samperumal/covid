@@ -50,7 +50,11 @@ export default {
 		functionScoreChanged(newScore) {
 			this.scores.functionality = newScore
 		}
-  },
+	},
+	mounted() {
+		this.$store.commit("reset")
+		console.log("reset")
+	},
 	components: {
 		Sofa,
 		AgeAndFunction,

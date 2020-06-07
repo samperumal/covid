@@ -10,9 +10,9 @@
 		</b-field>
 		<b-field :label="'Clinical Frailty' + bracketScore(frailtyScore)">
 			<b-select v-model="frailty" expanded @input="updateStore">
-				<option value="1">1 - Very Fit</option>
-				<option value="2">2 - Well</option>
-				<option value="3">3 - Managing Well</option>
+				<option value="0a">1 - Very Fit</option>
+				<option value="0b">2 - Well</option>
+				<option value="0c">3 - Managing Well</option>
 				<option value="4">4 - Vulnerable</option>
 				<option value="5">5 - Mildly Frail</option>
 			</b-select>
@@ -51,7 +51,7 @@ export default {
 	data() {
 		return {
 			age: "0",
-			frailty: "1",
+			frailty: "0a",
 			ecog: "0"
 		}
 	},
@@ -79,7 +79,7 @@ export default {
 			this.$store.commit("setAgeAndFunction", {
 				age: this.age,
 				ecog: this.ecog,
-				frailty: this.frailty
+				frailty: +this.frailty[0]
 			})
 		},
     bracketScore(score) {
