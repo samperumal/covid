@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <div class="columns is-centered is-mobile">
-      <div class="column is-full-mobile is-two-thirds-tablet is-half-desktop is-two-fifths-fullhd">
+      <div
+        class="column is-full-mobile is-two-thirds-tablet is-half-desktop is-two-fifths-fullhd"
+      >
         <nav id="navbar" class="breadcrumb" aria-label="breadcrumbs">
           <ul>
             <li v-for="(item, index) in navbarItems" :key="index">
@@ -14,9 +16,23 @@
         <hr />
         <section class="has-text-centered is-size-7">
           <div>Developed by Sameshan Perumal</div>
-          <div><a href="https://datacartographer.com">https://datacartographer.com</a></div>
-          <div class="reference">Contact</div><div><a href="mailto:info@datacartographer.com">info@datacartographer.com</a></div>
-          <div class="reference">Source Code</div><div><a href="https://github.com/samperumal/covid">https://github.com/samperumal/covid</a></div>
+          <div>
+            <a href="https://datacartographer.com"
+              >https://datacartographer.com</a
+            >
+          </div>
+          <div class="reference">Contact</div>
+          <div>
+            <a href="mailto:info@datacartographer.com"
+              >info@datacartographer.com</a
+            >
+          </div>
+          <div class="reference">Source Code</div>
+          <div>
+            <a href="https://github.com/samperumal/covid"
+              >https://github.com/samperumal/covid</a
+            >
+          </div>
         </section>
       </div>
     </div>
@@ -27,22 +43,19 @@
 import Vue from "vue"
 
 export default Vue.extend({
-  data: function() {
-    const data = {
-    }
+  data: function () {
+    const data = {}
 
     return data
   },
-  components: {
-  },
-  methods: {
-  },
+  components: {},
+  methods: {},
   computed: {
     navbarItems() {
       return this.$route.meta
-    }
-  }
-});
+    },
+  },
+})
 </script>
 
 <style lang="scss">

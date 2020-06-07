@@ -1,32 +1,33 @@
-import 'promise-polyfill/src/polyfill'
-import 'es6-object-assign/dist/object-assign-auto'
+import "promise-polyfill/src/polyfill"
+import "es6-object-assign/dist/object-assign-auto"
 
-import Vue from 'vue'
-
-import router from './router'
+import Vue from "vue"
+import router from "./router"
+import { store } from "./store/store"
 
 Vue.use(router)
 
-import moment from 'moment';
+import moment from "moment"
 
-import Buefy from "buefy";
+import Buefy from "buefy"
 Vue.use(Buefy, {
   defaultDateFormatter: (date) => moment(date).format("ddd, DD MMMM YYYY"),
-  defaultIconPack: 'fas',
-});
-Vue.config.productionTip = false;
+  defaultIconPack: "fas",
+})
 
-import App from './App';
+Vue.config.productionTip = false
+
+import App from "./App"
 
 new Vue({
-  el: '#app',
+  el: "#app",
   data() {
-    return {
-      
-    }
+    return {}
   },
   router,
-  render: function (h) { return h(App, { props: { currentStage: this.currentStage } }); },
-  mounted: function () { 
-  }
-});
+  store,
+  render: function (h) {
+    return h(App, { props: { currentStage: this.currentStage } })
+  },
+  mounted: function () {},
+})
