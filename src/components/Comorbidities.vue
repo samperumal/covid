@@ -24,6 +24,12 @@
         </b-select>
       </b-field>
     </div>
+    <div class="block has-text-centered">
+      <div class="subtitle">Co-morbidity score: {{ morbidityScore }}</div>
+      <div>
+        {{ morbidityScoreDescription }}
+      </div>
+    </div>
   </section>
 </template>
 
@@ -43,6 +49,20 @@ export default {
       this.$emit("morbidity-score-changed", mscore)
 
       return mscore + ""
+    },
+    morbidityScoreDescription() {
+      switch (this.morbidityScore) {
+        default:
+          return ""
+        case "1":
+          return "Co-morbidities present"
+        case "2":
+          return "10 year mortality risk"
+        case "3":
+          return "5 year mortality risk"
+        case "4":
+          return "Severely life-limiting conditions (death likely within 1 year)"
+      }
     },
   },
   methods: {
