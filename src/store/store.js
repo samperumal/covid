@@ -118,13 +118,13 @@ export const store = new Vuex.Store({
 
       return priorityScore
     },
-    comorbidityScore: (state) => (comorbidities) => {
+    comorbidityScore: () => (comorbidities) => {
       var totalScore = 0
       for (var comorbidity in comorbidities)
         totalScore = Math.max(totalScore, +comorbidities[comorbidity])
       return totalScore
     },
-    sofaScore: (state) => (sofa) => {
+    sofaScore: () => (sofa) => {
       var totalScore = 0
 
       // Calculate and map respiration fraction
