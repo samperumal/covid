@@ -5,13 +5,15 @@
       <div class="priority-score">
         Priority Score: {{ priorityScore.score }}
       </div>
-      <div class="priority-score">Baseline Sofa Score: {{ scores.sofa }}</div>
+      <div class="priority-score">
+        Baseline Sofa Score: {{ priorityScore.sofaPoints }}
+      </div>
       <div class="ventilator">{{ priorityScore.ventilator }}</div>
       <div class="prioritisation">{{ priorityScore.prioritisation }}</div>
     </div>
     <div class="box has-text-centered">
       <section class="summary">
-        <div class="subtitle">Priority Score Calculation</div>
+        <div class="subtitle">Points breakdown</div>
         <div class="summary-table">
           <div class="left">Age</div>
           <div>{{ priorityScore.age }}</div>
@@ -60,16 +62,6 @@
 
 <script>
 export default {
-  props: {
-    sofaScore: null,
-    morbidityScore: null,
-    scores: {
-      sofa: 0,
-      morbidity: 0,
-      age: 0,
-      functionality: 0,
-    },
-  },
   computed: {
     priorityScore() {
       return this.$store.getters.initialPriorityScore

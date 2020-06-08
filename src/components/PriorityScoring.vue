@@ -11,7 +11,7 @@
       v-on:morbidity-score-changed="morbidityScoreChanged"
     ></comorbidities>
     <hr />
-    <priority-summary :scores="scores"></priority-summary>
+    <priority-summary></priority-summary>
     <hr />
     <section class="container has-text-centered">
       <router-link to="/"
