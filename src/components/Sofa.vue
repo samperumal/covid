@@ -11,6 +11,7 @@
         </p>
         <b-input
           v-model="respPaO2"
+          @input="updateStore"
           expanded
           placeholder="Enter a value..."
         ></b-input>
@@ -27,6 +28,7 @@
         </p>
         <b-input
           v-model="respFiO2"
+          @input="updateStore"
           expanded
           placeholder="Enter a value..."
         ></b-input>
@@ -243,6 +245,11 @@ export default {
   },
   props: {
     storeMethod: String,
+  },
+  watch: {
+    storeMethod() {
+      this.updateStore()
+    },
   },
   methods: {
     bracketScore(score) {
