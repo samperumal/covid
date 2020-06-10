@@ -66,10 +66,10 @@ export default {
   computed: {
     ...mapGetters(["assessmentResult"]),
     agePoints() {
-      return this.assessmentResult.ageScore
+      return this.assessmentResult.scores.age
     },
     functionalityPoints() {
-      return this.assessmentResult.functionalityScore
+      return this.assessmentResult.scores.functionality
     },
     frailtyScore() {
       return +this.frailty[0]

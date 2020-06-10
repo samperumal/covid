@@ -123,48 +123,57 @@ export const store = new Vuex.Store({
         currentAction: null,
         previousAction: null,
 
-        ageScore: 0,
-        functionalityScore: 0,
-        comorbidityScore: 0,
+        scores: {
+          age: 0,
+          functionality: 0,
+          comorbidity: 0,
 
-        sofaPoints: 0,
-        sofaScore: 1,
+          sofaPoints: 0,
+          sofa: 1,
 
-        priorityScore: 0,
-        priorityScoreBucket: {},
+          priority: 1,
+
+          previousPriority: 1,
+          previousSofaPoints: 0,
+        },
       }
 
       if (state.data.assessmentPoint == ENUMS.INITIAL) {
         result.assessmentPoint = state.data.assessmentPoint
         result.initial = true
 
-        result.ageScore = state.data.scoring.age
-        result.functionalityScore = Math.max(
+        result.scores.age = state.data.scoring.age
+        result.scores.functionality = Math.max(
           state.data.scoring.functionality.ecog,
           state.data.scoring.functionality.frailty
         )
-        result.sofaPoints = getters.sofaPoints
-        result.sofaScore = getters.sofaScore(result.sofaPoints)
-        result.comorbidityScore = getters.comorbidityScore
+        result.scores.sofaPoints = getters.sofaPoints
+        result.scores.sofa = getters.sofaScore(result.scores.sofaPoints)
+        result.scores.comorbidity = getters.comorbidityScore
 
-        result.priorityScore =
-          result.ageScore +
-          result.functionalityScore +
-          result.sofaPoints +
-          result.comorbidityScore
+        result.scores.priorityScore =
+          result.scores.age +
+          result.scores.functionality +
+          result.scores.sofaPoints +
+          result.scores.comorbidity
 
-        result.currentAction = getters.priorityScoreBucket(result.priorityScore)
+        result.currentAction = getters.priorityScoreBucket(
+          result.scores.priorityScore
+        )
       } else if (state.data.assessmentPoint == ENUMS.HOUR48) {
         result.assessmentPoint = state.data.assessmentPoint
         result.hour48 = true
 
-        result.historic = state.data.historic
+        result.scores.previousPriorityScore =
+          state.data.historic.previousPriorityScore
+        result.scores.previousSofaPoints =
+          state.data.historic.previousSofaPoints
 
         result.previousAction = getters.priorityScoreBucket(
-          result.historic.previousPriorityScore
+          result.scores.previousPriorityScore
         )
         result.nextAction = getters.sofaPointsBucket(
-          result.historic.previousSofaPoints
+          result.scores.previousSofaPoints
         )
       }
 

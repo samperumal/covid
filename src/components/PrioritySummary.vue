@@ -1,34 +1,34 @@
 <template>
   <section>
-    <div class="box has-text-centered" :class="priorityScore.bucket">
-      <div class="bucket">{{ priorityScore.bucket }}</div>
+    <div class="box has-text-centered" :class="currentAction.bucket">
+      <div class="bucket">{{ currentAction.bucket }}</div>
       <div class="priority-score">
-        Priority Score: {{ assessmentResult.priorityScore }}
+        Priority Score: {{ assessmentResult.scores.priority }}
       </div>
       <div class="priority-score">
-        Baseline Sofa Points: {{ assessmentResult.sofaPoints }}
+        Baseline Sofa Points: {{ assessmentResult.scores.sofaPoints }}
       </div>
-      <div class="ventilator">{{ priorityScore.ventilator }}</div>
-      <div class="prioritisation">{{ priorityScore.prioritisation }}</div>
+      <div class="ventilator">{{ currentAction.ventilator }}</div>
+      <div class="prioritisation">{{ currentAction.prioritisation }}</div>
     </div>
     <div class="box has-text-centered">
       <section class="summary">
         <div class="subtitle">Points breakdown</div>
         <div class="summary-table">
           <div class="left">Age</div>
-          <div>{{ assessmentResult.ageScore }}</div>
+          <div>{{ assessmentResult.scores.age }}</div>
           <div class="left">Functionality</div>
-          <div>{{ assessmentResult.functionalityScore }}</div>
+          <div>{{ assessmentResult.scores.functionality }}</div>
           <div class="left">SOFA</div>
-          <div>{{ assessmentResult.sofaScore }}</div>
+          <div>{{ assessmentResult.scores.sofa }}</div>
           <div class="left">Co-morbidities</div>
-          <div>{{ assessmentResult.comorbidityScore }}</div>
+          <div>{{ assessmentResult.scores.comorbidity }}</div>
           <hr />
           <div class="left">
             <strong>Priority Score</strong>
           </div>
           <div>
-            <strong>{{ assessmentResult.priorityScore }}</strong>
+            <strong>{{ assessmentResult.scores.priority }}</strong>
           </div>
         </div>
       </section>
@@ -66,7 +66,7 @@ import { mapGetters } from "vuex"
 export default {
   computed: {
     ...mapGetters(["assessmentResult"]),
-    priorityScore() {
+    currentAction() {
       return this.assessmentResult.currentAction
     },
   },
