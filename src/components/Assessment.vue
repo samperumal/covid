@@ -49,14 +49,12 @@
         class="has-text-centered"
       >
         <div class="title">Assessment Result</div>
-        <div class="title">&nbsp;</div>
+
+        <reassessment-instructions></reassessment-instructions>
+
         <div class="subtitle">Patient was in Priority Category:</div>
 
-        <div class="box has-text-centered" :class="previousAction.bucket">
-          <div class="bucket">{{ previousAction.bucket }}</div>
-          <div class="ventilator">{{ previousAction.ventilator }}</div>
-          <div class="prioritisation">{{ previousAction.prioritisation }}</div>
-        </div>
+        <reassessment-category :action="previousAction"></reassessment-category>
 
         <div class="subtitle">
           Patient showed <strong>{{ assessmentResult.sofaText }}</strong> from
@@ -65,14 +63,11 @@
           >.
         </div>
         <div class="subtitle">
-          Recommend Patient {{ assessmentResult.changeText }} Priority Category:
+          Recommend Patient
+          <strong>{{ assessmentResult.changeText }}</strong> Priority Category:
         </div>
 
-        <div class="box has-text-centered" :class="nextAction.bucket">
-          <div class="bucket">{{ nextAction.bucket }}</div>
-          <div class="ventilator">{{ nextAction.ventilator }}</div>
-          <div class="prioritisation">{{ nextAction.prioritisation }}</div>
-        </div>
+        <reassessment-category :action="nextAction"></reassessment-category>
       </section>
     </div>
     <div class="column" v-if="false">
@@ -89,6 +84,8 @@ import AgeAndFunction from "./AgeAndFunction.vue"
 import Comorbidities from "./Comorbidities.vue"
 import PrioritySummary from "./PrioritySummary.vue"
 import AssessmentPoint from "./AssessmentPoint.vue"
+import ReassessmentInstructions from "./ReassessmentInstructions.vue"
+import ReassessmentCategory from "./ReassessmentCategory.vue"
 
 export default {
   data() {
@@ -121,6 +118,8 @@ export default {
     Comorbidities,
     PrioritySummary,
     AssessmentPoint,
+    ReassessmentInstructions,
+    ReassessmentCategory,
   },
 }
 </script>
