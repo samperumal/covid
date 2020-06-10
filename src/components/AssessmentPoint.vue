@@ -53,7 +53,7 @@ import * as ENUMS from "../enums"
 export default {
   data() {
     return {
-      assessmentPoint: ENUMS.HOUR48,
+      assessmentPoint: ENUMS.HOUR120,
     }
   },
   methods: {

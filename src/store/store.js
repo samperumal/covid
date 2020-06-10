@@ -174,6 +174,7 @@ export const store = new Vuex.Store({
         result.previousAction = getters.priorityScoreBucket(
           result.scores.previousPriorityScore
         )
+        result.previousAction.sofaPoints = result.scores.previousSofaPoints
 
         if (result.scores.sofaPoints < result.scores.previousSofaPoints) {
           result.nextAction = getters.sofaPointsBucket(result.scores.sofaPoints)
@@ -184,6 +185,40 @@ export const store = new Vuex.Store({
           )
           result.sofaText = "no improvement in SOFA score"
         }
+
+        result.nextAction.sofaPoints = result.scores.sofaPoints
+
+        if (result.nextAction.category === result.previousAction.category)
+          result.changeText = "stay in"
+        else result.changeText = "move to"
+      } else if (
+        state.data.assessmentPoint == ENUMS.HOUR120 ||
+        state.data.assessmentPoint == ENUMS.RECURRING
+      ) {
+        result.assessmentPoint = state.data.assessmentPoint
+        result.hour120 = true
+
+        result.scores.previousSofaPoints =
+          state.data.historic.previousSofaPoints
+
+        result.scores.sofaPoints = getters.sofaPoints
+
+        result.previousAction = getters.sofaPointsBucket(
+          result.scores.previousSofaPoints
+        )
+        result.previousAction.sofaPoints = result.scores.previousSofaPoints
+
+        if (result.scores.sofaPoints < result.scores.previousSofaPoints) {
+          result.nextAction = getters.sofaPointsBucket(result.scores.sofaPoints)
+          result.sofaText = "improvement in SOFA score"
+        } else {
+          result.nextAction = getters.sofaCategory(
+            result.previousAction.category + 1
+          )
+          result.sofaText = "no improvement in SOFA score"
+        }
+
+        result.nextAction.sofaPoints = result.scores.sofaPoints
 
         if (result.nextAction.category === result.previousAction.category)
           result.changeText = "stay in"

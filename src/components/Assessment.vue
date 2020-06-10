@@ -40,11 +40,56 @@
         <sofa></sofa>
         <hr />
       </section>
+
+      <section class="section" v-if="assessmentResult.hour120">
+        <div class="title has-text-centered">Previous Assessment Score</div>
+        <b-field
+          label="Previous SOFA Points"
+          message="Total SOFA points calculated at previous assessment"
+        >
+          <b-input
+            v-model="baselineSofaPoints"
+            @input="updateStore"
+            type="number"
+            min="1"
+            max="100"
+          ></b-input>
+        </b-field>
+        <hr />
+        <sofa></sofa>
+        <hr />
+      </section>
     </div>
     <div class="column">
       <priority-summary v-if="assessmentResult.initial"></priority-summary>
       <section
         v-if="assessmentResult.hour48"
+        style=""
+        class="has-text-centered"
+      >
+        <div class="title">Assessment Result</div>
+
+        <reassessment-instructions></reassessment-instructions>
+
+        <div class="subtitle">Patient was in Priority Category:</div>
+
+        <reassessment-category :action="previousAction"></reassessment-category>
+
+        <div class="subtitle">
+          Patient showed <strong>{{ assessmentResult.sofaText }}</strong> from
+          <strong>{{ assessmentResult.scores.previousSofaPoints }}</strong> to
+          <strong>{{ assessmentResult.scores.sofaPoints }}</strong
+          >.
+        </div>
+        <div class="subtitle">
+          Recommend Patient
+          <strong>{{ assessmentResult.changeText }}</strong> Priority Category:
+        </div>
+
+        <reassessment-category :action="nextAction"></reassessment-category>
+      </section>
+      <section
+        v-if="assessmentResult.hour120"
         style=""
         class="has-text-centered"
       >
