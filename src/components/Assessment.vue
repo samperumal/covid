@@ -2,6 +2,7 @@
   <div class="columns">
     <div class="column">
       <assessment-point></assessment-point>
+      <hr />
       <section v-if="assessmentResult.initial">
         <age-and-function></age-and-function>
         <hr />
@@ -10,7 +11,7 @@
         <comorbidities></comorbidities>
         <hr />
       </section>
-      <section class="section" v-if="assessmentResult.hour48">
+      <section class="" v-if="assessmentResult.hour48">
         <div class="title has-text-centered">Previous Assessment Scores</div>
         <b-field
           label="Baseline Priority Score"
@@ -41,7 +42,7 @@
         <hr />
       </section>
 
-      <section class="section" v-if="assessmentResult.hour120">
+      <section class="" v-if="assessmentResult.hour120">
         <div class="title has-text-centered">Previous Assessment Score</div>
         <b-field
           label="Previous SOFA Points"
@@ -59,14 +60,16 @@
         <sofa></sofa>
         <hr />
       </section>
+
+      <section class="section has-text-centered">
+        <router-link to="assessment">
+          <div class="button is-info is-large">Begin new Assessment</div>
+        </router-link>
+      </section>
     </div>
     <div class="column">
       <priority-summary v-if="assessmentResult.initial"></priority-summary>
-      <section
-        v-if="assessmentResult.hour48"
-        style=""
-        class="has-text-centered"
-      >
+      <section v-if="assessmentResult.hour48" style class="has-text-centered">
         <div class="title">Assessment Result</div>
 
         <reassessment-instructions></reassessment-instructions>
@@ -76,7 +79,8 @@
         <reassessment-category :action="previousAction"></reassessment-category>
 
         <div class="subtitle">
-          Patient showed <strong>{{ assessmentResult.sofaText }}</strong> from
+          Patient showed
+          <strong>{{ assessmentResult.sofaText }}</strong> from
           <strong>{{ assessmentResult.scores.previousSofaPoints }}</strong> to
           <strong>{{ assessmentResult.scores.sofaPoints }}</strong
           >.
@@ -88,11 +92,7 @@
 
         <reassessment-category :action="nextAction"></reassessment-category>
       </section>
-      <section
-        v-if="assessmentResult.hour120"
-        style=""
-        class="has-text-centered"
-      >
+      <section v-if="assessmentResult.hour120" style class="has-text-centered">
         <div class="title">Assessment Result</div>
 
         <reassessment-instructions></reassessment-instructions>
@@ -102,7 +102,8 @@
         <reassessment-category :action="previousAction"></reassessment-category>
 
         <div class="subtitle">
-          Patient showed <strong>{{ assessmentResult.sofaText }}</strong> from
+          Patient showed
+          <strong>{{ assessmentResult.sofaText }}</strong> from
           <strong>{{ assessmentResult.scores.previousSofaPoints }}</strong> to
           <strong>{{ assessmentResult.scores.sofaPoints }}</strong
           >.
