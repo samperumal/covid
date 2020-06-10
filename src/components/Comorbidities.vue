@@ -46,8 +46,6 @@ export default {
       for (var option in this.optionValues)
         mscore = Math.max(mscore, +this.optionValues[option][0])
 
-      this.$emit("morbidity-score-changed", mscore)
-
       return mscore + ""
     },
     morbidityScoreDescription() {
@@ -86,7 +84,7 @@ export default {
       for (var option in this.optionValues)
         data[option] = +this.optionValues[option][0]
 
-      this.$store.commit("setInitialComorbidities", data)
+      this.$store.commit("setComorbidities", data)
     },
     optionsData() {
       return [

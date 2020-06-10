@@ -53,6 +53,8 @@ import frail7 from "../img/frail7.png"
 import frail8 from "../img/frail8.png"
 import frail9 from "../img/frail9.png"
 
+import { mapGetters } from "vuex"
+
 export default {
   data() {
     return {
@@ -62,11 +64,12 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(["assessmentResult"]),
     agePoints() {
-      return this.$store.getters.initialPriorityScore.age
+      return this.assessmentResult.ageScore
     },
     functionalityPoints() {
-      return this.$store.getters.initialPriorityScore.functionality
+      return this.assessmentResult.functionalityScore
     },
     frailtyScore() {
       return +this.frailty[0]

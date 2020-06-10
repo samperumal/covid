@@ -4,6 +4,7 @@ import PriorityScoring from "../components/PriorityScoring.vue"
 import Home from "../components/Home.vue"
 import ManagementPlan from "../components/ManagementPlan.vue"
 import Reassessment from "../components/Reassessment.vue"
+import Assessment from "../components/Assessment.vue"
 
 Vue.use(Router)
 
@@ -40,6 +41,15 @@ export default new Router({
       meta: [
         { to: "/", text: "Home" },
         { to: "/reassessment", text: "Re-assessment" },
+      ],
+    },
+    {
+      path: "/assessment",
+      name: "Assessment",
+      component: Assessment,
+      meta: [
+        { to: "/", text: "Home" },
+        { to: "/assessment", text: "Assessment" },
       ],
     },
     {

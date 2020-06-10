@@ -114,63 +114,42 @@ export const store = new Vuex.Store({
   getters: {
     assessmentResult(state, getters) {
       const result = {
-        assessmentPoint: state.assessmentPoint,
+        assessmentPoint: null,
         initial: false,
         hour48: false,
         hour120: false,
         recurring: false,
+
+        ageScore: 0,
+        functionalityScore: 0,
+        sofaPoints: 1,
+        comorbidityScore: 0,
+
+        priorityScore: 0,
       }
 
-      if (state.assessmentPoint === ENUMS.INITIAL) {
+      if (state.data.assessmentPoint == ENUMS.INITIAL) {
+        result.assessmentPoint = state.data.assessmentPoint
         result.initial = true
 
-        result.ageScore = state.scoring.age
+        result.ageScore = state.data.scoring.age
         result.functionalityScore = Math.max(
-          state.scoring.functionality.ecog,
-          state.scoring.functionality.frailty
+          state.data.scoring.functionality.ecog,
+          state.data.scoring.functionality.frailty
         )
-        result.sofaPoints = getters.sofaPoints()
-        result.comorbidityScore = getters.comorbidityScore()
+        result.sofaPoints = getters.sofaPoints
+        result.comorbidityScore = getters.comorbidityScore
 
         result.priorityScore =
-          result.priorityScore.ageScore +
-          result.priorityScore.functionalityScore +
-          result.priorityScore.sofaPoints +
-          result.priorityScore.comorbidityScore
+          result.ageScore +
+          result.functionalityScore +
+          result.sofaPoints +
+          result.comorbidityScore
 
-        result.currentAction = getters.priorityScoreBucket(result.priorityScore)
+        //result.currentAction = getters.priorityScoreBucket(result.priorityScore)
       }
 
       return result
-    },
-    initialPriorityScore: (state, getters) => {
-      const ia = state.data.initialAssessment
-      const functionalityScore = Math.max(ia.frailty, ia.ecog)
-
-      var sofaPoints = getters.sofaPoints(ia.sofa)
-
-      var priorityScoreResult = {
-        age: ia.age,
-        functionality: functionalityScore,
-        sofa: getters.sofaScore(sofaPoints),
-        comorbidities: getters.comorbidityScore(ia.comorbidities),
-        sofaPoints: sofaPoints,
-      }
-
-      var pScore =
-        priorityScoreResult.sofa +
-        priorityScoreResult.comorbidities +
-        priorityScoreResult.age +
-        priorityScoreResult.functionality
-
-      priorityScoreResult.score = pScore
-
-      priorityScoreResult = getters.priorityScoreBucket(
-        pScore,
-        priorityScoreResult
-      )
-
-      return priorityScoreResult
     },
     priorityScoreBucket: () => (pScore) => {
       const priorityScoreResult = {}
@@ -232,8 +211,11 @@ export const store = new Vuex.Store({
     },
     comorbidityScore(state) {
       var totalScore = 0
-      for (var comorbidity in state.scoring.comorbidities)
-        totalScore = Math.max(totalScore, +comorbidities[comorbidity])
+      for (var comorbidity in state.data.scoring.comorbidities)
+        totalScore = Math.max(
+          totalScore,
+          +state.data.scoring.comorbidities[comorbidity]
+        )
       return totalScore
     },
     sofaScore: () => (sofaPoints) => {
@@ -244,7 +226,7 @@ export const store = new Vuex.Store({
       else throw new Error("Unrecognised sofa point total: " + sofaPoints)
     },
     sofaPoints(state) {
-      const sofa = state.scoring.sofa
+      const sofa = state.data.scoring.sofa
       var totalScore = 0
 
       // Calculate and map respiration fraction

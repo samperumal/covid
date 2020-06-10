@@ -243,14 +243,6 @@ export default {
 
     return data
   },
-  props: {
-    storeMethod: String,
-  },
-  watch: {
-    storeMethod() {
-      this.updateStore()
-    },
-  },
   methods: {
     bracketScore(score) {
       if (score != null && score != "0") return ` (${score})`
@@ -270,7 +262,7 @@ export default {
         renalCreat: this.renalCreat,
         renalUrine: this.renalUrine,
       }
-      this.$store.commit(this.storeMethod, data)
+      this.$store.commit("setSofa", data)
     },
   },
   computed: {
