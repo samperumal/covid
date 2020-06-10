@@ -53,8 +53,8 @@ function resetData() {
       comorbidities: initComorbidityData(),
     },
     historic: {
-      baselinePriorityScore: 1,
-      baselineSofaScore: 1,
+      previousPriorityScore: 1,
+      previousSofaPoints: 1,
       hour48SofaScore: 1,
       prevSofaScore: 1,
     },
@@ -93,13 +93,13 @@ export const store = new Vuex.Store({
       }
     },
     setHistoric(state, newHistoric) {
-      state.data.historic.baselinePriorityScore = Math.max(
+      state.data.historic.previousPriorityScore = Math.max(
         1,
-        newHistoric.baselinePriorityScore
+        newHistoric.previousPriorityScore
       )
-      state.data.historic.baselineSofaScore = Math.max(
+      state.data.historic.previousSofaPoints = Math.max(
         1,
-        newHistoric.baselineSofaScore
+        newHistoric.previousSofaPoints
       )
       state.data.historic.hour48SofaScore = Math.max(
         1,
@@ -119,6 +119,9 @@ export const store = new Vuex.Store({
         hour48: false,
         hour120: false,
         recurring: false,
+
+        currentAction: null,
+        previousAction: null,
 
         ageScore: 0,
         functionalityScore: 0,
@@ -151,6 +154,18 @@ export const store = new Vuex.Store({
           result.comorbidityScore
 
         result.currentAction = getters.priorityScoreBucket(result.priorityScore)
+      } else if (state.data.assessmentPoint == ENUMS.HOUR48) {
+        result.assessmentPoint = state.data.assessmentPoint
+        result.hour48 = true
+
+        result.historic = state.data.historic
+
+        result.previousAction = getters.priorityScoreBucket(
+          result.historic.previousPriorityScore
+        )
+        result.nextAction = getters.sofaPointsBucket(
+          result.historic.previousSofaPoints
+        )
       }
 
       return result
@@ -159,23 +174,27 @@ export const store = new Vuex.Store({
       const priorityScoreResult = {}
 
       if (pScore < 4) {
+        priorityScoreResult.order = 1
         priorityScoreResult.bucket = "red"
         priorityScoreResult.ventilator =
           "Highest priority for ventilator support."
         priorityScoreResult.prioritisation =
           "Receive priority over all other groups in face of scarce resources."
-      } else if (pScore < 6) {
+      } else if (pScore < 7) {
+        priorityScoreResult.order = 2
         priorityScoreResult.bucket = "orange"
         priorityScoreResult.ventilator =
           "Intermediate priority for ventilator support."
         priorityScoreResult.prioritisation =
           "Receive resources if available after all patients in red group allocated."
       } else if (pScore < 10) {
+        priorityScoreResult.order = 3
         priorityScoreResult.bucket = "yellow"
         priorityScoreResult.ventilator = "Low priority for ventilator support."
         priorityScoreResult.prioritisation =
           "Receive resources if available after all patients in red and orange groups allocated."
       } else {
+        priorityScoreResult.order = 4
         priorityScoreResult.bucket = "green"
         priorityScoreResult.ventilator =
           "Lowest priority for ventilator support."
@@ -184,34 +203,38 @@ export const store = new Vuex.Store({
 
       return priorityScoreResult
     },
-    sofaScoreBucket: () => (sofaScore) => {
-      var sofaScoreResult = {}
+    sofaPointsBucket: () => (sofaPoints) => {
+      var sofaPointsResult = {}
 
-      if (sofaScore < 6) {
-        sofaScoreResult.bucket = "red"
-        sofaScoreResult.ventilator =
+      if (sofaPoints < 6) {
+        sofaPointsResult.order = 1
+        sofaPointsResult.bucket = "red"
+        sofaPointsResult.ventilator =
           "Highest priority for continued ICU support."
-        sofaScoreResult.prioritisation =
+        sofaPointsResult.prioritisation =
           "Receive priority over all other groups in face of scarce resources."
-      } else if (sofaScore < 9) {
-        sofaScoreResult.bucket = "orange"
-        sofaScoreResult.ventilator =
+      } else if (sofaPoints < 9) {
+        sofaPointsResult.order = 2
+        sofaPointsResult.bucket = "orange"
+        sofaPointsResult.ventilator =
           "Intermediate priority for continued ICU support."
-        sofaScoreResult.prioritisation =
+        sofaPointsResult.prioritisation =
           "Receive resources if available after all patients in red group allocated."
-      } else if (sofaScore < 12) {
-        sofaScoreResult.bucket = "yellow"
-        sofaScoreResult.ventilator = "Low priority for continued ICU support."
-        sofaScoreResult.prioritisation =
+      } else if (sofaPoints < 12) {
+        sofaPointsResult.order = 3
+        sofaPointsResult.bucket = "yellow"
+        sofaPointsResult.ventilator = "Low priority for continued ICU support."
+        sofaPointsResult.prioritisation =
           "Receive resources if available after all patients in red and orange groups allocated."
       } else {
-        sofaScoreResult.bucket = "green"
-        sofaScoreResult.ventilator =
+        sofaPointsResult.order = 4
+        sofaPointsResult.bucket = "green"
+        sofaPointsResult.ventilator =
           "Lowest priority for continued ICU support."
-        sofaScoreResult.prioritisation = "Palliation strongly suggested."
+        sofaPointsResult.prioritisation = "Palliation strongly suggested."
       }
 
-      return sofaScoreResult
+      return sofaPointsResult
     },
     comorbidityScore(state) {
       var totalScore = 0
