@@ -11,6 +11,7 @@
         <hr />
       </section>
       <section class="section" v-if="assessmentResult.hour48">
+        <div class="title has-text-centered">Previous Assessment Scores</div>
         <b-field
           label="Baseline Priority Score"
           message="Priority score calculated at initial admission"
@@ -35,12 +36,46 @@
             max="100"
           ></b-input>
         </b-field>
+        <hr />
+        <sofa></sofa>
+        <hr />
       </section>
     </div>
-    <div class="column" v-if="assessmentResult.initial">
-      <priority-summary></priority-summary>
+    <div class="column">
+      <priority-summary v-if="assessmentResult.initial"></priority-summary>
+      <section
+        v-if="assessmentResult.hour48"
+        style=""
+        class="has-text-centered"
+      >
+        <div class="title">Assessment Result</div>
+        <div class="title">&nbsp;</div>
+        <div class="subtitle">Patient was in Priority Category:</div>
+
+        <div class="box has-text-centered" :class="previousAction.bucket">
+          <div class="bucket">{{ previousAction.bucket }}</div>
+          <div class="ventilator">{{ previousAction.ventilator }}</div>
+          <div class="prioritisation">{{ previousAction.prioritisation }}</div>
+        </div>
+
+        <div class="subtitle">
+          Patient showed <strong>{{ assessmentResult.sofaText }}</strong> from
+          <strong>{{ assessmentResult.scores.previousSofaPoints }}</strong> to
+          <strong>{{ assessmentResult.scores.sofaPoints }}</strong
+          >.
+        </div>
+        <div class="subtitle">
+          Recommend Patient {{ assessmentResult.changeText }} Priority Category:
+        </div>
+
+        <div class="box has-text-centered" :class="nextAction.bucket">
+          <div class="bucket">{{ nextAction.bucket }}</div>
+          <div class="ventilator">{{ nextAction.ventilator }}</div>
+          <div class="prioritisation">{{ nextAction.prioritisation }}</div>
+        </div>
+      </section>
     </div>
-    <div class="column" v-if="true">
+    <div class="column" v-if="false">
       <pre>{{ assessmentResult }}</pre>
     </div>
   </div>
@@ -73,6 +108,12 @@ export default {
   },
   computed: {
     ...mapGetters(["assessmentResult"]),
+    previousAction() {
+      return this.assessmentResult.previousAction
+    },
+    nextAction() {
+      return this.assessmentResult.nextAction
+    },
   },
   components: {
     Sofa,
