@@ -3,6 +3,8 @@ import Vuex from "vuex"
 
 Vue.use(Vuex)
 
+import * as ENUMS from "../enums"
+
 function initSofaData() {
   return {
     respPaO2: 0,
@@ -19,44 +21,42 @@ function initSofaData() {
   }
 }
 
+function initComorbidityData() {
+  return {
+    renal: 0,
+    cancer: 0,
+    lung: 0,
+    cardiac: 0,
+    burns: 0,
+    physical: 0,
+    vascular: 0,
+    surgery: 0,
+    hypertension: 0,
+    diabetes: 0,
+    bmi: 0,
+    drugs: 0,
+    hiv: 0,
+    liver: 0,
+  }
+}
+
 function resetData() {
   return {
-    priorityScore: {
+    assessmentPoint: ENUMS.INITIAL,
+    scoring: {
       age: 0,
-      functionality: 0,
-      sofa: 0,
-      morbidity: 0,
-    },
-    initialAssessment: {
-      age: 0,
-      ecog: 0,
-      frailty: 0,
-      sofa: initSofaData(),
-      comorbidities: {
-        renal: 0,
-        cancer: 0,
-        lung: 0,
-        cardiac: 0,
-        burns: 0,
-        physical: 0,
-        vascular: 0,
-        surgery: 0,
-        hypertension: 0,
-        diabetes: 0,
-        bmi: 0,
-        drugs: 0,
-        hiv: 0,
-        liver: 0,
+      functionality: {
+        ecog: 0,
+        frailty: 0,
       },
+      sofa: initSofaData(),
+      comorbidities: initComorbidityData(),
     },
-    reassessment: {
-      assessmentPoint: "initial",
-      basePriorityScore: 1,
-      baseSofaScore: 1,
-      hour48Sofa: initSofaData(),
+    historic: {
+      baselinePriorityScore: 1,
+      baselineSofaScore: 1,
       hour48SofaScore: 1,
-      hour120Sofa: initSofaData(),
-      hour120SofaScore: 1,
+      prevSofaScore: 1,
     },
   }
 }
@@ -67,42 +67,82 @@ export const store = new Vuex.Store({
   },
   mutations: {
     setAgeAndFunction(state, newFrailty) {
-      state.data.initialAssessment.age = +newFrailty.age
-      state.data.initialAssessment.ecog = +newFrailty.ecog
-      state.data.initialAssessment.frailty = +newFrailty.frailty
+      state.data.scoring.age = +newFrailty.age
+      state.data.scoring.functionality.ecog = +newFrailty.ecog
+      state.data.scoring.functionality.frailty = +newFrailty.frailty
     },
-    setInitialComorbidities(state, newComorbidities) {
+    setComorbidities(state, newComorbidities) {
       for (var key in newComorbidities)
-        Vue.set(
-          state.data.initialAssessment.comorbidities,
-          key,
-          +newComorbidities[key]
-        )
+        Vue.set(state.data.scoring.comorbidities, key, +newComorbidities[key])
     },
-    setInitialSofa(state, newSofa) {
+    setSofa(state, newSofa) {
       for (var key in newSofa)
-        Vue.set(state.data.initialAssessment.sofa, key, +newSofa[key])
+        Vue.set(state.data.scoring.sofa, key, +newSofa[key])
     },
-    setHour48Sofa(state, newSofa) {
-      for (var key in newSofa)
-        Vue.set(state.data.reassessment.hour48Sofa, key, +newSofa[key])
+    setAssessmentPoint(state, newAssessmentPoint) {
+      switch (newAssessmentPoint) {
+        case ENUMS.INITIAL:
+        case ENUMS.HOUR48:
+        case ENUMS.HOUR120:
+        case ENUMS.RECURRING:
+          state.data.assessmentPoint = newAssessmentPoint
+          break
+
+        default:
+          throw new Error("Unknown assessment point")
+      }
     },
-    setHour120Sofa(state, newSofa) {
-      for (var key in newSofa)
-        Vue.set(state.data.reassessment.hour120Sofa, key, +newSofa[key])
-    },
-    setReassessmentInputs(state, newReassessment) {
-      state.data.reassessment.assessmentPoint = newReassessment.assessmentPoint
-      state.data.reassessment.basePriorityScore =
-        newReassessment.basePriorityScore
-      state.data.reassessment.baseSofaScore = newReassessment.baseSofaScore
-      state.data.reassessment.hour48SofaScore = newReassessment.hour48SofaScore
+    setHistoric(state, newHistoric) {
+      state.data.historic.baselinePriorityScore = Math.max(
+        1,
+        newHistoric.baselinePriorityScore
+      )
+      state.data.historic.baselineSofaScore = Math.max(
+        1,
+        newHistoric.baselineSofaScore
+      )
+      state.data.historic.hour48SofaScore = Math.max(
+        1,
+        newHistoric.hour48SofaScore
+      )
+      state.data.historic.prevSofaScore = Math.max(1, newHistoric.prevSofaScore)
     },
     reset(state) {
       state.data = resetData()
     },
   },
   getters: {
+    assessmentResult(state, getters) {
+      const result = {
+        assessmentPoint: state.assessmentPoint,
+        initial: false,
+        hour48: false,
+        hour120: false,
+        recurring: false,
+      }
+
+      if (state.assessmentPoint === ENUMS.INITIAL) {
+        result.initial = true
+
+        result.ageScore = state.scoring.age
+        result.functionalityScore = Math.max(
+          state.scoring.functionality.ecog,
+          state.scoring.functionality.frailty
+        )
+        result.sofaPoints = getters.sofaPoints()
+        result.comorbidityScore = getters.comorbidityScore()
+
+        result.priorityScore =
+          result.priorityScore.ageScore +
+          result.priorityScore.functionalityScore +
+          result.priorityScore.sofaPoints +
+          result.priorityScore.comorbidityScore
+
+        result.currentAction = getters.priorityScoreBucket(result.priorityScore)
+      }
+
+      return result
+    },
     initialPriorityScore: (state, getters) => {
       const ia = state.data.initialAssessment
       const functionalityScore = Math.max(ia.frailty, ia.ecog)
@@ -132,7 +172,9 @@ export const store = new Vuex.Store({
 
       return priorityScoreResult
     },
-    priorityScoreBucket: () => (pScore, priorityScoreResult) => {
+    priorityScoreBucket: () => (pScore) => {
+      const priorityScoreResult = {}
+
       if (pScore < 4) {
         priorityScoreResult.bucket = "red"
         priorityScoreResult.ventilator =
@@ -188,9 +230,9 @@ export const store = new Vuex.Store({
 
       return sofaScoreResult
     },
-    comorbidityScore: () => (comorbidities) => {
+    comorbidityScore(state) {
       var totalScore = 0
-      for (var comorbidity in comorbidities)
+      for (var comorbidity in state.scoring.comorbidities)
         totalScore = Math.max(totalScore, +comorbidities[comorbidity])
       return totalScore
     },
@@ -201,7 +243,8 @@ export const store = new Vuex.Store({
       else if (sofaPoints >= 12) return 4
       else throw new Error("Unrecognised sofa point total: " + sofaPoints)
     },
-    sofaPoints: () => (sofa) => {
+    sofaPoints(state) {
+      const sofa = state.scoring.sofa
       var totalScore = 0
 
       // Calculate and map respiration fraction
