@@ -3,10 +3,10 @@
     <div class="box has-text-centered" :class="priorityScore.bucket">
       <div class="bucket">{{ priorityScore.bucket }}</div>
       <div class="priority-score">
-        Priority Score: {{ priorityScore.score }}
+        Priority Score: {{ assessmentResult.priorityScore }}
       </div>
       <div class="priority-score">
-        Baseline Sofa Score: {{ priorityScore.sofaPoints }}
+        Baseline Sofa Points: {{ assessmentResult.sofaPoints }}
       </div>
       <div class="ventilator">{{ priorityScore.ventilator }}</div>
       <div class="prioritisation">{{ priorityScore.prioritisation }}</div>
@@ -16,19 +16,19 @@
         <div class="subtitle">Points breakdown</div>
         <div class="summary-table">
           <div class="left">Age</div>
-          <div>{{ priorityScore.age }}</div>
+          <div>{{ assessmentResult.ageScore }}</div>
           <div class="left">Functionality</div>
-          <div>{{ priorityScore.functionality }}</div>
+          <div>{{ assessmentResult.functionalityScore }}</div>
           <div class="left">SOFA</div>
-          <div>{{ priorityScore.sofa }}</div>
+          <div>{{ assessmentResult.sofaScore }}</div>
           <div class="left">Co-morbidities</div>
-          <div>{{ priorityScore.comorbidities }}</div>
+          <div>{{ assessmentResult.comorbidityScore }}</div>
           <hr />
           <div class="left">
             <strong>Priority Score</strong>
           </div>
           <div>
-            <strong>{{ priorityScore.score }}</strong>
+            <strong>{{ assessmentResult.priorityScore }}</strong>
           </div>
         </div>
       </section>
@@ -61,10 +61,13 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex"
+
 export default {
   computed: {
+    ...mapGetters(["assessmentResult"]),
     priorityScore() {
-      return this.$store.getters.initialPriorityScore
+      return this.assessmentResult.currentAction
     },
   },
 }

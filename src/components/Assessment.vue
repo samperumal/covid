@@ -56,9 +56,11 @@
         <hr />
       </section>
     </div>
+    <div class="column" v-if="assessmentResult.initial">
+      <priority-summary></priority-summary>
+    </div>
     <div class="column">
       <pre style="position: fixed;">{{ assessmentResult }}</pre>
-      <!-- <priority-summary></priority-summary> -->
     </div>
   </div>
 </template>

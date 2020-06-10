@@ -122,10 +122,13 @@ export const store = new Vuex.Store({
 
         ageScore: 0,
         functionalityScore: 0,
-        sofaPoints: 1,
         comorbidityScore: 0,
 
+        sofaPoints: 0,
+        sofaScore: 1,
+
         priorityScore: 0,
+        priorityScoreBucket: {},
       }
 
       if (state.data.assessmentPoint == ENUMS.INITIAL) {
@@ -138,6 +141,7 @@ export const store = new Vuex.Store({
           state.data.scoring.functionality.frailty
         )
         result.sofaPoints = getters.sofaPoints
+        result.sofaScore = getters.sofaScore(result.sofaPoints)
         result.comorbidityScore = getters.comorbidityScore
 
         result.priorityScore =
@@ -146,7 +150,7 @@ export const store = new Vuex.Store({
           result.sofaPoints +
           result.comorbidityScore
 
-        //result.currentAction = getters.priorityScoreBucket(result.priorityScore)
+        result.currentAction = getters.priorityScoreBucket(result.priorityScore)
       }
 
       return result
