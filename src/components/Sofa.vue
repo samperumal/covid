@@ -55,7 +55,7 @@
           <span class="">Platelets</span>
         </p>
         <b-select
-          v-model="coagulation"
+          v-model.number="coagulation"
           expanded
           placeholder="Select a value..."
           @input="updateStore"
@@ -80,7 +80,7 @@
         </p>
         <b-select
           class="is-primary"
-          v-model="liver"
+          v-model.number="liver"
           expanded
           placeholder="Select a value..."
           @input="updateStore"
@@ -104,7 +104,7 @@
       </p>
       <b-select
         class="is-primary"
-        v-model="cardioMap"
+        v-model.number="cardioMap"
         expanded
         placeholder="Select a value..."
         @input="updateStore"
@@ -123,7 +123,7 @@
       </p>
       <b-select
         class="is-primary"
-        v-model="cardioEpi"
+        v-model.number="cardioEpi"
         expanded
         placeholder="Select a value..."
         @input="updateStore"
@@ -142,7 +142,7 @@
       </p>
       <b-select
         class="is-primary"
-        v-model="cardioDob"
+        v-model.number="cardioDob"
         expanded
         placeholder="Select a value..."
         @input="updateStore"
@@ -159,7 +159,7 @@
       </p>
       <b-select
         class="is-primary"
-        v-model="renalCreat"
+        v-model.number="renalCreat"
         expanded
         placeholder="Select a value..."
         @input="updateStore"
@@ -181,7 +181,7 @@
       </p>
       <b-select
         class="is-primary"
-        v-model="renalUrine"
+        v-model.number="renalUrine"
         expanded
         placeholder="Select a value..."
         @input="updateStore"
@@ -206,7 +206,7 @@
         </p>
         <b-select
           class="is-primary"
-          v-model="nervous"
+          v-model.number="nervous"
           expanded
           placeholder="Select a value..."
           @input="updateStore"
