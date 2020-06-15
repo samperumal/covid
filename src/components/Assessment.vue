@@ -11,7 +11,7 @@
         <comorbidities></comorbidities>
         <hr />
       </section>
-      <section class="" v-if="assessmentResult.hour48">
+      <section class v-if="assessmentResult.hour48">
         <div class="title has-text-centered">Previous Assessment Scores</div>
         <b-field
           label="Baseline Priority Score"
@@ -42,7 +42,7 @@
         <hr />
       </section>
 
-      <section class="" v-if="assessmentResult.hour120">
+      <section class v-if="assessmentResult.hour120">
         <div class="title has-text-centered">Previous Assessment Score</div>
         <b-field
           label="Previous SOFA Points"
@@ -62,12 +62,12 @@
       </section>
 
       <section class="section has-text-centered">
-        <router-link to="assessment">
-          <div class="button is-info is-large">Begin new Assessment</div>
-        </router-link>
+        <b-button @click="viewResult" class="button is-info is-large"
+          >View assessment result</b-button
+        >
       </section>
     </div>
-    <div class="column">
+    <div class="column" id="assessmentResult">
       <priority-summary v-if="assessmentResult.initial"></priority-summary>
       <section v-if="assessmentResult.hour48" style class="has-text-centered">
         <div class="title">Assessment Result</div>
@@ -115,9 +115,12 @@
 
         <reassessment-category :action="nextAction"></reassessment-category>
       </section>
-    </div>
-    <div class="column" v-if="false">
-      <pre>{{ assessmentResult }}</pre>
+
+      <section class="section has-text-centered">
+        <router-link to="assessment">
+          <div class="button is-info is-large">Begin new Assessment</div>
+        </router-link>
+      </section>
     </div>
   </div>
 </template>
@@ -147,6 +150,9 @@ export default {
         previousPriorityScore: this.baselinePriorityScore,
         previousSofaPoints: this.baselineSofaPoints,
       })
+    },
+    viewResult() {
+      document.getElementById("assessmentResult").scrollIntoView()
     },
   },
   computed: {
