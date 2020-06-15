@@ -132,7 +132,7 @@ export const store = new Vuex.Store({
           sofaPoints: 0,
           sofa: 1,
 
-          priority: 1,
+          priorityScore: 1,
 
           previousPriority: 1,
           previousSofaPoints: 0,
@@ -161,7 +161,7 @@ export const store = new Vuex.Store({
         result.scores.priorityScore =
           result.scores.age +
           result.scores.functionality +
-          result.scores.sofaPoints +
+          result.scores.sofa +
           result.scores.comorbidity
 
         result.currentAction = getters.priorityScoreBucket(

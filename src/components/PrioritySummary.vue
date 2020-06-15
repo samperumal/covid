@@ -3,7 +3,7 @@
     <div class="box has-text-centered" :class="currentAction.bucket">
       <div class="bucket">{{ currentAction.bucket }}</div>
       <div class="priority-score">
-        Priority Score: {{ assessmentResult.scores.priority }}
+        Priority Score: {{ assessmentResult.scores.priorityScore }}
       </div>
       <div class="priority-score">
         Baseline SOFA Points: {{ assessmentResult.scores.sofaPoints }}
@@ -15,20 +15,29 @@
       <section class="summary">
         <div class="subtitle">Score breakdown</div>
         <div class="summary-table">
-          <div class="left">Age</div>
-          <div>{{ assessmentResult.scores.age }}</div>
-          <div class="left">Functionality</div>
-          <div>{{ assessmentResult.scores.functionality }}</div>
-          <div class="left">Acute Illness (SOFA)</div>
-          <div>{{ assessmentResult.scores.sofa }}</div>
-          <div class="left">Co-morbidities</div>
-          <div>{{ assessmentResult.scores.comorbidity }}</div>
-          <hr />
-          <div class="left">
-            <strong>Priority Score</strong>
-          </div>
-          <div>
-            <strong>{{ assessmentResult.scores.priority }}</strong>
+          <div class="summary-content">
+            <div class="left">
+              Age
+              <span>{{ assessmentResult.scores.age }}</span>
+            </div>
+            <div class="left">
+              Functionality
+              <span>{{ assessmentResult.scores.functionality }}</span>
+            </div>
+            <div class="left">
+              Acute Illness (SOFA)
+              <span>{{ assessmentResult.scores.sofa }}</span>
+            </div>
+            <div class="left">
+              Co-morbidities
+              <span>{{ assessmentResult.scores.comorbidity }}</span>
+            </div>
+            <div class="left">
+              <strong>Priority Score</strong>
+              <span>
+                <strong>{{ assessmentResult.scores.priorityScore }}</strong>
+              </span>
+            </div>
           </div>
         </div>
       </section>
@@ -76,17 +85,14 @@ export default {
 <style>
 .summary-table {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
-.summary-table div {
-  min-width: 50%;
-  text-align: left;
-  padding-left: 1em;
-}
-
-.summary-table div.left {
+.summary-content {
   text-align: right;
-  padding-right: 1em;
+}
+
+.summary-table div span {
+  margin-left: 1em;
 }
 </style>

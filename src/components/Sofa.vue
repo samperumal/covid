@@ -295,14 +295,14 @@ export default {
       else return null
     },
     respPaO2Value() {
-      const populated = this.respPaO2 != null && this.respPaO2.trim() != ""
+      const populated = this.respPaO2 != null
       const valid = populated && +this.respPaO2 > 0 && +this.respPaO2 < 100
       const value = valid ? this.respPaO2 : 0
       var msg = populated && !valid ? "Enter a positive number" : ""
       return { populated, valid, value, msg }
     },
     respFiO2Value() {
-      const populated = this.respFiO2 != null && this.respFiO2.trim() != ""
+      const populated = this.respFiO2 != null
       const valid = populated && +this.respFiO2 > 0 && +this.respFiO2 < 100
       const value = valid ? this.respFiO2 : 0
       var msg = populated && !valid ? "Enter a positive number" : ""
