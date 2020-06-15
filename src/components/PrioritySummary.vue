@@ -1,52 +1,73 @@
 <template>
   <section>
-    <div class="box has-text-centered" :class="priorityScore.bucket">
-      <div class="bucket">{{ priorityScore.bucket }}</div>
+    <div class="box has-text-centered" :class="currentAction.bucket">
+      <div class="bucket">{{ currentAction.bucket }}</div>
       <div class="priority-score">
-        Priority Score: {{ priorityScore.score }}
+        Priority Score: {{ assessmentResult.scores.priority }}
       </div>
-      <div class="priority-score">Baseline Sofa Score: {{ scores.sofa }}</div>
-      <div class="ventilator">{{ priorityScore.ventilator }}</div>
-      <div class="prioritisation">{{ priorityScore.prioritisation }}</div>
+      <div class="priority-score">
+        Baseline SOFA Points: {{ assessmentResult.scores.sofaPoints }}
+      </div>
+      <div class="ventilator">{{ currentAction.ventilator }}</div>
+      <div class="prioritisation">{{ currentAction.prioritisation }}</div>
     </div>
     <div class="box has-text-centered">
       <section class="summary">
-        <div class="subtitle">Priority Score Calculation</div>
+        <div class="subtitle">Score breakdown</div>
         <div class="summary-table">
           <div class="left">Age</div>
-          <div>{{ priorityScore.age }}</div>
+          <div>{{ assessmentResult.scores.age }}</div>
           <div class="left">Functionality</div>
-          <div>{{ priorityScore.functionality }}</div>
-          <div class="left">SOFA</div>
-          <div>{{ priorityScore.sofa }}</div>
+          <div>{{ assessmentResult.scores.functionality }}</div>
+          <div class="left">Acute Illness (SOFA)</div>
+          <div>{{ assessmentResult.scores.sofa }}</div>
           <div class="left">Co-morbidities</div>
-          <div>{{ priorityScore.comorbidities }}</div>
+          <div>{{ assessmentResult.scores.comorbidity }}</div>
           <hr />
-          <div class="left"><strong>Priority Score</strong></div>
+          <div class="left">
+            <strong>Priority Score</strong>
+          </div>
           <div>
-            <strong>{{ priorityScore.score }}</strong>
+            <strong>{{ assessmentResult.scores.priority }}</strong>
           </div>
         </div>
       </section>
+    </div>
+    <div class="block instructions">
+      <div>
+        Admit referrals sequentially from red to orange to yellow to green
+        priority categories. If there are ties within a specific category,
+        tiebreakers will be used to prioritize patients:
+      </div>
+      <div>
+        <ol>
+          <li>
+            Number of co-morbidities: Preference to the patient with the least
+            number of co-morbidities.
+          </li>
+          <li>
+            Patient age groups (years) in following order: 12-40; 41-60; 61-75;
+            >75. Preference to the patient who have completed the least number
+            of life-cycles.
+          </li>
+          <li>
+            Individuals whose work supports provision of healthcare and
+            essential services to others.
+          </li>
+        </ol>
+      </div>
     </div>
   </section>
 </template>
 
 <script>
+import { mapGetters } from "vuex"
+
 export default {
-  props: {
-    sofaScore: null,
-    morbidityScore: null,
-    scores: {
-      sofa: 0,
-      morbidity: 0,
-      age: 0,
-      functionality: 0,
-    },
-  },
   computed: {
-    priorityScore() {
-      return this.$store.getters.initialPriorityScore
+    ...mapGetters(["assessmentResult"]),
+    currentAction() {
+      return this.assessmentResult.currentAction
     },
   },
 }

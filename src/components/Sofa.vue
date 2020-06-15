@@ -11,6 +11,7 @@
         </p>
         <b-input
           v-model="respPaO2"
+          @input="updateStore"
           expanded
           placeholder="Enter a value..."
         ></b-input>
@@ -27,6 +28,7 @@
         </p>
         <b-input
           v-model="respFiO2"
+          @input="updateStore"
           expanded
           placeholder="Enter a value..."
         ></b-input>
@@ -241,9 +243,6 @@ export default {
 
     return data
   },
-  props: {
-    storeMethod: String,
-  },
   methods: {
     bracketScore(score) {
       if (score != null && score != "0") return ` (${score})`
@@ -263,7 +262,7 @@ export default {
         renalCreat: this.renalCreat,
         renalUrine: this.renalUrine,
       }
-      this.$store.commit(this.storeMethod, data)
+      this.$store.commit("setSofa", data)
     },
   },
   computed: {

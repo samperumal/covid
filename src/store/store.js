@@ -3,47 +3,60 @@ import Vuex from "vuex"
 
 Vue.use(Vuex)
 
+import * as ENUMS from "../enums"
+
+function initSofaData() {
+  return {
+    respPaO2: 0,
+    respFiO2: 0,
+    coagulation: 0,
+    liver: 0,
+    cardioMap: 0,
+    cardioDop: 0,
+    cardioEpi: 0,
+    cardioDob: 0,
+    nervous: 0,
+    renalCreat: 0,
+    renalUrine: 0,
+  }
+}
+
+function initComorbidityData() {
+  return {
+    renal: 0,
+    cancer: 0,
+    lung: 0,
+    cardiac: 0,
+    burns: 0,
+    physical: 0,
+    vascular: 0,
+    surgery: 0,
+    hypertension: 0,
+    diabetes: 0,
+    bmi: 0,
+    drugs: 0,
+    hiv: 0,
+    liver: 0,
+  }
+}
+
 function resetData() {
   return {
-    priorityScore: {
+    assessmentPoint: ENUMS.INITIAL,
+    scoring: {
       age: 0,
-      functionality: 0,
-      sofa: 0,
-      morbidity: 0,
+      functionality: {
+        ecog: 0,
+        frailty: 0,
+      },
+      sofa: initSofaData(),
+      comorbidities: initComorbidityData(),
     },
-    initialAssessment: {
-      age: 0,
-      ecog: 0,
-      frailty: 0,
-      sofa: {
-        respPaO2: 0,
-        respFiO2: 0,
-        coagulation: 0,
-        liver: 0,
-        cardioMap: 0,
-        cardioDop: 0,
-        cardioEpi: 0,
-        cardioDob: 0,
-        nervous: 0,
-        renalCreat: 0,
-        renalUrine: 0,
-      },
-      comorbidities: {
-        renal: 0,
-        cancer: 0,
-        lung: 0,
-        cardiac: 0,
-        burns: 0,
-        physical: 0,
-        vascular: 0,
-        surgery: 0,
-        hypertension: 0,
-        diabetes: 0,
-        bmi: 0,
-        drugs: 0,
-        hiv: 0,
-        liver: 0,
-      },
+    historic: {
+      previousPriorityScore: 1,
+      previousSofaPoints: 1,
+      hour48SofaScore: 1,
+      prevSofaScore: 1,
     },
   }
 }
@@ -54,85 +67,271 @@ export const store = new Vuex.Store({
   },
   mutations: {
     setAgeAndFunction(state, newFrailty) {
-      state.data.initialAssessment.age = +newFrailty.age
-      state.data.initialAssessment.ecog = +newFrailty.ecog
-      state.data.initialAssessment.frailty = +newFrailty.frailty
+      state.data.scoring.age = +newFrailty.age
+      state.data.scoring.functionality.ecog = +newFrailty.ecog
+      state.data.scoring.functionality.frailty = +newFrailty.frailty
     },
-    setInitialComorbidities(state, newComorbidities) {
+    setComorbidities(state, newComorbidities) {
       for (var key in newComorbidities)
-        Vue.set(
-          state.data.initialAssessment.comorbidities,
-          key,
-          +newComorbidities[key]
-        )
+        Vue.set(state.data.scoring.comorbidities, key, +newComorbidities[key])
     },
-    setInitialSofa(state, newSofa) {
+    setSofa(state, newSofa) {
       for (var key in newSofa)
-        Vue.set(state.data.initialAssessment.sofa, key, +newSofa[key])
+        Vue.set(state.data.scoring.sofa, key, +newSofa[key])
+    },
+    setAssessmentPoint(state, newAssessmentPoint) {
+      switch (newAssessmentPoint) {
+        case ENUMS.INITIAL:
+        case ENUMS.HOUR48:
+        case ENUMS.HOUR120:
+        case ENUMS.RECURRING:
+          state.data.assessmentPoint = newAssessmentPoint
+          break
+
+        default:
+          throw new Error("Unknown assessment point")
+      }
+    },
+    setHistoric(state, newHistoric) {
+      state.data.historic.previousPriorityScore = Math.max(
+        1,
+        newHistoric.previousPriorityScore
+      )
+      state.data.historic.previousSofaPoints = Math.max(
+        1,
+        newHistoric.previousSofaPoints
+      )
+      state.data.historic.hour48SofaScore = Math.max(
+        1,
+        newHistoric.hour48SofaScore
+      )
+      state.data.historic.prevSofaScore = Math.max(1, newHistoric.prevSofaScore)
     },
     reset(state) {
       state.data = resetData()
     },
   },
   getters: {
-    initialPriorityScore: (state, getters) => {
-      const ia = state.data.initialAssessment
-      const functionalityScore = Math.max(ia.frailty, ia.ecog)
+    assessmentResult(state, getters) {
+      const result = {
+        assessmentPoint: null,
+        initial: false,
+        hour48: false,
+        hour120: false,
+        recurring: false,
+        excluded: false,
 
-      var priorityScore = {
-        age: ia.age,
-        functionality: functionalityScore,
-        sofa: getters.sofaScore(ia.sofa),
-        comorbidities: getters.comorbidityScore(ia.comorbidities),
+        currentAction: null,
+        previousAction: null,
+
+        scores: {
+          age: 0,
+          functionality: 0,
+          comorbidity: 0,
+
+          sofaPoints: 0,
+          sofa: 1,
+
+          priority: 1,
+
+          previousPriority: 1,
+          previousSofaPoints: 0,
+        },
       }
 
-      var pScore =
-        priorityScore.sofa +
-        priorityScore.comorbidities +
-        priorityScore.age +
-        priorityScore.functionality
+      if (
+        state.data.scoring.comorbidities.cardiac >= 5 ||
+        state.data.scoring.comorbidities.lung >= 5
+      )
+        result.excluded = true
 
-      priorityScore.score = pScore
+      if (state.data.assessmentPoint == ENUMS.INITIAL) {
+        result.assessmentPoint = state.data.assessmentPoint
+        result.initial = true
+
+        result.scores.age = state.data.scoring.age
+        result.scores.functionality = Math.max(
+          state.data.scoring.functionality.ecog,
+          state.data.scoring.functionality.frailty
+        )
+        result.scores.sofaPoints = getters.sofaPoints
+        result.scores.sofa = getters.sofaScore(result.scores.sofaPoints)
+        result.scores.comorbidity = getters.comorbidityScore
+
+        result.scores.priorityScore =
+          result.scores.age +
+          result.scores.functionality +
+          result.scores.sofaPoints +
+          result.scores.comorbidity
+
+        result.currentAction = getters.priorityScoreBucket(
+          result.scores.priorityScore
+        )
+
+        if (
+          state.data.scoring.functionality.ecog >= 4 ||
+          state.data.scoring.functionality.frailty >= 6
+        )
+          result.excluded = true
+      } else if (state.data.assessmentPoint == ENUMS.HOUR48) {
+        result.assessmentPoint = state.data.assessmentPoint
+        result.hour48 = true
+
+        result.scores.previousPriorityScore =
+          state.data.historic.previousPriorityScore
+        result.scores.previousSofaPoints =
+          state.data.historic.previousSofaPoints
+
+        result.scores.sofaPoints = getters.sofaPoints
+
+        result.previousAction = getters.priorityScoreBucket(
+          result.scores.previousPriorityScore
+        )
+        result.previousAction.sofaPoints = result.scores.previousSofaPoints
+
+        if (result.scores.sofaPoints < result.scores.previousSofaPoints) {
+          result.nextAction = getters.sofaPointsBucket(result.scores.sofaPoints)
+          result.sofaText = "improvement in SOFA score"
+        } else {
+          result.nextAction = getters.sofaCategory(
+            result.previousAction.category + 1
+          )
+          result.sofaText = "no improvement in SOFA score"
+        }
+
+        result.nextAction.sofaPoints = result.scores.sofaPoints
+
+        if (result.nextAction.category === result.previousAction.category)
+          result.changeText = "stay in"
+        else result.changeText = "move to"
+      } else if (
+        state.data.assessmentPoint == ENUMS.HOUR120 ||
+        state.data.assessmentPoint == ENUMS.RECURRING
+      ) {
+        result.assessmentPoint = state.data.assessmentPoint
+        result.hour120 = true
+
+        result.scores.previousSofaPoints =
+          state.data.historic.previousSofaPoints
+
+        result.scores.sofaPoints = getters.sofaPoints
+
+        result.previousAction = getters.sofaPointsBucket(
+          result.scores.previousSofaPoints
+        )
+        result.previousAction.sofaPoints = result.scores.previousSofaPoints
+
+        if (result.scores.sofaPoints < result.scores.previousSofaPoints) {
+          result.nextAction = getters.sofaPointsBucket(result.scores.sofaPoints)
+          result.sofaText = "improvement in SOFA score"
+        } else {
+          result.nextAction = getters.sofaCategory(
+            result.previousAction.category + 1
+          )
+          result.sofaText = "no improvement in SOFA score"
+        }
+
+        result.nextAction.sofaPoints = result.scores.sofaPoints
+
+        if (result.nextAction.category === result.previousAction.category)
+          result.changeText = "stay in"
+        else result.changeText = "move to"
+      }
+
+      return result
+    },
+    priorityScoreBucket: () => (pScore) => {
+      const priorityScoreResult = {}
 
       if (pScore < 4) {
-        priorityScore.bucket = "red"
-        priorityScore.ventilator = "Highest priority for ventilator support."
-        priorityScore.prioritisation =
+        priorityScoreResult.category = 1
+        priorityScoreResult.bucket = "red"
+        priorityScoreResult.ventilator =
+          "Highest priority for ventilator support."
+        priorityScoreResult.prioritisation =
           "Receive priority over all other groups in face of scarce resources."
-      } else if (pScore < 6) {
-        priorityScore.bucket = "orange"
-        priorityScore.ventilator =
+      } else if (pScore < 7) {
+        priorityScoreResult.category = 2
+        priorityScoreResult.bucket = "orange"
+        priorityScoreResult.ventilator =
           "Intermediate priority for ventilator support."
-        priorityScore.prioritisation =
+        priorityScoreResult.prioritisation =
           "Receive resources if available after all patients in red group allocated."
       } else if (pScore < 10) {
-        priorityScore.bucket = "yellow"
-        priorityScore.ventilator = "Low priority for ventilator support."
-        priorityScore.prioritisation =
+        priorityScoreResult.category = 3
+        priorityScoreResult.bucket = "yellow"
+        priorityScoreResult.ventilator = "Low priority for ventilator support."
+        priorityScoreResult.prioritisation =
           "Receive resources if available after all patients in red and orange groups allocated."
       } else {
-        priorityScore.bucket = "green"
-        priorityScore.ventilator = "Lowest priority for ventilator support."
-        priorityScore.prioritisation = "Palliation strongly suggested."
+        priorityScoreResult.category = 4
+        priorityScoreResult.bucket = "green"
+        priorityScoreResult.ventilator =
+          "Lowest priority for ventilator support."
+        priorityScoreResult.prioritisation = "Palliation strongly suggested."
       }
 
-      return priorityScore
+      return priorityScoreResult
     },
-    comorbidityScore: () => (comorbidities) => {
+    sofaPointsBucket: (_, getters) => (sofaPoints) => {
+      if (sofaPoints < 6) {
+        return getters.sofaCategory(1)
+      } else if (sofaPoints < 9) {
+        return getters.sofaCategory(2)
+      } else if (sofaPoints < 12) {
+        return getters.sofaCategory(3)
+      } else {
+        return getters.sofaCategory(4)
+      }
+    },
+    sofaCategory: () => (category) => {
+      var result = {}
+
+      if (category === 1) {
+        result.category = 1
+        result.bucket = "red"
+        result.ventilator = "Highest priority for continued ICU support."
+        result.prioritisation =
+          "Receive priority over all other groups in face of scarce resources."
+      } else if (category == 2) {
+        result.category = 2
+        result.bucket = "orange"
+        result.ventilator = "Intermediate priority for continued ICU support."
+        result.prioritisation =
+          "Receive resources if available after all patients in red group allocated."
+      } else if (category == 3) {
+        result.category = 3
+        result.bucket = "yellow"
+        result.ventilator = "Low priority for continued ICU support."
+        result.prioritisation =
+          "Receive resources if available after all patients in red and orange groups allocated."
+      } else {
+        result.category = 4
+        result.bucket = "green"
+        result.ventilator = "Lowest priority for continued ICU support."
+        result.prioritisation = "Palliation strongly suggested."
+      }
+
+      return result
+    },
+    comorbidityScore(state) {
       var totalScore = 0
-      for (var comorbidity in comorbidities)
-        totalScore = Math.max(totalScore, +comorbidities[comorbidity])
+      for (var comorbidity in state.data.scoring.comorbidities)
+        totalScore = Math.max(
+          totalScore,
+          +state.data.scoring.comorbidities[comorbidity]
+        )
       return totalScore
     },
-    sofaScore: (state, getters) => (sofa) => {
-      var sofaPoints = getters.sofaPoints(sofa)
+    sofaScore: () => (sofaPoints) => {
       if (sofaPoints < 6) return 1
       else if (sofaPoints < 9) return 2
       else if (sofaPoints < 12) return 3
       else if (sofaPoints >= 12) return 4
       else throw new Error("Unrecognised sofa point total: " + sofaPoints)
     },
-    sofaPoints: () => (sofa) => {
+    sofaPoints(state) {
+      const sofa = state.data.scoring.sofa
       var totalScore = 0
 
       // Calculate and map respiration fraction
@@ -150,10 +349,10 @@ export const store = new Vuex.Store({
       // Use the highest of the cardiovascular scores
       const cardiovascular = Math.max(
         0,
-        sofa.cardioMap,
-        sofa.cardioDop,
-        sofa.cardioEpi,
-        sofa.cardioDob
+        +sofa.cardioMap,
+        +sofa.cardioDop,
+        +sofa.cardioEpi,
+        +sofa.cardioDob
       )
       totalScore += cardiovascular
 
@@ -165,6 +364,93 @@ export const store = new Vuex.Store({
       totalScore += sofa.nervous != null ? +sofa.nervous : 0
 
       return +totalScore
+    },
+    initialSofaPoints(state, getters) {
+      return getters.sofaPoints(state.data.initialAssessment.sofa)
+    },
+    hour48SofaPoints(state, getters) {
+      return getters.sofaPoints(state.data.reassessment.hour48Sofa)
+    },
+    hour120SofaPoints(state, getters) {
+      return getters.sofaPoints(state.data.reassessment.hour120Sofa)
+    },
+    reassessmentResult(state, getters) {
+      const result = {
+        assessmentPoint: state.data.reassessment.assessmentPoint,
+        baseline: {
+          debug: 0,
+          priorityScore: -1,
+          sofaScore: -1,
+          sofaPoints: -1,
+        },
+        hour48: {
+          debug: 0,
+          priorityScore: -10,
+          sofaScore: state.data.reassessment.hour48SofaScore,
+          sofaPoints: getters.hour48SofaPoints,
+        },
+        hour120: {
+          priorityScore: -1,
+          sofaScore: -1,
+          sofaPoints: getters.hour120SofaPoints,
+        },
+      }
+
+      if (result.assessmentPoint === "initial") {
+        result.baseline = getters.initialPriorityScore
+        result.baseline.debug = 1
+      } else {
+        result.baseline = {
+          priorityScore: state.data.reassessment.basePriorityScore,
+          sofaScore: state.data.reassessment.baseSofaScore,
+          sofaPoints: getters.initialSofaPoints,
+        }
+        result.baseline = getters.priorityScoreBucket(
+          result.baseline.priorityScore,
+          result.baseline
+        )
+        result.baseline.debug = 2
+      }
+
+      if (result.assessmentPoint === "hour48") {
+        const sofaPoints = getters.sofaPoints(
+          state.data.reassessment.hour48Sofa
+        )
+        result.hour48 = {
+          priorityScore: -3,
+          sofaPoints: sofaPoints,
+          sofaScore: getters.sofaScoreBucket(sofaPoints),
+        }
+        result.hour48.debug = 4
+      } else {
+        result.hour48 = {
+          priorityScore: -2,
+          sofaPoints: state.data.reassessment.hour48SofaScore,
+          sofaScore: getters.sofaScoreBucket(
+            state.data.reassessment.hour48SofaScore
+          ),
+        }
+        result.hour48.debug = 8
+      }
+
+      if (result.assessmentPoint === "hour120") {
+        const sofaPoints = getters.sofaPoints(
+          state.data.reassessment.hour120Sofa
+        )
+        result.hour120 = {
+          priorityScore: -2,
+          sofaPoints: sofaPoints,
+          sofaScore: getters.sofaScoreBucket(sofaPoints),
+        }
+      } else {
+        result.hour120 = {
+          priorityScore: -1,
+          sofaPoints: -1,
+          sofaScore: -1,
+        }
+      }
+
+      return result
     },
   },
 })

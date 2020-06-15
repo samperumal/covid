@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <div class="columns is-centered is-mobile">
-      <div
-        class="column is-full-mobile is-two-thirds-tablet is-half-desktop is-two-fifths-fullhd"
-      >
+      <div class="column is-full-mobile is-two-thirds-tablet">
         <nav id="navbar" class="breadcrumb" aria-label="breadcrumbs">
           <ul>
             <li v-for="(item, index) in navbarItems" :key="index">
@@ -128,5 +126,19 @@ export default Vue.extend({
 .reference {
   margin-top: 1em;
   // max-width: 10em;
+}
+
+.instructions {
+  font-size: 0.85em;
+}
+
+.instructions p,
+.instructions ol {
+  margin-bottom: 0.5em;
+}
+
+.instructions ol {
+  padding-left: 1em;
+  margin-left: 1em;
 }
 </style>
