@@ -10,7 +10,7 @@
           <span class=""> PaO<sub class="subscript">2</sub> </span>
         </p>
         <b-input
-          v-model="respPaO2"
+          v-model.number="respPaO2"
           @input="updateStore"
           expanded
           placeholder="Enter a value..."
@@ -27,7 +27,7 @@
           <span class=""> FiO<sub class="subscript">2</sub> </span>
         </p>
         <b-input
-          v-model="respFiO2"
+          v-model.number="respFiO2"
           @input="updateStore"
           expanded
           placeholder="Enter a value..."
