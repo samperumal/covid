@@ -34,7 +34,7 @@
           </div>
         </div>
       </div>
-      <router-link to="assessment">
+      <router-link to="exclusion">
         <div class="button is-info is-large">Begin new Assessment</div>
       </router-link>
     </div>

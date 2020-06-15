@@ -2,6 +2,8 @@ import Vue from "vue"
 import Router from "vue-router"
 import Home from "../components/Home.vue"
 import Assessment from "../components/Assessment.vue"
+import Exclusion from "../components/Exclusion.vue"
+import ManagementPlan from "../components/ManagementPlan.vue"
 
 Vue.use(Router)
 
@@ -20,6 +22,24 @@ export default new Router({
       meta: [
         { to: "/", text: "Home" },
         { to: "/assessment", text: "Assessment" },
+      ],
+    },
+    {
+      path: "/exclusion",
+      name: "Exclusion",
+      component: Exclusion,
+      meta: [
+        { to: "/", text: "Home" },
+        { to: "/exclusion", text: "Exclusion" },
+      ],
+    },
+    {
+      path: "/management",
+      name: "Management",
+      component: ManagementPlan,
+      meta: [
+        { to: "/", text: "Home" },
+        { to: "/management", text: "Management" },
       ],
     },
     {
