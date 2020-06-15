@@ -68,8 +68,13 @@
       </section>
     </div>
     <div class="column" id="assessmentResult">
-      <priority-summary v-if="assessmentResult.initial"></priority-summary>
-      <section v-if="assessmentResult.hour48" style class="has-text-centered">
+      <management-plan v-if="assessmentResult.excluded"> </management-plan>
+      <priority-summary v-else-if="assessmentResult.initial"></priority-summary>
+      <section
+        v-else-if="assessmentResult.hour48"
+        style
+        class="has-text-centered"
+      >
         <div class="title">Assessment Result</div>
 
         <reassessment-instructions></reassessment-instructions>
@@ -92,7 +97,11 @@
 
         <reassessment-category :action="nextAction"></reassessment-category>
       </section>
-      <section v-if="assessmentResult.hour120" style class="has-text-centered">
+      <section
+        v-else-if="assessmentResult.hour120"
+        style
+        class="has-text-centered"
+      >
         <div class="title">Assessment Result</div>
 
         <reassessment-instructions></reassessment-instructions>
@@ -116,7 +125,10 @@
         <reassessment-category :action="nextAction"></reassessment-category>
       </section>
 
-      <section class="section has-text-centered">
+      <section
+        v-if="!assessmentResult.excluded"
+        class="section has-text-centered"
+      >
         <router-link to="assessment">
           <div class="button is-info is-large">Begin new Assessment</div>
         </router-link>
@@ -135,6 +147,7 @@ import PrioritySummary from "./PrioritySummary.vue"
 import AssessmentPoint from "./AssessmentPoint.vue"
 import ReassessmentInstructions from "./ReassessmentInstructions.vue"
 import ReassessmentCategory from "./ReassessmentCategory.vue"
+import ManagementPlan from "../components/ManagementPlan.vue"
 
 export default {
   data() {
@@ -172,6 +185,7 @@ export default {
     AssessmentPoint,
     ReassessmentInstructions,
     ReassessmentCategory,
+    ManagementPlan,
   },
 }
 </script>

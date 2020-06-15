@@ -13,13 +13,13 @@
     </div>
     <div class="box has-text-centered">
       <section class="summary">
-        <div class="subtitle">Points breakdown</div>
+        <div class="subtitle">Score breakdown</div>
         <div class="summary-table">
           <div class="left">Age</div>
           <div>{{ assessmentResult.scores.age }}</div>
           <div class="left">Functionality</div>
           <div>{{ assessmentResult.scores.functionality }}</div>
-          <div class="left">SOFA</div>
+          <div class="left">Acute Illness (SOFA)</div>
           <div>{{ assessmentResult.scores.sofa }}</div>
           <div class="left">Co-morbidities</div>
           <div>{{ assessmentResult.scores.comorbidity }}</div>

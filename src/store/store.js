@@ -119,6 +119,7 @@ export const store = new Vuex.Store({
         hour48: false,
         hour120: false,
         recurring: false,
+        excluded: false,
 
         currentAction: null,
         previousAction: null,
@@ -137,6 +138,12 @@ export const store = new Vuex.Store({
           previousSofaPoints: 0,
         },
       }
+
+      if (
+        state.data.scoring.comorbidities.cardiac >= 5 ||
+        state.data.scoring.comorbidities.lung >= 5
+      )
+        result.excluded = true
 
       if (state.data.assessmentPoint == ENUMS.INITIAL) {
         result.assessmentPoint = state.data.assessmentPoint
@@ -160,6 +167,12 @@ export const store = new Vuex.Store({
         result.currentAction = getters.priorityScoreBucket(
           result.scores.priorityScore
         )
+
+        if (
+          state.data.scoring.functionality.ecog >= 4 ||
+          state.data.scoring.functionality.frailty >= 6
+        )
+          result.excluded = true
       } else if (state.data.assessmentPoint == ENUMS.HOUR48) {
         result.assessmentPoint = state.data.assessmentPoint
         result.hour48 = true

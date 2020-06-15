@@ -133,6 +133,7 @@ export default {
             "1": "mMRC 1",
             "2": "mMRC 2",
             "3": "mMRC 3",
+            "5": "mMRC 4",
           },
           Messages: {
             "0": "",
@@ -155,7 +156,7 @@ export default {
             "1": "NYHA 1",
             "2": "NYHA 2",
             "4": "NYHA 3",
-            "4a": "NYHA 4",
+            "5": "NYHA 4",
           },
           Messages: {
             "0": "",

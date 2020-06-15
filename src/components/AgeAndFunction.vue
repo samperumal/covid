@@ -142,7 +142,7 @@ export default {
           group: "Moderately Frail",
           description:
             "People who need help with <strong>all outside activities</strong> and with <strong>keeping house</strong>. Inside, they often have problems with stairs and need <strong>help with bathing</strong> and might need minimal assistance (cuing, standby) with dressing.",
-          value: "-1",
+          value: "6",
           image: frail6,
         },
         {
@@ -150,7 +150,7 @@ export default {
           group: "Severely Frail",
           description:
             "<strong>Completely dependent for personal care</strong>, from whatever cause (physical or cognitive). Even so, they seem stable and not at high risk of dying (within ~ 6 months).",
-          value: "-1",
+          value: "7",
           image: frail7,
         },
         {
@@ -158,7 +158,7 @@ export default {
           group: "Very Severely Frail",
           description:
             "Completely dependent, approaching the end of life. Typically, they could not recover even from a minor illness.",
-          value: "-1",
+          value: "8",
           image: frail8,
         },
         {
@@ -166,10 +166,10 @@ export default {
           group: "Terminally Ill",
           description:
             "Approaching the end of life. This category applies to people with a <strong>life expectancy < 6 months</strong>, who are <strong>not otherwise evidently frail</strong>.",
-          value: "-1",
+          value: "9",
           image: frail9,
         },
-      ].filter((d) => +d.score <= 5)
+      ]
     },
     ecogScaleData() {
       return [
