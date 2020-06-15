@@ -1,11 +1,11 @@
 <template>
-  <section class="section">
+  <section class="">
     <div class="title has-text-centered">Exclusion Check</div>
     <div class="subtitle has-text-centered">
       Exclusion criteria for admission to ICU
     </div>
 
-    <div class="block">
+    <div class="section">
       <ul>
         <li>
           Patient expressed wish not to be admitted to ICU / advance directive
@@ -40,16 +40,24 @@
       </ul>
     </div>
     <div>
-      <div class="title">Does the patient meet any of the above criteria?</div>
-      <div class="level">
-        <router-link to="/assessment" class="button level-item is-info is-large"
-          >No, patient meets none of the criteria</router-link
-        >
-        <router-link
-          to="/management"
-          class="button level-item is-danger is-large"
-          >Yes, patient meets at least one of the criteria</router-link
-        >
+      <div class="title has-text-centered">
+        Does the patient meet any of the above criteria?
+      </div>
+      <div class="has-text-centered container">
+        <div class="field">
+          <router-link
+            to="/assessment"
+            class="button level-item is-info is-large"
+            >No, patient meets none of the criteria</router-link
+          >
+        </div>
+        <div class="field">
+          <router-link
+            to="/management"
+            class="button level-item is-danger is-large"
+            >Yes, patient meets at least one of the criteria</router-link
+          >
+        </div>
       </div>
     </div>
   </section>

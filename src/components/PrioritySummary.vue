@@ -6,7 +6,7 @@
         Priority Score: {{ assessmentResult.scores.priority }}
       </div>
       <div class="priority-score">
-        Baseline Sofa Points: {{ assessmentResult.scores.sofaPoints }}
+        Baseline SOFA Points: {{ assessmentResult.scores.sofaPoints }}
       </div>
       <div class="ventilator">{{ currentAction.ventilator }}</div>
       <div class="prioritisation">{{ currentAction.prioritisation }}</div>
