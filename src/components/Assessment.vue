@@ -129,7 +129,7 @@
         v-if="!assessmentResult.excluded"
         class="section has-text-centered"
       >
-        <router-link to="assessment">
+        <router-link to="/">
           <div class="button is-info is-large">Begin new Assessment</div>
         </router-link>
       </section>
