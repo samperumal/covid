@@ -1,12 +1,12 @@
 <template>
   <div class="modal-card" style="width: auto;">
     <header class="modal-card-head">
-      <p class="modal-card-title">ECOG Performance Status</p>
+      <p class="modal-card-title">mMRC Breathlessness Scale</p>
       <p class="modal-card-subtitle">Eastern Cooperative Oncology Group</p>
     </header>
     <section class="modal-card-body">
       <p class="subtitle">
-        This score should be used for patients diagnosed with a malignancy
+        This score should be used for patients diagnosed with COPD
       </p>
       <ul>
         <li v-for="level in scaleData" :key="level.score">
@@ -23,12 +23,12 @@
 </template>
 
 <script>
-import { ecogScaleData } from "../staticData"
+import { mmrcScaleData } from "../staticData"
 
 export default {
   computed: {
     scaleData() {
-      return ecogScaleData()
+      return mmrcScaleData()
     },
   },
 }

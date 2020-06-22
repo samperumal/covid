@@ -9,7 +9,7 @@
         Global clinical measure of fitness and frailty in elderly people
       </p>
       <ul>
-        <li v-for="level in frailtyScaleData" :key="level.score">
+        <li v-for="level in scaleData" :key="level.score">
           <span class="score">{{ level.score }}</span> :
           <span v-html="level.description"></span>
         </li>
@@ -28,7 +28,7 @@ import { frailtyScaleData } from "../staticData"
 
 export default {
   computed: {
-    frailtyScaleData() {
+    scaleData() {
       return frailtyScaleData()
     },
   },

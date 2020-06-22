@@ -10,8 +10,7 @@
           Patient expressed wish not to be admitted to ICU / advance directive
         </li>
         <li>
-          Clinical Frailty Scale ≥ 6
-          <span
+          Clinical Frailty Scale ≥ 6<span
             class="icon has-text-info is-medium"
             @click="frailtyDetails = true"
           >
@@ -19,8 +18,7 @@
           </span>
         </li>
         <li>
-          ECOG score of 4
-          <span
+          ECOG score of 4<span
             class="icon has-text-info is-medium"
             @click="ecogDetails = true"
           >
@@ -39,11 +37,22 @@
         </li>
         <li>Severe baseline cognitive impairment (inability to perform ADL)</li>
         <li>
-          Chronic respiratory disease with poor functional capacity – mMRC 4
+          Chronic respiratory disease with poor functional capacity – mMRC
+          4<span
+            class="icon has-text-info is-medium"
+            @click="mmrcDetails = true"
+          >
+            <i class="mdi mdi-help-box mdi-24px"></i>
+          </span>
         </li>
         <li>
           Cardiovascular disease - NYHA 4 or known poor ejection fraction on
-          maximal medical therapy
+          maximal medical therapy<span
+            class="icon has-text-info is-medium"
+            @click="nyhaDetails = true"
+          >
+            <i class="mdi mdi-help-box mdi-24px"></i>
+          </span>
         </li>
         <li>HIV/AIDS with an AIDS defining illness</li>
         <li>CD4 ≤100 and/or VL ≥10 000 c/ml</li>
@@ -97,23 +106,51 @@
     >
       <frailty-modal></frailty-modal>
     </b-modal>
+
+    <b-modal
+      :active.sync="mmrcDetails"
+      has-modal-card
+      trap-focus
+      :destroy-on-hide="false"
+      aria-role="dialog"
+      aria-modal
+    >
+      <mmrc-modal></mmrc-modal>
+    </b-modal>
+
+    <b-modal
+      :active.sync="nyhaDetails"
+      has-modal-card
+      trap-focus
+      :destroy-on-hide="false"
+      aria-role="dialog"
+      aria-modal
+    >
+      <nyha-modal></nyha-modal>
+    </b-modal>
   </section>
 </template>
 
 <script>
 import EcogModal from "./EcogModal.vue"
 import FrailtyModal from "./FrailtyModal.vue"
+import MmrcModal from "./MmrcModal.vue"
+import NyhaModal from "./NyhaModal.vue"
 
 export default {
   data() {
     return {
       ecogDetails: false,
       frailtyDetails: false,
+      mmrcDetails: false,
+      nyhaDetails: false,
     }
   },
   components: {
     EcogModal,
     FrailtyModal,
+    MmrcModal,
+    NyhaModal,
   },
 }
 </script>
@@ -121,6 +158,8 @@ export default {
 <style scoped>
 div.section {
   padding-top: 0.5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 li {
   list-style: disc;

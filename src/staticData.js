@@ -124,3 +124,75 @@ export function ecogScaleData() {
     },
   ]
 }
+
+export function mmrcScaleData() {
+  return [
+    {
+      score: "0",
+      group: "mMRC 0",
+      description: "I only get breathless with strenuous exercise.",
+      value: "0",
+    },
+    {
+      score: "1",
+      group: "mMRC 1",
+      description:
+        "I get short of breath when hurrying on level ground or walking up a slight hill.",
+      value: "1",
+    },
+    {
+      score: "2",
+      group: "mMRC 2",
+      description:
+        "On level ground, I walk slower than people of the same age because of breathlessness, or have to stop for breath when walking at my own pace.",
+      value: "2",
+    },
+    {
+      score: "3",
+      group: "mMRC 3",
+      description:
+        "I stop for breath after walking about 100 yards (90 m) or after a few minutes on level ground.",
+      value: "3",
+    },
+    {
+      score: "4",
+      group: "mMRC 4",
+      description:
+        "I am too breathless to leave the house or I am breathless when dressing.",
+      value: "5",
+    },
+  ]
+}
+
+export function nyhaScaleData() {
+  return [
+    {
+      score: "1",
+      group: "NYHA 1",
+      description:
+        "No limitation of physical activity. Ordinary physical activity does not cause undue fatigue, palpitation, dyspnea (shortness of breath).",
+      value: "1",
+    },
+    {
+      score: "2",
+      group: "NYHA 2",
+      description:
+        "Slight limitation of physical activity. Comfortable at rest. Ordinary physical activity results in fatigue, palpitation, dyspnea (shortness of breath).",
+      value: "2",
+    },
+    {
+      score: "3",
+      group: "NYHA 3",
+      description:
+        "Marked limitation of physical activity. Comfortable at rest. Less than ordinary activity causes fatigue, palpitation, or dyspnea.",
+      value: "3",
+    },
+    {
+      score: "4",
+      group: "NYHA 4",
+      description:
+        "Unable to carry on any physical activity without discomfort. Symptoms of heart failure at rest. If any physical activity is undertaken, discomfort increases.",
+      value: "5",
+    },
+  ]
+}
