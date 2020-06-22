@@ -9,17 +9,19 @@
         <p class="control">
           <span class=""> PaO<sub class="subscript">2</sub> </span>
         </p>
-        <b-input
-          v-model.number="respPaO2"
-          @input="updateStore"
-          autocomplete="off"
-          expanded
-          placeholder="Enter a value..."
-        ></b-input>
-
-        <p class="control">
-          kPa
-        </p>
+        <b-field expanded>
+          <b-input
+            v-model.number="respPaO2"
+            @input="updateStore"
+            autocomplete="off"
+            expanded
+            placeholder="Enter a value..."
+          ></b-input>
+          <b-select v-model="pao2Units" class="pao2" @input="recalculatePao2">
+            <option value="kPa">kPa</option>
+            <option value="mmHg">mmHg</option>
+          </b-select>
+        </b-field>
       </b-field>
     </b-field>
     <b-field type="is-danger" :message="respFiO2Value.msg">
@@ -231,6 +233,7 @@ export default {
     const data = {
       respPaO2: null,
       respFiO2: null,
+      pao2Units: "kPa",
       coagulation: null,
       liver: null,
       cardioMap: null,
@@ -265,6 +268,11 @@ export default {
       }
       this.$store.commit("setSofa", data)
     },
+    recalculatePao2() {
+      if (this.pao2Units === "kPa")
+        this.respPaO2 = Math.round(this.respPaO2 / 7.50062)
+      else this.respPaO2 = Math.round(this.respPaO2 * 7.50062)
+    },
   },
   computed: {
     sofaScore() {
@@ -291,8 +299,10 @@ export default {
       return pts
     },
     respFrac() {
+      let pao2 = +this.respPaO2
+      if (this.pao2Units === "kPa") pao2 = pao2 * 7.50062
       if (this.respPaO2Value.valid && this.respFiO2Value.valid)
-        return Math.round((+this.respPaO2 / (+this.respFiO2 / 100)) * 100) / 100
+        return Math.round((pao2 / (+this.respFiO2 / 100)) * 100) / 100
       else return null
     },
     respPaO2Value() {
@@ -314,10 +324,10 @@ export default {
     respiration() {
       if (this.respFrac == null) return null
 
-      if (this.respFrac < 13.3) return 4
-      if (this.respFrac < 26.7) return 3
-      if (this.respFrac < 40) return 2
-      if (this.respFrac < 53.3) return 1
+      if (this.respFrac < 100) return 4
+      if (this.respFrac < 200) return 3
+      if (this.respFrac < 300) return 2
+      if (this.respFrac < 400) return 1
       return 0
     },
     cardio() {
@@ -344,4 +354,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.pao2 .select select:not([multiple]) {
+  padding-left: 0;
+  text-align: right;
+}
+</style>
