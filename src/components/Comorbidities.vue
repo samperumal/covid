@@ -133,7 +133,7 @@ export default {
             "1": "mMRC 1",
             "2": "mMRC 2",
             "3": "mMRC 3",
-            "5": "mMRC 4",
+            "5": "mMRC 4 (Patient excluded from ICU)",
           },
           Messages: {
             "0": "",
@@ -143,7 +143,7 @@ export default {
               "On level ground, I walk slower than people of the same age because of breathlessness, or have to stop for breath when walking at my own pace",
             "3":
               "I stop for breath after walking about 100 yards (90 m) or after a few minutes on level ground",
-            "4":
+            "5":
               "I am too breathless to leave the house or I am breathless when dressing",
           },
         },
@@ -156,7 +156,7 @@ export default {
             "1": "NYHA 1",
             "2": "NYHA 2",
             "4": "NYHA 3",
-            "5": "NYHA 4",
+            "5": "NYHA 4 (Patient excluded from ICU)",
           },
           Messages: {
             "0": "",
@@ -166,7 +166,7 @@ export default {
               "Slight limitation of physical activity. Comfortable at rest. Ordinary physical activity results in fatigue, palpitation, dyspnea (shortness of breath).",
             "4":
               "Marked limitation of physical activity. Comfortable at rest. Less than ordinary activity causes fatigue, palpitation, or dyspnea",
-            "4a":
+            "5":
               "Unable to carry on any physical activity without discomfort. Symptoms of heart failure at rest. If any physical activity is undertaken, discomfort increases",
           },
         },

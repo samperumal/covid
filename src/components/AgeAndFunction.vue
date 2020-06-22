@@ -12,15 +12,21 @@
       Function {{ bracketScore(functionalityPoints) }}
     </div>
     <b-field :label="'Clinical Frailty' + bracketScore(frailtyScore)">
-      <b-select v-model="frailty" expanded @input="updateStore">
-        <option
-          v-for="foption in frailtyScaleData"
-          :key="foption.score"
-          :value="foption.value"
-        >
-          {{ foption.score }} - {{ foption.group }}
-        </option>
-      </b-select>
+      <b-field>
+        <b-select v-model="frailty" expanded @input="updateStore">
+          <option
+            v-for="foption in frailtyScaleData"
+            :key="foption.score"
+            :value="foption.value"
+            >{{ foption.score }} - {{ foption.group }}</option
+          >
+        </b-select>
+        <p class="control">
+          <button class="button" @click="frailtyDetails = true">
+            <b-icon icon="help" type="is-info" size></b-icon>
+          </button>
+        </p>
+      </b-field>
       <template slot="message">
         <div class="frailty" v-html="selectedFrailtyMessage"></div>
       </template>
@@ -29,22 +35,52 @@
       :label="'ECOG Performance Status' + bracketScore(ecog)"
       :message="selectedEcogMessage"
     >
-      <b-select v-model="ecog" expanded @input="updateStore">
-        <option
-          v-for="eoption in ecogScaleData"
-          :key="eoption.score"
-          :value="eoption.value"
-        >
-          {{ eoption.score }} - {{ eoption.group }}
-        </option>
-      </b-select>
+      <b-field>
+        <b-select v-model="ecog" expanded @input="updateStore">
+          <option
+            v-for="eoption in ecogScaleData"
+            :key="eoption.score"
+            :value="eoption.value"
+            >{{ eoption.score }} - {{ eoption.group }}</option
+          >
+        </b-select>
+        <p class="control">
+          <button class="button" @click="ecogDetails = true">
+            <b-icon icon="help" type="is-info" size></b-icon>
+          </button>
+        </p>
+      </b-field>
     </b-field>
+
+    <b-modal
+      :active.sync="frailtyDetails"
+      has-modal-card
+      trap-focus
+      :destroy-on-hide="false"
+      aria-role="dialog"
+      aria-modal
+    >
+      <frailty-modal></frailty-modal>
+    </b-modal>
+
+    <b-modal
+      :active.sync="ecogDetails"
+      has-modal-card
+      trap-focus
+      :destroy-on-hide="false"
+      aria-role="dialog"
+      aria-modal
+    >
+      <ecog-modal></ecog-modal>
+    </b-modal>
   </section>
 </template>
 
 <script>
 import { mapGetters } from "vuex"
 import { frailtyScaleData, ecogScaleData } from "../staticData"
+import EcogModal from "./EcogModal.vue"
+import FrailtyModal from "./FrailtyModal.vue"
 
 export default {
   data() {
@@ -52,6 +88,8 @@ export default {
       age: "0",
       frailty: "0a",
       ecog: "0",
+      frailtyDetails: false,
+      ecogDetails: false,
     }
   },
   computed: {
@@ -92,6 +130,10 @@ export default {
       if (score != null && score != "0") return ` (${score})`
       else return ""
     },
+  },
+  components: {
+    EcogModal,
+    FrailtyModal,
   },
 }
 </script>
