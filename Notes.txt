@@ -1,0 +1,8 @@
+Add exclusion functionality to assessment for NYHA and MMRc
+
+Replace Begin assessment with scroll to result, add New Assessment below results
+
+Fix position for results?
+
+Ivan Joubert
+

@@ -1,17 +1,32 @@
 <template>
-  <section class="">
+  <section class>
     <div class="title has-text-centered">Exclusion Check</div>
     <div class="subtitle has-text-centered">
       Exclusion criteria for admission to ICU
     </div>
-
     <div class="section">
       <ul>
         <li>
           Patient expressed wish not to be admitted to ICU / advance directive
         </li>
-        <li>Clinical Frailty Scale ≥6 and more</li>
-        <li>ECOG score 4 (Eastern Cooperative Oncology Group)</li>
+        <li>
+          Clinical Frailty Scale ≥ 6
+          <span
+            class="icon has-text-info is-medium"
+            @click="frailtyDetails = true"
+          >
+            <i class="mdi mdi-help-box mdi-24px"></i>
+          </span>
+        </li>
+        <li>
+          ECOG score of 4
+          <span
+            class="icon has-text-info is-medium"
+            @click="ecogDetails = true"
+          >
+            <i class="mdi mdi-help-box mdi-24px"></i>
+          </span>
+        </li>
         <li>&lt; 6 months life-expectancy</li>
         <li>Unwitnessed cardiac arrest</li>
         <li>
@@ -60,16 +75,59 @@
         </div>
       </div>
     </div>
+
+    <b-modal
+      :active.sync="ecogDetails"
+      has-modal-card
+      trap-focus
+      :destroy-on-hide="false"
+      aria-role="dialog"
+      aria-modal
+    >
+      <ecog-modal></ecog-modal>
+    </b-modal>
+
+    <b-modal
+      :active.sync="frailtyDetails"
+      has-modal-card
+      trap-focus
+      :destroy-on-hide="false"
+      aria-role="dialog"
+      aria-modal
+    >
+      <frailty-modal></frailty-modal>
+    </b-modal>
   </section>
 </template>
 
 <script>
-export default {}
+import EcogModal from "./EcogModal.vue"
+import FrailtyModal from "./FrailtyModal.vue"
+
+export default {
+  data() {
+    return {
+      ecogDetails: false,
+      frailtyDetails: false,
+    }
+  },
+  components: {
+    EcogModal,
+    FrailtyModal,
+  },
+}
 </script>
 
 <style scoped>
+div.section {
+  padding-top: 0.5rem;
+}
 li {
   list-style: disc;
   margin-bottom: 0.2em;
+}
+
+li span {
+  cursor: pointer;
 }
 </style>
