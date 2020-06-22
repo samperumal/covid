@@ -12,6 +12,7 @@
         <b-input
           v-model.number="respPaO2"
           @input="updateStore"
+          autocomplete="off"
           expanded
           placeholder="Enter a value..."
         ></b-input>
@@ -45,7 +46,7 @@
           <span>&nbsp;/&nbsp;</span>
           FiO
           <span class="subscript">2</span>
-          <span>&nbsp;=&nbsp;{{ respFrac }} kPa</span>
+          <span>&nbsp;=&nbsp;{{ respFrac }}</span>
         </span>
       </div>
     </b-field>
@@ -296,16 +297,18 @@ export default {
     },
     respPaO2Value() {
       const populated = this.respPaO2 != null
-      const valid = populated && +this.respPaO2 > 0 && +this.respPaO2 < 100
+      const valid = populated && +this.respPaO2 >= 0 && +this.respPaO2 <= 100
       const value = valid ? this.respPaO2 : 0
-      var msg = populated && !valid ? "Enter a positive number" : ""
+      var msg =
+        populated && !valid ? "Enter a positive number between 0 and 100" : ""
       return { populated, valid, value, msg }
     },
     respFiO2Value() {
       const populated = this.respFiO2 != null
-      const valid = populated && +this.respFiO2 > 0 && +this.respFiO2 < 100
+      const valid = populated && +this.respFiO2 >= 0 && +this.respFiO2 <= 100
       const value = valid ? this.respFiO2 : 0
-      var msg = populated && !valid ? "Enter a positive number" : ""
+      var msg =
+        populated && !valid ? "Enter a positive number between 0 and 100" : ""
       return { populated, valid, value, msg }
     },
     respiration() {
