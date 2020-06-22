@@ -12,7 +12,7 @@ import moment from "moment"
 import Buefy from "buefy"
 Vue.use(Buefy, {
   defaultDateFormatter: (date) => moment(date).format("ddd, DD MMMM YYYY"),
-  defaultIconPack: "fas",
+  defaultIconPack: "mdi",
 })
 
 Vue.config.productionTip = false

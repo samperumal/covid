@@ -1,17 +1,30 @@
 <template>
-  <section class="">
+  <section class>
     <div class="title has-text-centered">Exclusion Check</div>
     <div class="subtitle has-text-centered">
       Exclusion criteria for admission to ICU
     </div>
-
     <div class="section">
       <ul>
         <li>
           Patient expressed wish not to be admitted to ICU / advance directive
         </li>
-        <li>Clinical Frailty Scale ≥6 and more</li>
-        <li>ECOG score 4 (Eastern Cooperative Oncology Group)</li>
+        <li>
+          Clinical Frailty Scale ≥ 6<span
+            class="icon has-text-info is-medium"
+            @click="frailtyDetails = true"
+          >
+            <i class="mdi mdi-help-box mdi-24px"></i>
+          </span>
+        </li>
+        <li>
+          ECOG score of 4<span
+            class="icon has-text-info is-medium"
+            @click="ecogDetails = true"
+          >
+            <i class="mdi mdi-help-box mdi-24px"></i>
+          </span>
+        </li>
         <li>&lt; 6 months life-expectancy</li>
         <li>Unwitnessed cardiac arrest</li>
         <li>
@@ -24,11 +37,22 @@
         </li>
         <li>Severe baseline cognitive impairment (inability to perform ADL)</li>
         <li>
-          Chronic respiratory disease with poor functional capacity – mMRC 4
+          Chronic respiratory disease with poor functional capacity – mMRC
+          4<span
+            class="icon has-text-info is-medium"
+            @click="mmrcDetails = true"
+          >
+            <i class="mdi mdi-help-box mdi-24px"></i>
+          </span>
         </li>
         <li>
           Cardiovascular disease - NYHA 4 or known poor ejection fraction on
-          maximal medical therapy
+          maximal medical therapy<span
+            class="icon has-text-info is-medium"
+            @click="nyhaDetails = true"
+          >
+            <i class="mdi mdi-help-box mdi-24px"></i>
+          </span>
         </li>
         <li>HIV/AIDS with an AIDS defining illness</li>
         <li>CD4 ≤100 and/or VL ≥10 000 c/ml</li>
@@ -60,16 +84,89 @@
         </div>
       </div>
     </div>
+
+    <b-modal
+      :active.sync="ecogDetails"
+      has-modal-card
+      trap-focus
+      :destroy-on-hide="false"
+      aria-role="dialog"
+      aria-modal
+    >
+      <ecog-modal></ecog-modal>
+    </b-modal>
+
+    <b-modal
+      :active.sync="frailtyDetails"
+      has-modal-card
+      trap-focus
+      :destroy-on-hide="false"
+      aria-role="dialog"
+      aria-modal
+    >
+      <frailty-modal></frailty-modal>
+    </b-modal>
+
+    <b-modal
+      :active.sync="mmrcDetails"
+      has-modal-card
+      trap-focus
+      :destroy-on-hide="false"
+      aria-role="dialog"
+      aria-modal
+    >
+      <mmrc-modal></mmrc-modal>
+    </b-modal>
+
+    <b-modal
+      :active.sync="nyhaDetails"
+      has-modal-card
+      trap-focus
+      :destroy-on-hide="false"
+      aria-role="dialog"
+      aria-modal
+    >
+      <nyha-modal></nyha-modal>
+    </b-modal>
   </section>
 </template>
 
 <script>
-export default {}
+import EcogModal from "./EcogModal.vue"
+import FrailtyModal from "./FrailtyModal.vue"
+import MmrcModal from "./MmrcModal.vue"
+import NyhaModal from "./NyhaModal.vue"
+
+export default {
+  data() {
+    return {
+      ecogDetails: false,
+      frailtyDetails: false,
+      mmrcDetails: false,
+      nyhaDetails: false,
+    }
+  },
+  components: {
+    EcogModal,
+    FrailtyModal,
+    MmrcModal,
+    NyhaModal,
+  },
+}
 </script>
 
 <style scoped>
+div.section {
+  padding-top: 0.5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
 li {
   list-style: disc;
   margin-bottom: 0.2em;
+}
+
+li span {
+  cursor: pointer;
 }
 </style>

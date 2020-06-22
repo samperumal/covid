@@ -21,6 +21,7 @@ export default new Router({
       component: Assessment,
       meta: [
         { to: "/", text: "Home" },
+        { to: "/exclusion", text: "Exclusion" },
         { to: "/assessment", text: "Assessment" },
       ],
     },
@@ -39,6 +40,7 @@ export default new Router({
       component: ManagementPlan,
       meta: [
         { to: "/", text: "Home" },
+        { to: "/exclusion", text: "Exclusion" },
         { to: "/management", text: "Management" },
       ],
     },
