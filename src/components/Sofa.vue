@@ -1,7 +1,10 @@
 <template>
   <section class="sofa">
     <div id="sofa-title" class="title has-text-centered">
-      Sequential Organ Failure Assessment {{ bracketScore(sofaPoints) }}
+      Sequential Organ Failure Assessment
+    </div>
+    <div class="subtitle has-text-centered">
+      (Sofa Points: {{ sofaScore }}, Priority Points: {{ sofaPoints }})
     </div>
     <b-field :label="'Respiration' + bracketScore(respiration)"></b-field>
     <b-field type="is-danger" :message="respPaO2Value.msg">
