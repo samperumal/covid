@@ -1,90 +1,98 @@
 <template>
   <section>
-    <div class="box has-text-centered" :class="priorityScore.bucket">
-      <div class="bucket">{{ priorityScore.bucket}}</div>
-      <div class="priority-score">Priority Score: {{ priorityScore.score }}</div>
-      <div class="ventilator">{{ priorityScore.ventilator }}</div>
-      <div class="prioritisation">{{ priorityScore.prioritisation }}</div>
+    <div class="box has-text-centered" :class="currentAction.bucket">
+      <div class="bucket">{{ currentAction.bucket }}</div>
+      <div class="priority-score">
+        Priority Score: {{ assessmentResult.scores.priorityScore }}
+      </div>
+      <div class="priority-score">
+        Baseline SOFA Points: {{ assessmentResult.scores.sofaPoints }}
+      </div>
+      <div class="ventilator">{{ currentAction.ventilator }}</div>
+      <div class="prioritisation">{{ currentAction.prioritisation }}</div>
     </div>
     <div class="box has-text-centered">
       <section class="summary">
-        <div class="subtitle">Score Summary</div>
+        <div class="subtitle">Score breakdown</div>
         <div class="summary-table">
-          <div class="left">Age</div><div>{{ scores.age }}</div>
-          <div class="left">Functionality</div><div>{{ scores.functionality }}</div>
-          <div class="left">SOFA</div><div>{{ scores.sofa }}</div>
-          <div class="left">Co-morbidities</div><div>{{ scores.morbidity }}</div>
-          <hr />
-          <div class="left"><strong>Total</strong></div><div><strong>{{ priorityScore.score }}</strong></div>
+          <div class="summary-content">
+            <div class="left">
+              Age
+              <span>{{ assessmentResult.scores.age }}</span>
+            </div>
+            <div class="left">
+              Functionality
+              <span>{{ assessmentResult.scores.functionality }}</span>
+            </div>
+            <div class="left">
+              Acute Illness (SOFA)
+              <span>{{ assessmentResult.scores.sofa }}</span>
+            </div>
+            <div class="left">
+              Co-morbidities
+              <span>{{ assessmentResult.scores.comorbidity }}</span>
+            </div>
+            <div class="left">
+              <strong>Priority Score</strong>
+              <span>
+                <strong>{{ assessmentResult.scores.priorityScore }}</strong>
+              </span>
+            </div>
+          </div>
         </div>
       </section>
+    </div>
+    <div class="block instructions">
+      <div>
+        Admit referrals sequentially from red to orange to yellow to green
+        priority categories. If there are ties within a specific category,
+        tiebreakers will be used to prioritize patients:
+      </div>
+      <div>
+        <ol>
+          <li>
+            Number of co-morbidities: Preference to the patient with the least
+            number of co-morbidities.
+          </li>
+          <li>
+            Patient age groups (years) in following order: 12-40; 41-60; 61-75;
+            >75. Preference to the patient who have completed the least number
+            of life-cycles.
+          </li>
+          <li>
+            Individuals whose work supports provision of healthcare and
+            essential services to others.
+          </li>
+        </ol>
+      </div>
     </div>
   </section>
 </template>
 
 <script>
+import { mapGetters } from "vuex"
+
 export default {
-	props: {
-      sofaScore: null,
-      morbidityScore: null,
-      scores: {
-        sofa: 0,
-        morbidity: 0,
-        age: 0,
-        functionality: 0
-      }
-	},
-	computed: {
-    priorityScore() {
-      var pScore = this.scores.sofa + this.scores.morbidity + this.scores.age + this.scores.functionality
-      
-      if (pScore < 4)
-        return { 
-          score: pScore,
-          bucket: "red",
-          ventilator: "Highest priority for ventilator support.",
-          prioritisation: "Receive priority over all other groups in face of scarce resources."
-        }
-      else if (pScore < 6) 
-        return {
-          score: pScore,
-          bucket: "orange",
-          ventilator: "Intermediate priority for ventilator support.",
-          prioritisation: "Receive resources if available after all patients in red group allocated."
-        }
-      else if (pScore < 10) 
-        return {
-          score: pScore,
-          bucket: "yellow",
-          ventilator: "Low priority for ventilator support.",
-          prioritisation: "Receive resources if available after all patients in red and orange groups allocated."
-        }
-      else 
-        return {
-          score: pScore,
-          bucket: "green",
-          ventilator: "Lowest priority for ventilator support.",
-          prioritisation: "Palliation strongly suggested."
-        }
+  computed: {
+    ...mapGetters(["assessmentResult"]),
+    currentAction() {
+      return this.assessmentResult.currentAction
     },
-	}
+  },
 }
 </script>
 
 <style>
 .summary-table {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
-.summary-table div {
-  min-width: 50%;
-  text-align: left;
-  padding-left: 1em;
-}
-
-.summary-table div.left {
+.summary-content {
   text-align: right;
-  padding-right: 1em;
+}
+
+.summary-table div span {
+  margin-left: 1em;
 }
 </style>
