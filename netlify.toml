@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/"
+  to = "http://datacartographer.com/covid"
+  status = 301
+  force = false
