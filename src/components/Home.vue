@@ -8,14 +8,13 @@
           <div>
             <p>
               <strong>
-                This website is NOT affiliated with the Western Cape Dept. of
-                Health, and has NOT been validated or approved by the
-                <a href="https://www.samedical.org/"
-                  >South African Medical Association (SAMA)</a
+                This website is approved by the
+                <a href="https://www.westerncape.gov.za/dept/health/">
+                  Western Cape Department of Health</a
                 >
-                or the
-                <a href="https://criticalcare.org.za/">
-                  Critical Care Society of Southern Africa (CCSSA) </a
+                as per circular H110 of 2020, and has been endorsed by the
+                <a href="https://emssa.org.za/"
+                  >Emergency Medicine Society of South Africa</a
                 >.
               </strong>
             </p>
