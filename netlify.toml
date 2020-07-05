@@ -1,5 +1,11 @@
 [[redirects]]
   from = "/"
-  to = "http://datacartographer.com/covid"
+  to = "https://datacartographer.com/covid"
   status = 301
-  force = false
+  force = true
+
+[[redirects]]
+  from = "/#/"
+  to = "https://datacartographer.com/covid"
+  status = 301
+  force = true
