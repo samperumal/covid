@@ -55,8 +55,7 @@
     "semi": false
   },
   "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
+    "hooks": {      
     }
   },
   "jest": {
