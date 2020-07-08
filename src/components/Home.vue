@@ -15,6 +15,10 @@
                 as per circular H110 of 2020, and has been endorsed by the
                 <a href="https://criticalcare.org.za/"
                   >Critical Care Society of South Africa</a
+                >
+                and the
+                <a href="https://emssa.org.za/"
+                  >Emergency Medicine Society of South Africa</a
                 >.
               </strong>
             </p>

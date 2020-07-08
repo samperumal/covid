@@ -4,8 +4,8 @@
     <b-field :label="'Age' + bracketScore(age)">
       <b-select v-model="age" expanded @input="updateStore">
         <option value="0">&lt; 65 years</option>
-        <option value="1">65 to 75 years</option>
-        <option value="2">&gt; 75 years</option>
+        <option value="2">65 to 75 years</option>
+        <option value="3">&gt; 75 years</option>
       </b-select>
     </b-field>
     <div class="title has-text-centered">
