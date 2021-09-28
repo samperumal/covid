@@ -17,7 +17,7 @@
     "vue": "./node_modules/vue/dist/vue.common.js"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "buefy": "^0.8.19",
     "es6-object-assign": "^1.1.0",
     "moment": "^2.26.0",
